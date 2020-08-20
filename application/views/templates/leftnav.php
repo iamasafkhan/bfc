@@ -119,7 +119,7 @@ if ($_SESSION['admin_id']) {
         <a href="<?php echo base_url('view_emp_info'); ?>"><i class="fa fa-user"></i> <span>Emp Info Manag.</span></a>
       </li>
       <li class="">
-        <a href="<?php echo base_url('scholarship_grant_manag'); ?>"><i class="fa fa-user"></i> <span>Scholarship Grant Manag.</span></a>
+        <a href="<?php echo base_url('view_scholarship_grants'); ?>"><i class="fa fa-user"></i> <span>Scholarship Grant Manag.</span></a>
       </li>
         </ul>
       </li>

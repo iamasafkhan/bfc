@@ -28,7 +28,8 @@ $route['view_grant_payments'] = 'grant_payments/view_grant_payments';
 $route['view_emp_info'] = 'emp_info/view_emp_info';
 $route['add_emp_info'] = 'emp_info/add_emp_info';
 // $route['edit_emp_info'] = 'emp_info/edit_emp_info';
-$route['scholarship_grant_manag'] = 'grants/scholarship_grants/';
+$route['view_scholarship_grants'] = 'scholarship/view_scholarship_grants/';
+$route['add_scholarship_grant'] = 'scholarship/add_scholarship_grant/';
 
 
 $route['setting'] = 'common/setting';
