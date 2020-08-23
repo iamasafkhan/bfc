@@ -7,18 +7,14 @@ class Scholarship extends MY_Controller {
 	public function __construct() {
 		error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 		parent::__construct();
-
+        $this->load->model('scholarship_model');
 		// if ($_SESSION['tbl_admin_role_id'] != '1') {
 		// 	$this->session->sess_destroy();
 		// 	redirect('admin', 'refresh');
 		// }
 	}
 	public function add_scholarship_grant() {
-        
-		// if ($_SESSION['tbl_admin_role_id'] != '1') {
-		// 	$this->session->sess_destroy();
-		// 	redirect('admin', 'refresh');
-		// }
+         
 		$data['page_title'] = 'Add New Scholarship Grant';
 		$data['description'] = '...';
 		$data['cases'] = $this->common_model->getAllRecordByArray('tbl_case_status', array('status' => '1'));
@@ -28,42 +24,65 @@ class Scholarship extends MY_Controller {
 
 		if ($this->input->post('submit')) {
 
-			$this->form_validation->set_rules('grantee_name', ucwords(str_replace('_', ' ', 'grantee_name')), 'required|xss_clean|trim|min_length[3]|max_length[20]');
+			$this->form_validation->set_rules('tbl_department_id', ucwords(str_replace('_', ' ', 'tbl_department_id')), 'required|xss_clean|trim');
 
-			$this->form_validation->set_rules('father_name', ucwords(str_replace('_', ' ', 'father_name')), 'required|xss_clean|trim|min_length[3]|max_length[20]');
+			$this->form_validation->set_rules('duty_place', ucwords(str_replace('_', ' ', 'duty_place')), 'required|xss_clean|trim');
 
-			$this->form_validation->set_rules('contact_no', ucwords(str_replace('_', ' ', 'contact_no')), 'required|xss_clean|trim|min_length[3]|max_length[20]|numeric');
+			$this->form_validation->set_rules('std_name', ucwords(str_replace('_', ' ', 'std_name')), 'required|xss_clean|trim|min_length[3]|max_length[20]');
 
-			$this->form_validation->set_rules('marital_status', 'Selection', 'required|xss_clean');
+            $this->form_validation->set_rules('class_pass', ucwords(str_replace('_', ' ', 'class_pass')), 'required|xss_clean|trim');
 
-			$this->form_validation->set_rules('cnic_no', ucwords(str_replace('_', ' ', 'cnic_no')), 'required|xss_clean|trim|min_length[13]|max_length[13]');
+            $this->form_validation->set_rules('exam_pass', ucwords(str_replace('_', ' ', 'exam_pass')), 'required|xss_clean|trim');
+            
+            $this->form_validation->set_rules('result_date', ucwords(str_replace('_', ' ', 'result_date')), 'required|xss_clean|trim|min_length[3]|max_length[12]|alpha_dash', array('alpha_dash' => 'The %s field may only contain Date characters.'));
 
-			$this->form_validation->set_rules('dob', ucwords(str_replace('_', ' ', 'Date of birth')), 'required|xss_clean|trim|min_length[3]|max_length[12]|alpha_dash', array('alpha_dash' => 'The %s field may only contain Date characters.'));
+            $this->form_validation->set_rules('mo', ucwords(str_replace('_', ' ', 'mo')), 'required|xss_clean|trim');
 
-			$this->form_validation->set_rules('personnel_no', ucwords(str_replace('_', ' ', 'personnel_no')), 'xss_clean|trim|min_length[3]|max_length[20]');
+            $this->form_validation->set_rules('tm', ucwords(str_replace('_', ' ', 'tm')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('percentage', ucwords(str_replace('_', ' ', 'percentage')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('institute_name', ucwords(str_replace('_', ' ', 'institute_name')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('institute_add', ucwords(str_replace('_', ' ', 'institute_add')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('grant_amount', ucwords(str_replace('_', ' ', 'grant_amount')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('deduction', ucwords(str_replace('_', ' ', 'deduction')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('net_amount', ucwords(str_replace('_', ' ', 'net_amount')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('tbl_case_status_id', ucwords(str_replace('_', ' ', 'tbl_case_status_id')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('tbl_payment_mode_id', ucwords(str_replace('_', ' ', 'tbl_payment_mode_id')), 'required|xss_clean|trim');
+            
+            $this->form_validation->set_rules('tbl_list_bank_branches_id', ucwords(str_replace('_', ' ', 'tbl_list_bank_branches_id')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('account_no', ucwords(str_replace('_', ' ', 'account_no')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('std_signature', ucwords(str_replace('_', ' ', 'std_signature')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('gov_servent_sign', ucwords(str_replace('_', ' ', 'gov_servent_sign')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('seal_institute', ucwords(str_replace('_', ' ', 'seal_institute')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('head_institute', ucwords(str_replace('_', ' ', 'head_institute')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('office_seal_hod', ucwords(str_replace('_', ' ', 'office_seal_hod')), 'required|xss_clean|trim');
 
-			$this->form_validation->set_rules('tbl_department_id', 'Selection', 'required|xss_clean');
+            $this->form_validation->set_rules('hod_sign', ucwords(str_replace('_', ' ', 'hod_sign')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('bank_verification', ucwords(str_replace('_', ' ', 'bank_verification')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('payroll_lpc_attach', ucwords(str_replace('_', ' ', 'payroll_lpc_attach')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('dmc_attach', ucwords(str_replace('_', ' ', 'dmc_attach')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('cnic_attach', ucwords(str_replace('_', ' ', 'cnic_attach')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('grade_attach', ucwords(str_replace('_', ' ', 'grade_attach')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('sent_to_secretary', ucwords(str_replace('_', ' ', 'sent_to_secretary')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('approve_secretary', ucwords(str_replace('_', ' ', 'approve_secretary')), 'required|xss_clean|trim');
 
-			$this->form_validation->set_rules('tbl_post_id', 'Selection', 'required|xss_clean');
+            $this->form_validation->set_rules('ac_edit', ucwords(str_replace('_', ' ', 'ac_edit')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('sent_to_bank', ucwords(str_replace('_', ' ', 'sent_to_bank')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('feedback_website', ucwords(str_replace('_', ' ', 'feedback_website')), 'required|xss_clean|trim'); 
 
-			$this->form_validation->set_rules('pay_scale', ucwords(str_replace('_', ' ', 'pay_scale')), 'required|xss_clean|trim|min_length[3]|max_length[20]');
-			$this->form_validation->set_rules('tbl_district_id', 'Selection', 'required|xss_clean');
-			$this->form_validation->set_rules('office_address', ucwords(str_replace('_', ' ', 'office_address')), 'required|xss_clean|trim|min_length[3]');
-			$this->form_validation->set_rules('other_address', ucwords(str_replace('_', ' ', 'other_address')), 'required|xss_clean|trim|min_length[3]');
-			$this->form_validation->set_rules('status', 'Selection', 'required|xss_clean');
+  
 
 			$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
 			if ($this->form_validation->run() === FALSE) {
 				$this->load->view('templates/header', $data);
-				$this->load->view('emp_info/add_emp_info', $data);
+				$this->load->view('scholarships/add_scholarship_grant', $data);
 				$this->load->view('templates/footer');
 			} else {
-
+                //echo 'i m here'; exit;
 				// to model
-				$this->emp_info_model->add_emp_info();
+				$this->scholarship_model->add_scholarship_grant();
 				// set session message
 				$this->session->set_flashdata('add', '!');
-				redirect(base_url('view_emp_info'));
+				redirect(base_url('view_scholarship_grants'));
 			}
 		} else {
 			$this->load->view('templates/header', $data);
@@ -128,7 +147,8 @@ class Scholarship extends MY_Controller {
 		$data = $row = array();
 
 		// Fetch Scholarship grants's records
-		$scholarshipData = $this->grants_model->getRows($_POST);
+		$scholarshipData = $this->scholarship_model->getRows($_POST);
+        //echo '<pre>'; print_r($scholarshipData); exit;
 
 		$i = $_POST['start'];
 		foreach ($scholarshipData as $scholarshipInfo) {
@@ -141,7 +161,7 @@ class Scholarship extends MY_Controller {
 
 			$add_by_date = '<i>Add by <strong>' . $getRole['name'] . '</strong> on <strong>' . $recordAddDate . '</strong></i>';
 
-			$actionBtn = '<a href="' . site_url('common/logger/' . $scholarshipInfo->id . '/tbl_grants') . '">
+			$actionBtn = '<a href="' . site_url('common/logger/' . $scholarshipInfo->id . '/tbl_scholaarship_grant') . '">
                       <button type="button"class="btn btn-sm btn-xs btn-primary"><i class="fa fa-history"></i></button>
                       </a>' .
 			'<a href="javascript:void(0)" onclick="getData(' . "'" . $scholarshipInfo->id . "'" . ')">
@@ -149,8 +169,10 @@ class Scholarship extends MY_Controller {
                       </a>';
 			// $actionBtn = '<a href="' . site_url('grants/edit_grants/' . $scholarshipInfo->id) . '">
 			//                    <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
-			//                    </a>';
-			$data[] = array($i, $scholarshipInfo->name, $status, $add_by_date, $actionBtn);
+            //                    </a>';
+            
+            $getDept = $this->common_model->getRecordById($scholarshipInfo->parent_dept, $tbl_name = 'tbl_department');
+			$data[] = array($i, $scholarshipInfo->std_name, $getDept['name'], $status, $add_by_date, $actionBtn);
 		}
 
 		$output = array(

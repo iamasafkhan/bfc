@@ -518,32 +518,13 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('select[id="tbl_post_id"]').on('change', function() {
-            var base_url = "<?php echo base_url(); ?>";
-            var tbl_post_id = $('#tbl_post_id').val();
-            if (tbl_post_id) {
-                $.ajax({
-                    url: base_url + 'emp_info/fetchDataPayScale/' + tbl_post_id,
-
-                    type: "post",
-                    dataType: "json",
-                    success: function(data) {
-                        $('[name="pay_scale"]').val(data.pay_scale_name);
-                    }
-                });
-            } else {
-                $('select[id="pay_scale"]').empty();
-            }
-        });
-    });
+     
     $(function() {
         $('#result_date').datetimepicker({
             useCurrent: false,
             format: "DD-MM-YYYY",
             showTodayButton: true,
             ignoreReadonly: true
-        });
-
+        }); 
     });
 </script>

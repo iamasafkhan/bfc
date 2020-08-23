@@ -31,6 +31,8 @@ $route['add_emp_info'] = 'emp_info/add_emp_info';
 $route['view_scholarship_grants'] = 'scholarship/view_scholarship_grants/';
 $route['add_scholarship_grant'] = 'scholarship/add_scholarship_grant/';
 
+$route['view_retirement_grants'] = 'retirement/view_retirement_grants/';
+$route['add_retirement_grant'] = 'retirement/add_retirement_grant/';
 
 $route['setting'] = 'common/setting';
 
