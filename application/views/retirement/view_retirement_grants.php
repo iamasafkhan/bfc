@@ -16,13 +16,13 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
     <section class="content">
         <div class="box box-success">
             <div class="box-header">
-                <h3 class="box-title pull-left"><?php echo ucwords(str_replace('_', ' ', 'grants detail')); ?></h3>
+                <h3 class="box-title pull-left"><?php echo ucwords(str_replace('_', ' ', 'retirement grants detail')); ?></h3>
                 <!--  <h3 class="box-title pull-right">
                 <a href="<?php echo base_url(); ?>add_admin" type="button" class="btn btn-block btn-danger btn-sm"><i class="fa fa-trash-o"> all </i></a></h3> -->
 
                 <h3 class="box-title pull-right"> 
                     <?php if ($_SESSION['tbl_admin_role_id'] == '1') { ?> 
-                        <a href="<?php echo base_url('add_scholarship_grant'); ?>" type="button" class="btn btn-block btn-success btn-sm"><i class="fa fa-plus"> New </i></a> 
+                        <a href="<?php echo base_url('add_retirement_grant'); ?>" type="button" class="btn btn-block btn-success btn-sm"><i class="fa fa-plus"> New </i></a> 
                     <?php } ?>
                 </h3>
             </div>
@@ -32,9 +32,11 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
                     <thead>
                         <tr>
                             <th width="2%"><?php echo ucwords(str_replace('_', ' ', 'Sr.')); ?></th>
-                            <th width="15%"><?php echo ucwords(str_replace('_', ' ', 'std name')); ?></th>
-                            <th width="15%"><?php echo ucwords(str_replace('_', ' ', 'parent dept')); ?></th>
-                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'status')); ?></th>
+                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'record_no')); ?></th>
+                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'record_no_year')); ?></th>
+                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'doa')); ?></th>
+                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'dor')); ?></th>
+                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'los')); ?></th> 
                             <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'add by/date')); ?></th>
                             <th width="5%" class="no-print"><?php echo ucwords(str_replace('_', ' ', 'action')); ?></th>
                         </tr>
@@ -71,7 +73,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
             "order": [],
             // Load data from an Ajax source
             "ajax": {
-                "url": "<?php echo base_url('scholarship/get_scholarship_grants/'); ?>",
+                "url": "<?php echo base_url('retirement/get_retirement_grants/'); ?>",
                 "type": "POST"
             },
             //Set column definition initialisation properties

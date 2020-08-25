@@ -93,7 +93,7 @@ class Scholarship extends MY_Controller {
 	}
 
 	public function getData($id) {
-		$data = $this->grants_model->getRecordById($id);
+		$data = $this->scholarship_model->getRecordById($id);
 		echo json_encode($data);
 	}
 
