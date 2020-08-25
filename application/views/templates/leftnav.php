@@ -124,6 +124,10 @@ if ($_SESSION['admin_id']) {
       <li class="">
         <a href="<?php echo base_url('view_retirement_grants'); ?>"><i class="fa fa-user"></i> <span>Retirement Grants Manag.</span></a>
       </li>
+      <li class="">
+        <a href="<?php echo base_url('view_funeral_grants'); ?>"><i class="fa fa-user"></i> <span>Funeral Grants Manag.</span></a>
+      </li>
+
         </ul>
       </li>
 

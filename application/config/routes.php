@@ -34,6 +34,9 @@ $route['add_scholarship_grant'] = 'scholarship/add_scholarship_grant/';
 $route['view_retirement_grants'] = 'retirement/view_retirement_grants/';
 $route['add_retirement_grant'] = 'retirement/add_retirement_grant/';
 
+$route['view_funeral_grants'] = 'funeral/view_funeral_grants/';
+$route['add_funeral_grant'] = 'funeral/add_funeral_grant/';
+
 $route['setting'] = 'common/setting';
 
 $route['default_controller'] = 'site';
