@@ -40,6 +40,9 @@ $route['add_funeral_grant'] = 'funeral/add_funeral_grant/';
 $route['view_monthly_grants'] = 'monthly_grant/view_monthly_grants/';
 $route['add_monthly_grant'] = 'monthly_grant/add_monthly_grant/';
 
+$route['view_lumpsum_grants'] = 'lumpsum/view_lumpsum_grants/';
+$route['add_lumpsum_grant'] = 'lumpsum/add_lumpsum_grant/';
+
 $route['setting'] = 'common/setting';
 
 $route['default_controller'] = 'site';
