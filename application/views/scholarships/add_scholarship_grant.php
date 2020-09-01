@@ -36,6 +36,25 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'employee')); ?>:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+
+                                        <select name="tbl_emp_info_id" id="tbl_emp_info_id" class="form-control select2 validate[required]">
+                                            <option value="">Select Employee</option> 
+                                            <?php foreach ($employees as $employeeInfo) : ?>
+                                                <option value="<?php echo $employeeInfo['id']; ?>"><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div><?php echo form_error('tbl_emp_info_id'); ?>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'department')); ?>:</label>
@@ -76,7 +95,7 @@
                                             <i class="fa fa-graduation-cap"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('std_name'); ?>" name="std_name" id="std_name" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('std_name'); ?>" name="std_name" id="std_name" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('std_name'); ?>
                                 </div>
                             </div>
@@ -88,7 +107,7 @@
                                             <i class="fa fa-home"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('class_pass'); ?>" name="class_pass" id="class_pass" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('class_pass'); ?>" name="class_pass" id="class_pass" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('class_pass'); ?>
                                 </div>
                             </div>
@@ -103,7 +122,7 @@
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('exam_pass'); ?>" name="exam_pass" id="exam_pass" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('exam_pass'); ?>" name="exam_pass" id="exam_pass" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('exam_pass'); ?>
                                 </div>
                             </div>
@@ -130,7 +149,7 @@
                                             <i class="fa fa-calculator"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('mo'); ?>" name="mo" id="mo" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('mo'); ?>" name="mo" id="mo" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('mo'); ?>
                                 </div>
                             </div>
@@ -142,7 +161,7 @@
                                             <i class="fa fa-calculator"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('tm'); ?>" name="tm" id="tm" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('tm'); ?>" name="tm" id="tm" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('tm'); ?>
                                 </div>
                             </div>
@@ -157,7 +176,7 @@
                                             <i class="fa fa-percent"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('percentage'); ?>" name="percentage" id="percentage" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('percentage'); ?>" name="percentage" id="percentage" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('percentage'); ?>
                                 </div>
                             </div>
@@ -169,7 +188,7 @@
                                             <i class="fa fa-building"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('institute_name'); ?>" name="institute_name" id="institute_name" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('institute_name'); ?>" name="institute_name" id="institute_name" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('institute_name'); ?>
                                 </div>
                             </div>
@@ -184,7 +203,7 @@
                                             <i class="fa fa-map-marker"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('institute_add'); ?>" name="institute_add" id="institute_add" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('institute_add'); ?>" name="institute_add" id="institute_add" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('institute_add'); ?>
                                 </div>
                             </div>
@@ -196,7 +215,7 @@
                                             <i class="fa fa-money"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('grant_amount'); ?>
                                 </div>
                             </div>
@@ -211,7 +230,7 @@
                                             <i class="fa fa-money"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('deduction'); ?>" name="deduction" id="deduction" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('deduction'); ?>" name="deduction" id="deduction" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('deduction'); ?>
                                 </div>
                             </div>
@@ -223,7 +242,7 @@
                                             <i class="fa fa-money"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('net_amount'); ?>
                                 </div>
                             </div>
@@ -296,7 +315,7 @@
                                             <i class="fa fa fa-bank"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('account_no'); ?>" name="account_no" id="account_no" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('account_no'); ?>" name="account_no" id="account_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('account_no'); ?>
                                 </div>
                             </div>
@@ -425,8 +444,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'boards_approval')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="boards_approval" id="boards_approval" value="No"> No
-                                    <input type="radio" class="validate[required]" name="boards_approval" id="boards_approval" value="Yes"> Yes
+                                    <input type="radio" class="validate[required]" checked name="boards_approval" id="boards_approval" value="0"> No
+                                    <input type="radio" class="validate[required]" name="boards_approval" id="boards_approval" value="1"> Yes
                                     <?php echo form_error('boards_approval'); ?>
                                 </div>
                             </div>  
@@ -437,8 +456,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_secretary')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_secretary" id="sent_to_secretary" value="No"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_secretary" id="sent_to_secretary" value="Yes"> Yes
+                                    <input type="radio" class="validate[required]" checked name="sent_to_secretary" id="sent_to_secretary" value="0"> No
+                                    <input type="radio" class="validate[required]" name="sent_to_secretary" id="sent_to_secretary" value="1"> Yes
                                     <?php echo form_error('sent_to_secretary'); ?>
                                 </div>
                             </div>
@@ -446,8 +465,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'approve_secretary')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="approve_secretary" id="approve_secretary" value="No"> No
-                                    <input type="radio" class="validate[required]" name="approve_secretary" id="approve_secretary" value="Yes"> Yes
+                                    <input type="radio" class="validate[required]" checked name="approve_secretary" id="approve_secretary" value="0"> No
+                                    <input type="radio" class="validate[required]" name="approve_secretary" id="approve_secretary" value="1"> Yes
                                     <?php echo form_error('approve_secretary'); ?>
                                 </div>
                             </div>  
@@ -458,8 +477,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'ac_edit')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="ac_edit" id="ac_edit" value="No"> No
-                                    <input type="radio" class="validate[required]" name="ac_edit" id="ac_edit" value="Yes"> Yes
+                                    <input type="radio" class="validate[required]" checked name="ac_edit" id="ac_edit" value="0"> No
+                                    <input type="radio" class="validate[required]" name="ac_edit" id="ac_edit" value="1"> Yes
                                     <?php echo form_error('ac_edit'); ?>
                                 </div>
                             </div>
@@ -467,8 +486,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_bank')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_bank" id="sent_to_bank" value="No"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_bank" id="sent_to_bank" value="Yes"> Yes
+                                    <input type="radio" class="validate[required]" checked name="sent_to_bank" id="sent_to_bank" value="0"> No
+                                    <input type="radio" class="validate[required]" name="sent_to_bank" id="sent_to_bank" value="1"> Yes
                                     <?php echo form_error('sent_to_bank'); ?>
                                 </div>
                             </div>  

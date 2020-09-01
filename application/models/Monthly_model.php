@@ -25,6 +25,7 @@ class Monthly_model extends CI_Model {
         
  
 		$data = array( 
+            'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
             'record_no' => $this->input->post('record_no'),
             'record_no_year' => $this->input->post('record_no_year'),
             'doa' => $doa,
@@ -96,6 +97,11 @@ class Monthly_model extends CI_Model {
 				->tbl_name_id($last_insert_id) //Entry table ID
 				->action_type('add') //action type identify Action like add or update
 				->detail(
+                    '<tr>' .
+					'<td><strong>' . 'Employee ID' . '</strong></td><td>' . $this->input->post('tbl_emp_info_id') . '</td>' .
+					'<td>&nbsp;</td><td>&nbsp;</td>' .
+					'<td>&nbsp;</td><td>&nbsp;</td>' .
+					'</tr>' .
 					'<tr>' .
 					'<td><strong>' . 'Record no' . '</strong></td><td>' . $this->input->post('record_no') . '</td>' .
 					'<td><strong>' . 'record_no_year' . '</strong></td><td>' . $this->input->post('record_no_year') . '</td>' .

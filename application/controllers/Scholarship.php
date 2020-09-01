@@ -21,6 +21,7 @@ class Scholarship extends MY_Controller {
 		$data['department'] = $this->common_model->getAllRecordByArray('tbl_department', array('status' => '1'));
         $data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
+        $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
 
 		if ($this->input->post('submit')) {
 

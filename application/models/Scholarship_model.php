@@ -57,6 +57,7 @@ class Scholarship_model extends CI_Model {
             'ac_edit' => $this->input->post('ac_edit'),
             'sent_to_bank' => $this->input->post('sent_to_bank'),
             'feedback_website' => $this->input->post('feedback_website'), 
+            'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'), 
 			'record_add_by' => $_SESSION['admin_id'],
 			'record_add_date' => date('Y-m-d H:i:s'),
 		);
@@ -128,7 +129,7 @@ class Scholarship_model extends CI_Model {
                     '</tr>' .
                     '<td><strong>' . 'sent_to_bank' . '</strong></td><td>' . $this->input->post('sent_to_bank') . '</td>' .
 					'<td><strong>' . 'feedback_website' . '</strong></td><td>' . $this->input->post('feedback_website') . '</td>' .
-					'<td><strong>' . 'submit' . '</strong></td><td>' . $this->input->post('submit') . '</td>' .
+					'<td><strong>' . 'employee ID' . '</strong></td><td>' . $this->input->post('tbl_emp_info_id') . '</td>' .
                     '</tr>'  
 				) //detail
 				->log(); //Add Database Entry

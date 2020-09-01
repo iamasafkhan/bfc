@@ -24,9 +24,11 @@ class Lumpsum extends MY_Controller {
         $data['cases'] = $this->common_model->getAllRecordByArray('tbl_case_status', array('status' => '1'));
 		$data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
+        $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
 
 		if ($this->input->post('submit')) {
             
+            $this->form_validation->set_rules('tbl_emp_info_id', ucwords(str_replace('_', ' ', 'tbl_emp_info_id')), 'required|xss_clean|trim');
             $this->form_validation->set_rules('gov_emp_name', ucwords(str_replace('_', ' ', 'gov_emp_name')), 'required|xss_clean|trim');
             $this->form_validation->set_rules('wife', ucwords(str_replace('_', ' ', 'wife')), 'required|xss_clean|trim');
             $this->form_validation->set_rules('son', ucwords(str_replace('_', ' ', 'son')), 'required|xss_clean|trim');

@@ -57,6 +57,7 @@ class Retirement_model extends CI_Model {
             
             'sent_to_bank' => $this->input->post('sent_to_bank'),
             'feedback_website' => $this->input->post('feedback_website'), 
+            'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'), 
 			'record_add_by' => $_SESSION['admin_id'],
 			'record_add_date' => date('Y-m-d H:i:s'),
 		);
@@ -78,7 +79,12 @@ class Retirement_model extends CI_Model {
 				->tbl_name_id($last_insert_id) //Entry table ID
 				->action_type('add') //action type identify Action like add or update
 				->detail(
-					'<tr>' .
+                    '<tr>' .
+					'<td><strong>' . 'Employee ID' . '</strong></td><td>' . $this->input->post('tbl_emp_info_id') . '</td>' .
+					'<td>&nbsp;</td><td>&nbsp;</td>' .
+					'<td>&nbsp;</td><td>&nbsp;</td>' .
+					'</tr>' .
+                    '<tr>' .
 					'<td><strong>' . 'Record no' . '</strong></td><td>' . $this->input->post('record_no') . '</td>' .
 					'<td><strong>' . 'record_no_year' . '</strong></td><td>' . $this->input->post('record_no_year') . '</td>' .
 					'<td><strong>' . 'Date of appointment ' . '</strong></td><td>' . $doa . '</td>' .

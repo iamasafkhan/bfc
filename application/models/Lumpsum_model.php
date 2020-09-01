@@ -25,6 +25,7 @@ class Lumpsum_model extends CI_Model {
         
  
 		$data = array( 
+            'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
             'gov_emp_name' => $this->input->post('gov_emp_name'),
             'wife' => $this->input->post('wife'),
             'son' => $this->input->post('son'),
@@ -97,6 +98,11 @@ class Lumpsum_model extends CI_Model {
 				->tbl_name_id($last_insert_id) //Entry table ID
 				->action_type('add') //action type identify Action like add or update
 				->detail(
+                    '<tr>' .
+					'<td><strong>' . 'Employee ID' . '</strong></td><td>' . $this->input->post('tbl_emp_info_id') . '</td>' .
+					'<td>&nbsp;</td><td>&nbsp;</td>' .
+					'<td>&nbsp;</td><td>&nbsp;</td>' .
+					'</tr>' .
                     '<tr>' .
 					'<td><strong>' . 'Gov Emp Name' . '</strong></td><td>' . $this->input->post('gov_emp_name') . '</td>' .
 					'<td><strong>' . 'Wife Name' . '</strong></td><td>' . $this->input->post('wife') . '</td>' .

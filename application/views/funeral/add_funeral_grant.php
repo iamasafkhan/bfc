@@ -36,6 +36,25 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'employee')); ?>:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+
+                                        <select name="tbl_emp_info_id" id="tbl_emp_info_id" class="form-control select2 validate[required]">
+                                            <option value="">Select Employee</option> 
+                                            <?php foreach ($employees as $employeeInfo) : ?>
+                                                <option value="<?php echo $employeeInfo['id']; ?>"><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div><?php echo form_error('tbl_emp_info_id'); ?>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'record_no')); ?>:</label>

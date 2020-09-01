@@ -60,20 +60,16 @@ if ($_SESSION['admin_id']) {
                     <ul class="treeview-menu">
                         <li class="">
                             <a href="<?php echo base_url('view_district'); ?>"><i class="fa fa-building-o"></i> <span>District Manag.</span></a>
-                        </li>
-
+                        </li> 
                         <li class="">
                             <a href="<?php echo base_url('view_department'); ?>"><i class="fa fa-industry"></i> <span>Department Manag.</span></a>
-                        </li>
-
+                        </li> 
                         <li class="">
                             <a href="<?php echo base_url('view_case_status'); ?>"><i class="fa fa-check"></i> <span>Case Status Manag.</span></a>
-                        </li>
-
+                        </li> 
                         <li class="">
                             <a href="<?php echo base_url('view_pay_scale'); ?>"><i class="fa fa-balance-scale"></i> <span>Pay Scale Manag.</span></a>
-                        </li>
-
+                        </li> 
                         <li class="">
                             <a href="<?php echo base_url('view_post'); ?>"><i class="fa fa-tasks"></i> <span>Post Manag.</span></a>
                         </li>
@@ -89,12 +85,10 @@ if ($_SESSION['admin_id']) {
                     <ul class="treeview-menu">
                         <li class="">
                             <a href="<?php echo base_url('view_banks'); ?>"><i class="fa fa-bank"></i> <span>Banks Manag.</span></a>
-                        </li>
-
+                        </li> 
                         <li class="">
                             <a href="<?php echo base_url('view_bfc_bank_branch'); ?>"><i class="fa fa-bank"></i> <span>BFC Banks Manag.</span></a>
-                        </li>
-
+                        </li> 
                         <li class="">
                             <a href="<?php echo base_url('view_grantee_bank_branch'); ?>"><i class="fa fa-bank"></i> <span>Grantee Banks Manag.</span></a>
                         </li>
@@ -102,13 +96,12 @@ if ($_SESSION['admin_id']) {
                 </li>
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-list"></i> <span>Grants</span>
+                    <a href="#"><i class="fa fa-list"></i> <span>Grants Manag.</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                     <ul class="treeview-menu">
                         <li class="">
                             <a href="<?php echo base_url('view_grants'); ?>"><i class="fa fa-money"></i> <span>Grants Manag.</span></a>
-                        </li>
-
+                        </li> 
                         <li class="">
                             <a href="<?php echo base_url('view_grantee_type'); ?>"><i class="fa fa-list"></i> <span>Grantee Type Manag.</span></a>
                         </li>
@@ -117,28 +110,73 @@ if ($_SESSION['admin_id']) {
                         </li>
                         <li class="">
                             <a href="<?php echo base_url('view_emp_info'); ?>"><i class="fa fa-user"></i> <span>Emp Info Manag.</span></a>
-                        </li>
-                        <li class="">
-                            <a href="<?php echo base_url('view_scholarship_grants'); ?>"><i class="fa fa-user"></i> <span>Scholarship Grants Manag.</span></a>
-                        </li>
-                        <li class="">
-                            <a href="<?php echo base_url('view_retirement_grants'); ?>"><i class="fa fa-user"></i> <span>Retirement Grants Manag.</span></a>
-                        </li>
-                        <li class="">
-                            <a href="<?php echo base_url('view_funeral_grants'); ?>"><i class="fa fa-user"></i> <span>Funeral Grants Manag.</span></a>
-                        </li>
-                        <li class="">
-                            <a href="<?php echo base_url('view_monthly_grants'); ?>"><i class="fa fa-user"></i> <span>Monthly Grants Manag.</span></a>
-                        </li>
-                        <li class="">
-                            <a href="<?php echo base_url('view_lumpsum_grants'); ?>"><i class="fa fa-user"></i> <span>Lumpsum Grants Manag.</span></a>
-                        </li>
-
+                        </li> 
                     </ul>
                 </li>
 
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-bank"></i> <span>Scholarship Grants</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('view_scholarship_grants'); ?>"><i class="fa fa-user"></i> <span>View all</span></a>
+                        </li>
+                        <li class="">
+                            <a href="<?php echo base_url('add_scholarship_grant'); ?>"><i class="fa fa-user"></i> <span>Add New</span></a>
+                        </li> 
+                    </ul>
+                </li>
 
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-bank"></i> <span>Retirement Grants</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('view_retirement_grants'); ?>"><i class="fa fa-user"></i> <span>View All</span></a>
+                        </li>
+                        <li class="">
+                            <a href="<?php echo base_url('add_retirement_grant'); ?>"><i class="fa fa-user"></i> <span>Add New</span></a>
+                        </li> 
+                    </ul>
+                </li>
 
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-bank"></i> <span>Funeral Grants</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('view_funeral_grants'); ?>"><i class="fa fa-user"></i> <span>View All</span></a>
+                        </li>
+                        <li class="">
+                            <a href="<?php echo base_url('add_funeral_grant'); ?>"><i class="fa fa-user"></i> <span>Add New</span></a>
+                        </li> 
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-bank"></i> <span>Monthly Grants</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('view_monthly_grants'); ?>"><i class="fa fa-user"></i> <span>View All</span></a>
+                        </li>
+                        <li class="">
+                            <a href="<?php echo base_url('add_monthly_grant'); ?>"><i class="fa fa-user"></i> <span>Add New</span></a>
+                        </li> 
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-bank"></i> <span>Lumpsum Grants</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('view_lumpsum_grants'); ?>"><i class="fa fa-user"></i> <span>View All</span></a>
+                        </li>
+                        <li class="">
+                            <a href="<?php echo base_url('add_lumpsum_grant'); ?>"><i class="fa fa-user"></i> <span>Add New</span></a>
+                        </li> 
+                    </ul>
+                </li> 
+                
             <?php } ?>
 
             <li class="headerr"></li>
