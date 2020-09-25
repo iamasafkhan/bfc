@@ -136,7 +136,14 @@ class Emp_info extends MY_Controller {
 	public function getData($id) {
 		$data = $this->emp_info_model->getRecordById($id);
 		echo json_encode($data);
-	}
+    }
+    
+    public function getEmpData(){
+        $emp_id = $this->input->post('emp_id');
+        //echo json_encode($emp_id);
+        $data = $this->emp_info_model->getRecordById($emp_id);
+		echo json_encode($data);
+    }
 
 	public function view_emp_info() {
 		$data['department'] = $this->common_model->getAllRecordByArray('tbl_department', array('status' => '1'));
@@ -179,7 +186,8 @@ class Emp_info extends MY_Controller {
                       </a>' .
 			'<a href="' . site_url('emp_info/edit_emp_info/' . $emp_infoInfo->id) . '">
                       <button type="button" class="btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
-                      </a>' .
+                      </a>' . 
+                      '<a href="#" data-toggle="modal" data-target="#grantsModal" class="btn btn-xs btn-info">Grants</a>' .
 				$status;
 			$data[] = array($i, $emp_infoInfo->grantee_name, $emp_infoInfo->contact_no, $emp_infoInfo->cnic_no, $emp_infoInfo->personnel_no, $dob, $add_by_date, $actionBtn);
 		}

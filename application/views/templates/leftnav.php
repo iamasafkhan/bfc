@@ -175,6 +175,18 @@ if ($_SESSION['admin_id']) {
                             <a href="<?php echo base_url('add_lumpsum_grant'); ?>"><i class="fa fa-user"></i> <span>Add New</span></a>
                         </li> 
                     </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-bank"></i> <span>Interest Free Loan Grants</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('view_interest_free_loan_grants'); ?>"><i class="fa fa-user"></i> <span>View All</span></a>
+                        </li>
+                        <li class="">
+                            <a href="<?php echo base_url('add_interest_free_loan_grant'); ?>"><i class="fa fa-user"></i> <span>Add New</span></a>
+                        </li> 
+                    </ul>
                 </li> 
                 
             <?php } ?>

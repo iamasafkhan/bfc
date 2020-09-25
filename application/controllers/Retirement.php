@@ -99,6 +99,11 @@ class Retirement extends MY_Controller {
 		$data = $this->retirement_model->getRecordById($id);
 		echo json_encode($data);
 	}
+    public function getAmountData($date) {  
+        $dateOfRetirement = base64_encode($date);
+		$data = $this->retirement_model->getAmountData($dateOfRetirement);
+		echo json_encode($data);
+    }
 
 	public function update_grants() {
 

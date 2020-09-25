@@ -1,24 +1,26 @@
 <?php
-class Scholarship_model extends CI_Model {
+class Interest_free_loan_model extends CI_Model {
 	public function __construct() {
 		$this->load->database();
 		//////// ajax and ssp////////
 		// Set table name
-		$this->table = 'tbl_scholaarship_grant';
+		$this->table = 'tbl_interest_free_loan';
 		// Set orderable column fields
-		$this->column_order = array(null, 'std_name');
+		$this->column_order = array(null, 'id');
 		// Set searchable column fields
-		$this->column_search = array('std_name');
+		$this->column_search = array('cnic_no');
 		// Set default order
 		$this->order = array('id' => 'desc');
 		//////// ajax and ssp////////
 	}
 
-	 
+	
 
-	public function add_scholarship_grant() {
+	public function add_interestfreeloan_grant() {
 
-        //echo 'in model'; exit();
+        echo 'in model'; 
+        echo '<pre>'; print_r($_POST);
+        exit();
 		$result_date = date('Y-m-d', strtotime($this->input->post('result_date')));
  
 		$data = array( 
@@ -220,16 +222,7 @@ class Scholarship_model extends CI_Model {
 		$query = $this->db->get();
 
 		return $query->row();
-    }
-    
-    public function getAmountData($id) {
-		$this->db->from('tbl_scholarship_classes');
-		$this->db->where('id', $id);
-		$query = $this->db->get();
-
-		return $query->row();
-    }
-    
+	}
 
 	//////////////// below ajax and server side processing datatable ///////////
 

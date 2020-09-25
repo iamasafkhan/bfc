@@ -2,27 +2,32 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Scholarship extends MY_Controller {
+class Interest_free_loan extends MY_Controller {
 
 	public function __construct() {
 		error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 		parent::__construct();
-        $this->load->model('scholarship_model');
+        $this->load->model('interest_free_loan_model');
 		// if ($_SESSION['tbl_admin_role_id'] != '1') {
 		// 	$this->session->sess_destroy();
 		// 	redirect('admin', 'refresh');
 		// }
 	}
-	public function add_scholarship_grant() {
+	public function add_interestfreeloan_grant() {
+
+        //echo 'i m here'; exit();
          
-		$data['page_title'] = 'Add New Scholarship Grant';
+		$data['page_title'] = 'Add New Interest Free Loan Grant';
 		$data['description'] = '...';
 		$data['cases'] = $this->common_model->getAllRecordByArray('tbl_case_status', array('status' => '1'));
 		$data['department'] = $this->common_model->getAllRecordByArray('tbl_department', array('status' => '1'));
-        $data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
+        //$data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
         $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
-        $data['scholarship_classes'] = $this->common_model->getAllRecordByArray('tbl_scholarship_classes', array('status' => '1'));
+        $data['districts'] = $this->common_model->getAllRecordByArray('tbl_district', array('status' => '1'));
+        $data['payscales'] = $this->common_model->getAllRecordByArray('tbl_pay_scale', array('status' => '1'));
+        $data['posts'] = $this->common_model->getAllRecordByArray('tbl_post', array('status' => '1'));
+
 
 		if ($this->input->post('submit')) {
 
@@ -64,12 +69,12 @@ class Scholarship extends MY_Controller {
             $this->form_validation->set_rules('dmc_attach', ucwords(str_replace('_', ' ', 'dmc_attach')), 'required|xss_clean|trim');
             $this->form_validation->set_rules('cnic_attach', ucwords(str_replace('_', ' ', 'cnic_attach')), 'required|xss_clean|trim');
             $this->form_validation->set_rules('grade_attach', ucwords(str_replace('_', ' ', 'grade_attach')), 'required|xss_clean|trim');
-            // $this->form_validation->set_rules('sent_to_secretary', ucwords(str_replace('_', ' ', 'sent_to_secretary')), 'required|xss_clean|trim');
-            // $this->form_validation->set_rules('approve_secretary', ucwords(str_replace('_', ' ', 'approve_secretary')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('sent_to_secretary', ucwords(str_replace('_', ' ', 'sent_to_secretary')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('approve_secretary', ucwords(str_replace('_', ' ', 'approve_secretary')), 'required|xss_clean|trim');
 
-            // $this->form_validation->set_rules('ac_edit', ucwords(str_replace('_', ' ', 'ac_edit')), 'required|xss_clean|trim');
-            // $this->form_validation->set_rules('sent_to_bank', ucwords(str_replace('_', ' ', 'sent_to_bank')), 'required|xss_clean|trim');
-            // $this->form_validation->set_rules('feedback_website', ucwords(str_replace('_', ' ', 'feedback_website')), 'required|xss_clean|trim'); 
+            $this->form_validation->set_rules('ac_edit', ucwords(str_replace('_', ' ', 'ac_edit')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('sent_to_bank', ucwords(str_replace('_', ' ', 'sent_to_bank')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('feedback_website', ucwords(str_replace('_', ' ', 'feedback_website')), 'required|xss_clean|trim'); 
 
   
 
@@ -88,7 +93,7 @@ class Scholarship extends MY_Controller {
 			}
 		} else {
 			$this->load->view('templates/header', $data);
-			$this->load->view('scholarships/add_scholarship_grant');
+			$this->load->view('interestfreeloan/add_interestfreeloan_grant');
 			$this->load->view('templates/footer');
 		}
 
@@ -97,13 +102,7 @@ class Scholarship extends MY_Controller {
 	public function getData($id) {
 		$data = $this->scholarship_model->getRecordById($id);
 		echo json_encode($data);
-    }
-    
-    
-    public function getAmountData($id) {
-		$data = $this->scholarship_model->getAmountData($id);
-		echo json_encode($data);
-    }
+	}
 
 	public function update_grants() {
 
@@ -141,57 +140,52 @@ class Scholarship extends MY_Controller {
 
 	}
 
-	public function view_scholarship_grants() {
+	public function view_interestfreeloan_grants() {
 
-		$data['page_title'] = 'View All Scholarship Grants';
+		$data['page_title'] = 'View All Interest Free Loan Grants';
 		$data['description'] = '...';
 		$this->load->view('templates/header', $data);
-		$this->load->view('scholarships/scholarship_grants', $data);
+		$this->load->view('interestfreeloan/view_interestfreeloan_grants', $data);
 		$this->load->view('templates/footer');
 	}
 
-	public function get_scholarship_grants() {
+	public function get_interestfreeloan_grants() {
 
 		$data = $row = array();
 
 		// Fetch Scholarship grants's records
-		$scholarshipData = $this->scholarship_model->getRows($_POST);
+		$intFreeLoanData = $this->interest_free_loan_model->getRows($_POST);
         //echo '<pre>'; print_r($scholarshipData); exit;
 
 		$i = $_POST['start'];
-		foreach ($scholarshipData as $scholarshipInfo) {
+		foreach ($intFreeLoanData as $intFreeLoanInfo) {
 			$i++;
-			$status = ($scholarshipInfo->status == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-danger">Inactive</span>';
+			$status = ($intFreeLoanInfo->status == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-danger">Inactive</span>';
 
-			$getRole = $this->admin->getRecordById($scholarshipInfo->record_add_by, $tbl_name = 'tbl_admin');
-			$recordAddDate = $scholarshipInfo->record_add_date;
+			$getRole = $this->admin->getRecordById($intFreeLoanInfo->record_add_by, $tbl_name = 'tbl_admin');
+			$recordAddDate = $intFreeLoanInfo->record_add_date;
 			$recordAddDate = date("d-M-Y", strtotime($recordAddDate));
-
-            $class_pass = $scholarshipInfo->class_pass;
-            $exam_pass = $scholarshipInfo->exam_pass;
-            $result_date = $scholarshipInfo->result_date;
 
 			$add_by_date = '<i>Add by <strong>' . $getRole['name'] . '</strong> on <strong>' . $recordAddDate . '</strong></i>';
 
-			$actionBtn = '<a href="' . site_url('common/logger/' . $scholarshipInfo->id . '/tbl_scholaarship_grant') . '">
+			$actionBtn = '<a href="' . site_url('common/logger/' . $intFreeLoanInfo->id . '/tbl_scholaarship_grant') . '">
                       <button type="button"class="btn btn-sm btn-xs btn-primary"><i class="fa fa-history"></i></button>
                       </a>' .
-			'<a href="javascript:void(0)" onclick="getData(' . "'" . $scholarshipInfo->id . "'" . ')">
+			'<a href="javascript:void(0)" onclick="getData(' . "'" . $intFreeLoanInfo->id . "'" . ')">
                       <button type="button" id="item_edit" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
                       </a>';
-			// $actionBtn = '<a href="' . site_url('grants/edit_grants/' . $scholarshipInfo->id) . '">
+			// $actionBtn = '<a href="' . site_url('grants/edit_grants/' . $intFreeLoanInfo->id) . '">
 			//                    <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
             //                    </a>';
-             
             
-            $getDept = $this->common_model->getRecordById($scholarshipInfo->parent_dept, $tbl_name = 'tbl_department');
-			$data[] = array($i, $scholarshipInfo->std_name, $getDept['name'], $class_pass, $exam_pass, $result_date,  $status, $add_by_date, $actionBtn);
+            $getDept = $this->common_model->getRecordById($intFreeLoanInfo->parent_dept, $tbl_name = 'tbl_department');
+			$data[] = array($i, $intFreeLoanInfo->std_name, $getDept['name'], $status, $add_by_date, $actionBtn);
 		}
 
 		$output = array(
 			"draw" => $_POST['draw'],
-			"recordsTotal" => $this->grants_model->countAll(),
-			"recordsFiltered" => $this->grants_model->countFiltered($_POST),
+			"recordsTotal" => $this->interest_free_loan_model->countAll(),
+			"recordsFiltered" => $this->interest_free_loan_model->countFiltered($_POST),
 			"data" => $data,
 		);
 

@@ -160,6 +160,80 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
 
 <!-- /.content-wrapper -->
 
+<!-- Grants Modal -->
+<div id="grantsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Grants Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Grants List</h4>
+      </div>
+      <div class="modal-body">
+        <p>Click on the grant you want to continue with!</p>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="text-center">
+                    <a href="<?php echo base_url('add_scholarship_grant'); ?>">
+                        <img src="<?php echo base_url('assets/site/'); ?>images/monthly-grants.jpg" alt="">
+                        <p>Monthly Grants</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="text-center">
+                    <a href="<?php echo base_url('add_retirement_grant'); ?>">
+                        <img src="<?php echo base_url('assets/site/'); ?>images/retirement-grants.jpg" alt="">
+                        <p>Retirement Grants</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="text-center">
+                    <a href="<?php echo base_url('add_lumpsum_grant'); ?>">
+                        <img src="<?php echo base_url('assets/site/'); ?>images/lumpsum-grants.jpg" alt="">
+                        <p>Lump Sum Grants</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="text-center">
+                    <a href="<?php echo base_url('add_funeral_grant'); ?>">
+                        <img src="<?php echo base_url('assets/site/'); ?>images/funeral-grants.jpg" alt="">
+                        <p>Funeral Grants</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="text-center">
+                    <a href="<?php echo base_url('add_scholarship_grant'); ?>">
+                        <img src="<?php echo base_url('assets/site/'); ?>images/scholarship-grants.jpg" alt="">
+                        <p>Scholarship Grants</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="text-center">
+                    <a href="<?php echo base_url('add_interest_free_loan_grant'); ?>">
+                        <img src="<?php echo base_url('assets/site/'); ?>images/interest-free-loan-grants.jpg" alt="">
+                        <p>Interest Free Loan Grants</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- for image / gallery -->
 <script>
     baguetteBox.run('.tz-gallery');

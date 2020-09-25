@@ -90,7 +90,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('doa'); ?>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dor'); ?>
                                 </div>
                             </div>
@@ -384,63 +384,11 @@
                                 </div>
                             </div>  
                             <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'ac_edit')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="ac_edit" id="ac_edit" value="0"> No
-                                    <input type="radio" class="validate[required]" name="ac_edit" id="ac_edit" value="1"> Yes
-                                    <?php echo form_error('ac_edit'); ?>
-                                </div>
+                                 
                             </div>
                             
                         </div>
-                        
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_secretary" id="sent_to_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_secretary" id="sent_to_secretary" value="1"> Yes
-                                    <?php echo form_error('sent_to_secretary'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'approve_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="approve_secretary" id="approve_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="approve_secretary" id="approve_secretary" value="1"> Yes
-                                    <?php echo form_error('approve_secretary'); ?>
-                                </div>
-                            </div>   
-                        </div>
-
-                        <div class="row">
-                            
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_bank')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_bank" id="sent_to_bank" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_bank" id="sent_to_bank" value="1"> Yes
-                                    <?php echo form_error('sent_to_bank'); ?>
-                                </div>
-                            </div>  
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'feedback_website')); ?>:</label>
-                                    
-                                    <textarea  autocomplete="off" name="feedback_website" id="feedback_website" class="form-control" placeholder="Enter <?php echo $label; ?>"><?php echo set_value('feedback_website'); ?></textarea>
-                                    <?php echo form_error('feedback_website'); ?>
-                                </div>
-                            </div> 
-                        </div>
- 
-  
+                         
                         <!-- /.row -->
                     </div>
 
@@ -473,25 +421,94 @@
 </div>
 
 <script type="text/javascript">
+
+    // $(document).ready(function() {
+    //     alert('i m here'); 
+    //     $('#doa').on('change', function() {
+            
+    //     });
+    // });
+    function getServiceLength() {
+        
+        startDate = new Date($('#doa').val());
+        endDate = new Date($('#dor').val());
+
+        var diff_date =  endDate - startDate;
+        
+        var years = Math.floor(diff_date/31536000000);
+        var months = Math.floor((diff_date % 31536000000)/2628000000);
+        var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
      
+
+        result = years+" year(s) "+months+" month(s) "+days+" and day(s)";
+
+        if(result == 'NaN year(s) NaN month(s) NaN and day(s)'){
+            $('#los').val(''); 
+        } else {
+            $('#los').val(result); 
+        }
+
+        
+    }
+
+    $('#dor').on('change', function() {
+        var base_url = "<?php echo base_url(); ?>";
+        dateOfRetirement = $('#dor').val(); 
+        //alert(dateOfRetirement);
+        if(dateOfRetirement) { 
+            $.ajax({
+                //+dateOfRetirement
+                url: base_url +'retirement/getAmountData/'+dateOfRetirement,  
+                type: "post",
+                dataType: "json",
+                success:function(data) { 
+                    //alert('data = ' + JSON.stringify(data));
+                    console.log(JSON.stringify(data));
+                    //deduction net_amount
+                    //alert(data.amount);
+                    $('#grant_amount').val(data.amount);
+                    $('#deduction').val(0);
+                    $('#net_amount').val(data.amount);   
+                }
+            });
+
+        } else {
+            $('#grant_amount').empty();
+        }
+    });
+
+    $('#deduction').on('keyup', function() {
+        var base_url = "<?php echo base_url(); ?>";
+        var deduction = $('#deduction').val(); 
+        var grant_amount = $('#grant_amount').val();  
+
+        if(deduction) {
+            var net_amount = grant_amount-deduction;
+            $('#net_amount').val(net_amount); 
+        }else{
+            $('#deduction').val(0);
+        }
+    });
+    
+
     $(function() {
-        $('#doa').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        }); 
-        $('#dor').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        }); 
-        $('#dept_letter_no_date').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        });
+        // $('#doa').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // }); 
+        // $('#dor').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // }); 
+        // $('#dept_letter_no_date').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // });
     });
 </script>

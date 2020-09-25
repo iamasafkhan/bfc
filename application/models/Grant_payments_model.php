@@ -14,7 +14,7 @@ class Grant_payments_model extends CI_Model {
 		//////// ajax and ssp////////
 	}
 	public function add_grant_payments() {
-
+        //echo 'i m here';
 		$from_date = strtotime($this->input->post('from_date'));
 		$from_date = date('Y-m-d', $from_date);
 
@@ -30,14 +30,18 @@ class Grant_payments_model extends CI_Model {
 			'status' => $this->input->post('status'),
 			'record_add_by' => $_SESSION['admin_id'],
 			'record_add_date' => date('Y-m-d H:i:s'),
-		);
+        );
+        //return $data; exit;
+
+        //echo '<pre>'; print_r($data); 
+
 		//XSS prevention
 		$data = $this->security->xss_clean($data);
 
 		//insertion in db
 		$this->db->insert($this->table, $data);
 		$last_insert_id = $this->db->insert_id();
-
+        //return 'lastID = '. $last_insert_id;
 		if ($this->db->affected_rows() > 0) {
 			// this is for activity log of a record
 			$from_date = date('d-m-Y', strtotime($from_date));

@@ -62,7 +62,11 @@ class Common_model extends CI_Model {
 		$this->db->order_by('id', 'desc');
 		$query = $this->db->get_where($tbl_name, array($tbl_col => $value));
 		return $query->result_array();
-	}
+    }
+    public function getCountAll($tbl_name){
+        $counter = $this->db->count_all($tbl_name);
+        return $counter;
+    }
 	public function getAllRecord($tbl_name) {
 
 		$this->db->order_by('id', 'desc');

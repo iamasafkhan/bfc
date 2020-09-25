@@ -43,6 +43,9 @@ $route['add_monthly_grant'] = 'monthly_grant/add_monthly_grant/';
 $route['view_lumpsum_grants'] = 'lumpsum/view_lumpsum_grants/';
 $route['add_lumpsum_grant'] = 'lumpsum/add_lumpsum_grant/';
 
+$route['view_interest_free_loan_grants'] = 'interest_free_loan/view_interestfreeloan_grants/';
+$route['add_interest_free_loan_grant'] = 'interest_free_loan/add_interestfreeloan_grant/';
+
 $route['setting'] = 'common/setting';
 
 $route['default_controller'] = 'site';

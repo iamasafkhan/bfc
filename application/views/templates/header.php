@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title><?php echo (!empty($page_title)) ? ucwords(str_replace('_', ' ', $page_title)) . ' : Benevolent Fund Cell ' : ' Benevolent Fund Cell'; ?></title>
-  <script type="text/javascript" src="<?php echo base_url('assets/ckeditor/ckeditor.js'); ?>"></script>
+  <!-- <script type="text/javascript" src="<?php //echo base_url('assets/ckeditor/ckeditor.js'); ?>"></script> -->
 
   <link rel="icon" href="<?php echo base_url('assets/upload/images/'); ?>favicon.ico" type="image/x-icon">
   <!-- Tell the browser to be responsive to screen width -->
@@ -103,23 +103,23 @@ desired effect
 
   <script type="text/javascript">
 
-  document.onkeydown = function(e) {
-    if(event.keyCode == 123) {
-     return false;
-   }
-   if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-     return false;
-   }
-   if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-     return false;
-   }
-   if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-     return false;
-   }
-   if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-     return false;
-   }
- }
+//   document.onkeydown = function(e) {
+//     if(event.keyCode == 123) {
+//      return false;
+//    }
+// //    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+// //      return false;
+// //    }
+//    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+//      return false;
+//    }
+//    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+//      return false;
+//    }
+//    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+//      return false;
+//    }
+//  }
 </script>
   <?php
 $this->load->view('templates/footer_link_1');

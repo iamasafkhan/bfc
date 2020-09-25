@@ -12,7 +12,7 @@
     </section>
 
     <!-- Main content -->
-    <?php validation_errors(); ?>
+    <?php echo validation_errors(); ?>
     <?php echo form_open_multipart('add_scholarship_grant', 'id="formID"'); ?>
 
     <!--      <form id="formID" method="POST" action="" enctype="multipart/form-data"> -->
@@ -106,8 +106,13 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-home"></i>
                                         </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('class_pass'); ?>" name="class_pass" id="class_pass" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <select name="class_pass" id="class_pass" class="form-control select2 validate[required]">
+                                            <option value="">Select Class</option> 
+                                            <?php foreach ($scholarship_classes as $classInfo) : ?>
+                                                <option value="<?php echo $classInfo['id']; ?>"><?php echo $classInfo['class_name']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <!--<input type="text" autocomplete="off" value="<?php //echo set_value('class_pass'); ?>" name="class_pass" id="class_pass" class="form-control validate[required]" placeholder="Enter <?php //echo $label; ?>" />-->
                                     </div><?php echo form_error('class_pass'); ?>
                                 </div>
                             </div>
@@ -215,7 +220,7 @@
                                             <i class="fa fa-money"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('grant_amount'); ?>
                                 </div>
                             </div>
@@ -242,7 +247,7 @@
                                             <i class="fa fa-money"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('net_amount'); ?>
                                 </div>
                             </div>
@@ -451,58 +456,11 @@
                             </div>  
                         </div>
                         
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_secretary" id="sent_to_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_secretary" id="sent_to_secretary" value="1"> Yes
-                                    <?php echo form_error('sent_to_secretary'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'approve_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="approve_secretary" id="approve_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="approve_secretary" id="approve_secretary" value="1"> Yes
-                                    <?php echo form_error('approve_secretary'); ?>
-                                </div>
-                            </div>  
-                        </div>
+                         
 
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'ac_edit')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="ac_edit" id="ac_edit" value="0"> No
-                                    <input type="radio" class="validate[required]" name="ac_edit" id="ac_edit" value="1"> Yes
-                                    <?php echo form_error('ac_edit'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_bank')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_bank" id="sent_to_bank" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_bank" id="sent_to_bank" value="1"> Yes
-                                    <?php echo form_error('sent_to_bank'); ?>
-                                </div>
-                            </div>  
-                        </div>
+                         
 
-                        <div class="row">
-                            <div class="col-md-12"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'feedback_website')); ?>:</label>
-                                    
-                                    <textarea  autocomplete="off" name="feedback_website" id="feedback_website" class="form-control" placeholder="Enter <?php echo $label; ?>"><?php echo set_value('feedback_website'); ?></textarea>
-                                    <?php echo form_error('feedback_website'); ?>
-                                </div>
-                            </div> 
-                        </div>
+                         
  
   
                         <!-- /.row -->
@@ -537,7 +495,7 @@
 </div>
 
 <script type="text/javascript">
-     
+ 
     $(function() {
         $('#result_date').datetimepicker({
             useCurrent: false,
@@ -546,4 +504,72 @@
             ignoreReadonly: true
         }); 
     });
-</script>
+
+    $(document).ready(function() {
+        //alert('i m here');
+        $('#tbl_emp_info_id').on('change', function() {
+            var base_url = "<?php echo base_url(); ?>";
+            var tbl_emp_info_id = $('#tbl_emp_info_id').val();
+            //alert('empID = '+ tbl_emp_info_id);
+            //alert(base_url +'emp_info/getRecordById/'+tbl_emp_info_id);
+            if(tbl_emp_info_id) {
+                $.ajax({
+                    url: base_url +'emp_info/getData/'+tbl_emp_info_id,
+
+                    type: "post",
+                    dataType: "json",
+                    success:function(data) {
+                        //alert(data.tbl_department_id);
+                    $('#tbl_department_id').val(data.tbl_department_id); 
+                    $('#tbl_department_id').select2().trigger('change');
+
+                    }
+                });
+            }else{
+                $('select[id="tbl_department_id"]').empty();
+            }
+        });
+
+
+        $('#class_pass').on('change', function() {
+            var base_url = "<?php echo base_url(); ?>";
+            var class_pass = $('#class_pass').val(); 
+            if(class_pass) {
+                $.ajax({
+                    url: base_url +'scholarship/getAmountData/'+class_pass, 
+                    type: "post",
+                    dataType: "json",
+                    success:function(data) { 
+                        //deduction net_amount
+                        $('#grant_amount').val(data.amount);
+                        $('#deduction').val(0);
+                        $('#net_amount').val(data.amount);   
+                    }
+                });
+            }else{
+                $('#grant_amount').empty();
+            }
+        });
+
+
+        $('#deduction').on('keyup', function() {
+            var base_url = "<?php echo base_url(); ?>";
+            var deduction = $('#deduction').val(); 
+            var grant_amount = $('#grant_amount').val();  
+
+            if(deduction) {
+                var net_amount = grant_amount-deduction;
+                $('#net_amount').val(net_amount); 
+            }else{
+                $('#deduction').val(0);
+            }
+        });
+
+
+       
+
+    });
+
+</script> 
+
+  

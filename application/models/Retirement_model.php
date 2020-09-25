@@ -224,7 +224,40 @@ class Retirement_model extends CI_Model {
 		$query = $this->db->get();
 
 		return $query->row();
-	}
+    }
+    
+    
+
+    public function getAmountData($date) {
+        
+      
+        $dateOfRetirement = base64_decode($date);
+        
+        if(strtotime($dateOfRetirement) <= strtotime('2016-12-19')) {
+            //return 'less';
+            $this->db->from('tbl_grant_payments'); 
+            $this->db->where('from_date <=', $dateOfRetirement);
+            $this->db->where('to_date >=', $dateOfRetirement);
+            $this->db->where('tbl_pay_scale_id', "1");
+            $this->db->where('tbl_grants_id', "3");
+            $this->db->where('status', "1");
+        } else if(strtotime($dateOfRetirement) >= strtotime('2016-12-19')) {
+            //return 'great';
+            $this->db->from('tbl_grant_payments'); 
+            $this->db->where('from_date >=', '2016-12-19');
+            //$this->db->where('to_date >=', $dateOfRetirement);
+            $this->db->where('tbl_pay_scale_id', "1");
+            $this->db->where('tbl_grants_id', "3");
+            $this->db->where('status', "1");
+        }
+        
+
+        $query = $this->db->get();
+        return $query->row();
+
+ 
+    }
+
 
 	//////////////// below ajax and server side processing datatable ///////////
 

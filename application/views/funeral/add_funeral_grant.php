@@ -99,25 +99,25 @@
                         <div class="row"> 
                             <div class="col-md-6"> 
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'doa')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Date Of Appointment')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('doa'); ?>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'dor')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Date Of Retirement')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dor'); ?>
                                 </div>
                             </div>
@@ -159,7 +159,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dept_letter_no_date'); ?>" name="dept_letter_no_date" id="dept_letter_no_date" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" autocomplete="off" value="<?php echo set_value('dept_letter_no_date'); ?>" name="dept_letter_no_date" id="dept_letter_no_date" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dept_letter_no_date'); ?>
                                 </div>
                             </div>
@@ -469,25 +469,49 @@
 </div>
 
 <script type="text/javascript">
+
+    function getServiceLength() {
+        
+        startDate = new Date($('#doa').val());
+        endDate = new Date($('#dor').val());
+
+        var diff_date =  endDate - startDate;
+        
+        var years = Math.floor(diff_date/31536000000);
+        var months = Math.floor((diff_date % 31536000000)/2628000000);
+        var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
      
+
+        result = years+" year(s) "+months+" month(s) "+days+" and day(s)";
+
+        if(result == 'NaN year(s) NaN month(s) NaN and day(s)'){
+            $('#los').val(''); 
+        } else {
+            $('#los').val(result); 
+        } 
+        
+    }
+
     $(function() {
-        $('#doa').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        }); 
-        $('#dor').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        }); 
-        $('#dept_letter_no_date').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        });
+        // $('#doa').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // }); 
+        // $('#dor').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // }); 
+        // $('#dept_letter_no_date').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // });
+
+        
     });
 </script>

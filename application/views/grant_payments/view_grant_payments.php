@@ -81,13 +81,10 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
                     <i class="fa fa-money"></i>
                   </div>
                   <select  name="tbl_grants_id" id="tbl_grants_id" class="form-control select2 validate[required]" style="width: 100%">
-                    <option value="">Select Grants</option>
-
+                    <option value="">Select Grants</option> 
                     <?php foreach ($grants as $grantsInfo): ?>
                       <option value="<?php echo $grantsInfo['id']; ?>"><?php echo $grantsInfo['name']; ?></option>
-                    <?php endforeach;?>
-
-
+                    <?php endforeach;?> 
                   </select>
                 </div><div id="error"></div>
                 </div>
@@ -231,6 +228,7 @@ function reload_table()
 
 function save()
     {
+      //  alert(save_method);
       var url;
       if(save_method == 'add')
       {
@@ -242,33 +240,32 @@ function save()
       }
 
        // ajax adding data to database
-       $.ajax({
-
-                    type: "POST",
-                    url: url,
-                    async: false,
-                    data: $("#formID").serialize(),
-                    dataType: "json",
-                    success: function(data){
-
-                        $.each(data, function(key, value) {
-                          if(value==true){
-                            $('#modal_form').modal('hide');
-                            form_reset();
-                            sspDataTable.ajax.reload(); //reload datatable ajax
-                            $('.jquery_alert').html('<p class="alert alert-success">! Record has been successfully Added / Updated</p>').fadeIn().delay(4000).fadeOut('slow');
-                          }
-                          // else
-                          else {
-                            // if(value==false){
-                            // $('.jquery_alert_modal').html('<p class="alert alert-danger"> <strong>Oops! </strong> Error in fields</p>').fadeIn().delay(4000).fadeOut('slow');
-                          // }
-                            $('#' + key).addClass('is-invalid');
-                            $('#' + key).parents('.form-group').find('#error').html(value);
-                          }
-                        });
+        $.ajax({ 
+            type: "POST",
+            url: url,
+            async: false,
+            data: $("#formID").serialize(),
+            dataType: "json",
+            success: function(data){
+                alert(JSON.stringify(data));
+                $.each(data, function(key, value) {
+                    if(value==true){
+                    $('#modal_form').modal('hide');
+                    form_reset();
+                    sspDataTable.ajax.reload(); //reload datatable ajax
+                    $('.jquery_alert').html('<p class="alert alert-success">Record has been successfully Added / Updated!</p>').fadeIn().delay(4000).fadeOut('slow');
+                    }
+                    // else
+                    else {
+                    // if(value==false){
+                    // $('.jquery_alert_modal').html('<p class="alert alert-danger"> <strong>Oops! </strong> Error in fields</p>').fadeIn().delay(4000).fadeOut('slow');
+                    // }
+                    $('#' + key).addClass('is-invalid');
+                    $('#' + key).parents('.form-group').find('#error').html(value);
                     }
                 });
+            }
+        });
      }
 
 function form_reset()
