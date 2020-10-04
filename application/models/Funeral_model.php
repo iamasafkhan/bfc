@@ -14,7 +14,49 @@ class Funeral_model extends CI_Model {
 		//////// ajax and ssp////////
 	}
 
-	 
+    public function getAmountData() {
+         
+        //$dateOfRetirement = base64_decode($date);
+        $dateOfRetirement =  $this->input->post('dor');
+        $payScaleID =  $this->input->post('empScaleID');
+        //$array = array('status'=>'error', 'dateOfRetirement'=>$dateOfRetirement, 'payScaleID'=>$payScaleID);
+        //return $array;
+
+        if($payScaleID == '')
+        {
+            $array = array('status'=>'error', 'msg'=>'Please select employee to continue');
+            return $array;
+        } else {
+
+            if(strtotime($dateOfRetirement) <= strtotime('2017-12-19')) {
+                //return 'less';
+                $this->db->from('tbl_grant_payments'); 
+                $this->db->where('from_date <=', $dateOfRetirement);
+                $this->db->where('to_date >=', $dateOfRetirement);
+                $this->db->where('tbl_pay_scale_id', $payScaleID);
+                $this->db->where('tbl_grants_id', "2");
+                $this->db->where('status', "1");
+            } else if(strtotime($dateOfRetirement) >= strtotime('2017-12-20')) {
+                //return 'great';
+                $this->db->from('tbl_grant_payments'); 
+                $this->db->where('from_date >=', '2017-12-20');
+                //$this->db->where('to_date >=', $dateOfRetirement);
+                $this->db->where('tbl_pay_scale_id',$payScaleID);
+                $this->db->where('tbl_grants_id', "2");
+                $this->db->where('status', "1");
+            }
+            
+    
+            $query = $this->db->get();
+            $rows = $query->row();
+
+            $array = array('status'=>'success', 'data'=> $rows);
+            return $array;
+
+        }
+ 
+ 
+    }
 
 	public function add_funeral_grant() {
 

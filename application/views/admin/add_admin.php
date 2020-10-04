@@ -233,7 +233,7 @@
          <!-- /.col -->
         <div class="col-xs-6">
           <button type="submit" value="submit" name="submit" class="btn btn-primary  btn-sm"><i class="fa fa-plus"> </i> Add Record</button>
-    <a href="<?php echo base_url(dashboard); ?>" class="btn btn-info  btn-sm" type="button"> <i class="fa fa-chevron-left"> </i> Cancel/Back</a>
+    <a href="<?php echo base_url('dashboard'); ?>" class="btn btn-info  btn-sm" type="button"> <i class="fa fa-chevron-left"> </i> Cancel/Back</a>
 
         </div>
         <!-- /.col -->

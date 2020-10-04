@@ -228,17 +228,22 @@ class Retirement_model extends CI_Model {
     
     
 
-    public function getAmountData($date) {
+    public function getAmountData() {
         
-      
-        $dateOfRetirement = base64_decode($date);
+        $dateOfRetirement = $this->input->post('dor');
+        $empScaleID = $this->input->post('empScaleID');
+        
+        //return array('date'=>$dateOfRetirement, 'empScaleID'=>$empScaleID);
+
+
+        //$dateOfRetirement = base64_decode($date);
         
         if(strtotime($dateOfRetirement) <= strtotime('2016-12-19')) {
             //return 'less';
             $this->db->from('tbl_grant_payments'); 
             $this->db->where('from_date <=', $dateOfRetirement);
             $this->db->where('to_date >=', $dateOfRetirement);
-            $this->db->where('tbl_pay_scale_id', "1");
+            $this->db->where('tbl_pay_scale_id', $empScaleID);
             $this->db->where('tbl_grants_id', "3");
             $this->db->where('status', "1");
         } else if(strtotime($dateOfRetirement) >= strtotime('2016-12-19')) {
@@ -246,7 +251,7 @@ class Retirement_model extends CI_Model {
             $this->db->from('tbl_grant_payments'); 
             $this->db->where('from_date >=', '2016-12-19');
             //$this->db->where('to_date >=', $dateOfRetirement);
-            $this->db->where('tbl_pay_scale_id', "1");
+            $this->db->where('tbl_pay_scale_id', $empScaleID);
             $this->db->where('tbl_grants_id', "3");
             $this->db->where('status', "1");
         }

@@ -173,7 +173,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-balance-scale"></i>
                   </div>
-
+                  <input type="hidden" name="pay_scale_id" id="pay_scale_id" value="<?php echo $all['pay_scale_id']; ?>">
                   <input type="text" readonly autocomplete="off" value="<?php echo $all['pay_scale']; ?>" name="pay_scale" id="pay_scale" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
                 </div><?php echo form_error('pay_scale'); ?>
                 </div>
@@ -269,7 +269,8 @@
                     type: "post",
                     dataType: "json",
                     success:function(data) {
-                    $('[name="pay_scale"]').val(data.pay_scale_name);
+                        $('[name="pay_scale"]').val(data.pay_scale_name);
+                        $('[name="pay_scale_id"]').val(data.payscaleid);
                     }
                 });
             }else{

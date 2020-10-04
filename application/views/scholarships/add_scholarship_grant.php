@@ -36,7 +36,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'employee')); ?>:</label>
                                     <div class="input-group">
@@ -51,6 +51,18 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div><?php echo form_error('tbl_emp_info_id'); ?>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Pay_Scale')); ?>:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input type="text" name="pay_scale" id="pay_scale" value="" class="form-control" readonly>
+                                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="">
+                                    </div><?php echo form_error('pay_scale'); ?>
                                 </div>
                             </div> 
                         </div>
@@ -80,7 +92,7 @@
                                             <i class="fa fa-industry"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('duty_place'); ?>" name="duty_place" id="duty_place" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('duty_place'); ?>" name="duty_place" id="duty_place" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('duty_place'); ?>
                                 </div>
                             </div>
@@ -89,7 +101,7 @@
                         <div class="row"> 
                             <div class="col-md-6"> 
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'std_name')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'student_name')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-graduation-cap"></i>
@@ -121,7 +133,7 @@
                         <div class="row"> 
                             <div class="col-md-6"> 
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'exam_pass')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'examination_pass')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-file"></i>
@@ -139,7 +151,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('result_date'); ?>" name="result_date" id="result_date" class="form-control validate[required,minSize[3]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('result_date'); ?>" name="result_date" id="result_date" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('result_date'); ?>
                                 </div>
                             </div>
@@ -181,7 +193,7 @@
                                             <i class="fa fa-percent"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('percentage'); ?>" name="percentage" id="percentage" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('percentage'); ?>" name="percentage" id="percentage" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('percentage'); ?>
                                 </div>
                             </div>
@@ -329,7 +341,7 @@
                         <div class="row"> 
                             <div class="col-md-6"> 
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'std_signature')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'student_signature')); ?>:</label>
                                     <br>
                                     <input type="radio" class="validate[required]" checked name="std_signature" id="std_signature" value="No"> No
                                     <input type="radio" class="validate[required]" name="std_signature" id="std_signature" value="Yes"> Yes
@@ -520,8 +532,10 @@
                     dataType: "json",
                     success:function(data) {
                         //alert(data.tbl_department_id);
-                    $('#tbl_department_id').val(data.tbl_department_id); 
-                    $('#tbl_department_id').select2().trigger('change');
+                        $('#tbl_department_id').val(data.tbl_department_id); 
+                        $('#tbl_department_id').select2().trigger('change');
+                        $('#pay_scale_id').val(data.pay_scale_id);
+                        $('#pay_scale').val(data.pay_scale); 
 
                     }
                 });
@@ -562,6 +576,19 @@
                 $('#net_amount').val(net_amount); 
             }else{
                 $('#deduction').val(0);
+            }
+        });
+
+        $('#mo, #tm').on('keyup', function() {
+             
+            var marksObtained = $('#mo').val(); 
+            var totalMarks = $('#tm').val();  
+
+            if(marksObtained != '' && totalMarks != '') {
+                var percentage = marksObtained/totalMarks*100;
+                $('#percentage').val(percentage.toFixed(2)); 
+            }else{
+                $('#percentage').val(0);
             }
         });
 

@@ -12,7 +12,7 @@
     </section>
 
     <!-- Main content -->
-    <?php validation_errors(); ?>
+    <?php echo validation_errors(); ?>
     <?php echo form_open_multipart('add_retirement_grant', 'id="formID"'); ?>
 
     <!--      <form id="formID" method="POST" action="" enctype="multipart/form-data"> -->
@@ -36,7 +36,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'employee')); ?>:</label>
                                     <div class="input-group">
@@ -50,7 +50,20 @@
                                                 <option value="<?php echo $employeeInfo['id']; ?>"><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
+                                         
                                     </div><?php echo form_error('tbl_emp_info_id'); ?>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Pay_Scale')); ?>:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input type="text" name="pay_scale" id="pay_scale" value="" class="form-control" readonly>
+                                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="">
+                                    </div><?php echo form_error('pay_scale'); ?>
                                 </div>
                             </div> 
                         </div>
@@ -428,6 +441,10 @@
             
     //     });
     // });
+
+    
+
+
     function getServiceLength() {
         
         startDate = new Date($('#doa').val());
@@ -451,30 +468,69 @@
         
     }
 
-    $('#dor').on('change', function() {
-        var base_url = "<?php echo base_url(); ?>";
-        dateOfRetirement = $('#dor').val(); 
-        //alert(dateOfRetirement);
-        if(dateOfRetirement) { 
-            $.ajax({
-                //+dateOfRetirement
-                url: base_url +'retirement/getAmountData/'+dateOfRetirement,  
-                type: "post",
-                dataType: "json",
-                success:function(data) { 
-                    //alert('data = ' + JSON.stringify(data));
-                    console.log(JSON.stringify(data));
-                    //deduction net_amount
-                    //alert(data.amount);
-                    $('#grant_amount').val(data.amount);
-                    $('#deduction').val(0);
-                    $('#net_amount').val(data.amount);   
-                }
-            });
 
-        } else {
-            $('#grant_amount').empty();
+    // $("#dor, #tbl_emp_info_id").on('focus', function () {
+    //     //var ddl = $(this);
+    //     //ddl.data('previous', ddl.val());
+    //     emp_id = $('#tbl_emp_info_id').val();
+    //     alert('i m here');
+    // }).on('change', function () {
+    //     var base_url = "<?php echo base_url(); ?>"; 
+    //     var empScale = getEmpScale(emp_id);
+    //     alert(JSON.stringify(empScale));
+
+    //     //var ddl = $(this);
+    //     //var previous = ddl.data('previous');
+    //     //ddl.data('previous', ddl.val());
+    // });
+
+
+    $("#dor, #tbl_emp_info_id").on('change', function() {
+        var base_url = "<?php echo base_url(); ?>"; 
+        
+        emp_id = $('#tbl_emp_info_id').val(); 
+        var empScale = getEmpScale(emp_id);
+
+        //alert(JSON.stringify(empScale));
+
+        dateOfRetirement = $('#dor').val(); 
+        empScale_ID = $('#pay_scale_id').val();
+       
+        //alert(empScaleID);
+        //alert(dateOfRetirement);
+        //alert(empScale);
+        //alert('empScaleID='+empScale_ID+'/'+'dateOfRetirement='+dateOfRetirement);
+
+        var formData = { dor: dateOfRetirement, empScaleID: empScale_ID };
+        if(emp_id == ''){
+            alert('Please select employee to continue');
+            $('#dor').val('');
         }
+        else {
+            if(dateOfRetirement) { 
+                $.ajax({
+                    //+dateOfRetirement
+                    url: base_url +'retirement/getAmountData/',  
+                    type: "post",
+                    data: formData,
+                    dataType: "json",
+                    success:function(data) { 
+                        //alert('data = ' + JSON.stringify(data));
+                        //alert(JSON.stringify(data));
+                        //deduction net_amount
+                        //alert(data.amount);
+                        $('#grant_amount').val(data.amount);
+                        $('#deduction').val(0);
+                        $('#net_amount').val(data.amount);   
+                    }
+                });
+
+            } else {
+                $('#grant_amount').empty();
+            }
+        }
+        
+        
     });
 
     $('#deduction').on('keyup', function() {
@@ -490,7 +546,29 @@
         }
     });
     
+    function getEmpScale(empID){
+        //alert('empID = ' + empID);
+        var base_url = "<?php echo base_url(); ?>";
+        if(empID) { 
+            $.ajax({
+                url: base_url +'emp_info/getData/'+empID,
 
+                type: "post",
+                dataType: "json",
+                success:function(data) {
+                //alert(JSON.stringify(data));
+                    //alert(data.id)
+                $('#pay_scale_id').val(data.pay_scale_id);
+                $('#pay_scale').val(data.pay_scale); 
+                //return data;
+
+                //$('#tbl_department_id').select2().trigger('change');
+
+                }
+            });
+
+        }  
+    }
     $(function() {
         // $('#doa').datetimepicker({
         //     useCurrent: false,
@@ -504,11 +582,11 @@
         //     showTodayButton: true,
         //     ignoreReadonly: true
         // }); 
-        // $('#dept_letter_no_date').datetimepicker({
-        //     useCurrent: false,
-        //     format: "DD-MM-YYYY",
-        //     showTodayButton: true,
-        //     ignoreReadonly: true
-        // });
+        $('#dept_letter_no_date').datetimepicker({
+            useCurrent: false,
+            format: "DD-MM-YYYY",
+            showTodayButton: true,
+            ignoreReadonly: true
+        });
     });
 </script>

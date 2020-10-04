@@ -15,7 +15,7 @@ class Emp_info_model extends CI_Model {
 	}
 
 	public function fetchDataPayScale($tbl_post_id) {
-		$query = $this->db->query('SELECT tbl_pay_scale.name as pay_scale_name FROM tbl_pay_scale LEFT JOIN tbl_post ON tbl_pay_scale.id = tbl_post.tbl_pay_scale_id where tbl_post.id =' . $tbl_post_id . ' and tbl_pay_scale.status=1 and tbl_post.status=1');
+		$query = $this->db->query('SELECT tbl_pay_scale.name as pay_scale_name, tbl_pay_scale.id as payscaleid FROM tbl_pay_scale LEFT JOIN tbl_post ON tbl_pay_scale.id = tbl_post.tbl_pay_scale_id where tbl_post.id =' . $tbl_post_id . ' and tbl_pay_scale.status=1 and tbl_post.status=1');
 
 		return $query->row();
 	}
@@ -31,7 +31,8 @@ class Emp_info_model extends CI_Model {
 			'contact_no' => $this->input->post('contact_no'),
 			'tbl_department_id' => $this->input->post('tbl_department_id'),
 			'tbl_post_id' => $this->input->post('tbl_post_id'),
-			'pay_scale' => $this->input->post('pay_scale'),
+            'pay_scale_id' => $this->input->post('pay_scale_id'),
+            'pay_scale' => $this->input->post('pay_scale'),
 			'tbl_district_id' => $this->input->post('tbl_district_id'),
 			'office_address' => $this->input->post('office_address'),
 			'other_address' => $this->input->post('other_address'),
@@ -108,7 +109,8 @@ class Emp_info_model extends CI_Model {
 			'contact_no' => $this->input->post('contact_no'),
 			'tbl_department_id' => $this->input->post('tbl_department_id'),
 			'tbl_post_id' => $this->input->post('tbl_post_id'),
-			'pay_scale' => $this->input->post('pay_scale'),
+            'pay_scale' => $this->input->post('pay_scale'),
+            'pay_scale_id' => $this->input->post('pay_scale_id'),
 			'tbl_district_id' => $this->input->post('tbl_district_id'),
 			'office_address' => $this->input->post('office_address'),
 			'other_address' => $this->input->post('other_address'),

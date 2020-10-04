@@ -35,9 +35,9 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
                             <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'record_no')); ?></th>
                             <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'record_no_year')); ?></th>
                             <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'name_deceased')); ?></th>
-                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'doa')); ?></th>
-                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'dor')); ?></th>
-                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'los')); ?></th> 
+                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'date of appointment')); ?></th>
+                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'date of retirement')); ?></th>
+                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'length of service')); ?></th> 
                             <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'add by/date')); ?></th>
                             <th width="5%" class="no-print"><?php echo ucwords(str_replace('_', ' ', 'action')); ?></th>
                         </tr>
