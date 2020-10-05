@@ -15,6 +15,36 @@ class Lumpsum_model extends CI_Model {
 	}
 
 	 
+    public function getAmountData() {
+        
+        $dateOfRetirement = $this->input->post('dor');
+        $empScaleID = $this->input->post('empScaleID'); 
+        
+        if(strtotime($dateOfRetirement) <= strtotime('2017-07-01')) {
+            //return 'less';
+            $this->db->from('tbl_grant_payments'); 
+            $this->db->where('from_date <=', $dateOfRetirement);
+            $this->db->where('to_date >=', $dateOfRetirement);
+            $this->db->where('tbl_pay_scale_id', $empScaleID);
+            $this->db->where('tbl_grants_id', "6");
+            $this->db->where('status', "1");
+        } else if(strtotime($dateOfRetirement) >= strtotime('2017-07-01')) {
+            //return 'great';
+            $this->db->from('tbl_grant_payments'); 
+            $this->db->where('from_date >=', '2017-07-01');
+            //$this->db->where('to_date >=', $dateOfRetirement);
+            $this->db->where('tbl_pay_scale_id', $empScaleID);
+            $this->db->where('tbl_grants_id', "6");
+            $this->db->where('status', "1");
+        }
+        
+
+        $query = $this->db->get();
+        return $query->row();
+
+ 
+    }
+
 
 	public function add_lumpsum_grant() {
 

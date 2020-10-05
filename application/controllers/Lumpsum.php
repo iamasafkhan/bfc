@@ -12,8 +12,14 @@ class Lumpsum extends MY_Controller {
 		// 	$this->session->sess_destroy();
 		// 	redirect('admin', 'refresh');
 		// }
-	}
-	public function add_lumpsum_grant() {
+    }
+    
+    public function getAmountData() {   
+		$data = $this->lumpsum_model->getAmountData();
+		echo json_encode($data);
+    }
+
+	public function add_lumpsum_grant($id=null) {
         
         //echo '<pre>'; print_r($_POST); exit(); 
 
@@ -25,7 +31,10 @@ class Lumpsum extends MY_Controller {
 		$data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
         $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
-
+        if($id!=''){
+            $data['emp_info'] = $this->emp_info_model->getRecordById($id);
+        }
+        
 		if ($this->input->post('submit')) {
             
             $this->form_validation->set_rules('tbl_emp_info_id', ucwords(str_replace('_', ' ', 'tbl_emp_info_id')), 'required|xss_clean|trim');
@@ -76,13 +85,13 @@ class Lumpsum extends MY_Controller {
             $this->form_validation->set_rules('undertaking', ucwords(str_replace('_', ' ', 'undertaking')), 'required|xss_clean|trim');
              
             $this->form_validation->set_rules('boards_approval', ucwords(str_replace('_', ' ', 'boards_approval')), 'required|xss_clean|trim');
-            $this->form_validation->set_rules('ac_edit', ucwords(str_replace('_', ' ', 'ac_edit')), 'required|xss_clean|trim');
-            $this->form_validation->set_rules('sent_to_secretary', ucwords(str_replace('_', ' ', 'sent_to_secretary')), 'required|xss_clean|trim');
-            $this->form_validation->set_rules('approve_secretary', ucwords(str_replace('_', ' ', 'approve_secretary')), 'required|xss_clean|trim');
+            // $this->form_validation->set_rules('ac_edit', ucwords(str_replace('_', ' ', 'ac_edit')), 'required|xss_clean|trim');
+            // $this->form_validation->set_rules('sent_to_secretary', ucwords(str_replace('_', ' ', 'sent_to_secretary')), 'required|xss_clean|trim');
+            // $this->form_validation->set_rules('approve_secretary', ucwords(str_replace('_', ' ', 'approve_secretary')), 'required|xss_clean|trim');
 
             
-            $this->form_validation->set_rules('sent_to_bank', ucwords(str_replace('_', ' ', 'sent_to_bank')), 'required|xss_clean|trim');
-            $this->form_validation->set_rules('feedback_website', ucwords(str_replace('_', ' ', 'feedback_website')), 'required|xss_clean|trim'); 
+            // $this->form_validation->set_rules('sent_to_bank', ucwords(str_replace('_', ' ', 'sent_to_bank')), 'required|xss_clean|trim');
+            // $this->form_validation->set_rules('feedback_website', ucwords(str_replace('_', ' ', 'feedback_website')), 'required|xss_clean|trim'); 
 
   
 

@@ -64,6 +64,8 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
 <script type="text/javascript">
     var save_method; //for save method string
     var sspDataTable;
+   
+
     $(document).ready(function() {
         sspDataTable = $('#ssp_datatable').DataTable({
             // Processing indicator
@@ -81,7 +83,8 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
             "columnDefs": [{
                 "targets": [0],
                 "orderable": false
-            }]
+            }],
+            
         });
 
         // for form error validation

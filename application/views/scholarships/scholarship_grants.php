@@ -81,7 +81,8 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
             "columnDefs": [{
                 "targets": [0],
                 "orderable": false
-            }]
+            }],
+            
         });
 
         // for form error validation

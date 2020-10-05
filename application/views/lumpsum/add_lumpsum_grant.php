@@ -36,7 +36,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'employee')); ?>:</label>
                                     <div class="input-group">
@@ -47,17 +47,31 @@
                                         <select name="tbl_emp_info_id" id="tbl_emp_info_id" class="form-control select2 validate[required]">
                                             <option value="">Select Employee</option> 
                                             <?php foreach ($employees as $employeeInfo) : ?>
-                                                <option value="<?php echo $employeeInfo['id']; ?>"><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
+                                                <option value="<?php echo $employeeInfo['id']; ?>" <?php if($emp_info->id == $employeeInfo['id']) { echo 'selected'; } ?>><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div><?php echo form_error('tbl_emp_info_id'); ?>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Pay_Scale')); ?>:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                         
+                                        <input type="text" name="pay_scale" id="pay_scale" value="<?php echo $emp_info->pay_scale;?>" class="form-control" readonly>
+                                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="<?php echo $emp_info->pay_scale_id;?>">
+
+                                    </div><?php echo form_error('pay_scale'); ?>
                                 </div>
                             </div> 
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'gov_emp_name')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'govt_employee_name')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
@@ -75,7 +89,7 @@
                                             <i class="fa fa-industry"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('wife'); ?>" name="wife" id="wife" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('wife'); ?>" name="wife" id="wife" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('wife'); ?>
                                 </div>
                             </div>
@@ -90,7 +104,7 @@
                                             <i class="fa fa-user"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('son'); ?>" name="son" id="son" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('son'); ?>" name="son" id="son" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('son'); ?>
                                 </div>
                             </div>
@@ -102,7 +116,7 @@
                                             <i class="fa fa-user"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('daughter'); ?>" name="daughter" id="daughter" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('daughter'); ?>" name="daughter" id="daughter" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('daughter'); ?>
                                 </div>
                             </div>
@@ -111,7 +125,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'tbl_grantee_type_id')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'grantee_type')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
@@ -140,7 +154,7 @@
                                             <i class="fa fa-industry"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('record_no'); ?>" name="record_no" id="record_no" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('record_no'); ?>" name="record_no" id="record_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('record_no'); ?>
                                 </div>
                             </div>
@@ -152,7 +166,7 @@
                                             <i class="fa fa-industry"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('record_no_year'); ?>" name="record_no_year" id="record_no_year" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('record_no_year'); ?>" name="record_no_year" id="record_no_year" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('record_no_year'); ?>
                                 </div>
                             </div>
@@ -161,25 +175,25 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'doa')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Date of appointment')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('doa'); ?>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'dor')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Date of retirement')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date"  onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dor'); ?>
                                 </div>
                             </div>
@@ -188,13 +202,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'los')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'length of service')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('los'); ?>" name="los" id="los" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('los'); ?>" name="los" id="los" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('los'); ?>
                                 </div>
                             </div>
@@ -206,7 +220,7 @@
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dept_letter_no'); ?>" name="dept_letter_no" id="dept_letter_no" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('dept_letter_no'); ?>" name="dept_letter_no" id="dept_letter_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dept_letter_no'); ?>
                                 </div>
                             </div>
@@ -221,7 +235,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dept_letter_no_date'); ?>" name="dept_letter_no_date" id="dept_letter_no_date" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('dept_letter_no_date'); ?>" name="dept_letter_no_date" id="dept_letter_no_date" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dept_letter_no_date'); ?>
                                 </div>
                             </div>
@@ -233,7 +247,7 @@
                                             <i class="fa fa-calculator"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('grant_amount'); ?>
                                 </div>
                             </div>
@@ -248,7 +262,7 @@
                                             <i class="fa fa-money"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('deduction'); ?>" name="deduction" id="deduction" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('deduction'); ?>" name="deduction" id="deduction" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('deduction'); ?>
                                 </div>
                             </div>
@@ -260,7 +274,7 @@
                                             <i class="fa fa-building"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('net_amount'); ?>
                                 </div>
                             </div>
@@ -274,7 +288,7 @@
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('succession'); ?>" name="succession" id="succession" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('succession'); ?>" name="succession" id="succession" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('succession'); ?>
                                 </div>
                             </div>
@@ -282,7 +296,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'tbl_case_status_id')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'case_status')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-eye"></i>
@@ -346,7 +360,7 @@
                                             <i class="fa fa fa-bank"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('account_no'); ?>" name="account_no" id="account_no" class="form-control validate[required,minSize[2]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('account_no'); ?>" name="account_no" id="account_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('account_no'); ?>
                                 </div>
                             </div>
@@ -514,64 +528,10 @@
                                     <?php echo form_error('boards_approval'); ?>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'ac_edit')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="ac_edit" id="ac_edit" value="0"> No
-                                    <input type="radio" class="validate[required]" name="ac_edit" id="ac_edit" value="1"> Yes
-                                    <?php echo form_error('ac_edit'); ?>
-                                </div>
-                            </div>
+                             
 
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_secretary" id="sent_to_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_secretary" id="sent_to_secretary" value="1"> Yes
-                                    <?php echo form_error('sent_to_secretary'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'approve_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="approve_secretary" id="approve_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="approve_secretary" id="approve_secretary" value="1"> Yes
-                                    <?php echo form_error('approve_secretary'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_bank')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_bank" id="sent_to_bank" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_bank" id="sent_to_bank" value="1"> Yes
-                                    <?php echo form_error('sent_to_bank'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'feedback_website')); ?>:</label>
-
-                                    <textarea autocomplete="off" name="feedback_website" id="feedback_website" class="form-control" placeholder="Enter <?php echo $label; ?>"><?php echo set_value('feedback_website'); ?></textarea>
-                                    <?php echo form_error('feedback_website'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-
+ 
                         <!-- /.row -->
                     </div>
 
@@ -591,7 +551,6 @@
             <div class="col-xs-6">
                 <button type="submit" value="submit" name="submit" class="btn btn-primary  btn-sm"><i class="fa fa-plus"> </i> Add Record</button>
                 <a href="<?php echo base_url('dashboard'); ?>" class="btn btn-info  btn-sm" type="button"> <i class="fa fa-chevron-left"> </i> Cancel/Back</a>
-
             </div>
             <!-- /.col -->
         </div>
@@ -604,19 +563,132 @@
 </div>
 
 <script type="text/javascript">
+
+    function getServiceLength() {
+        
+        startDate = new Date($('#doa').val());
+        endDate = new Date($('#dor').val());
+
+        var diff_date =  endDate - startDate;
+        
+        var years = Math.floor(diff_date/31536000000);
+        var months = Math.floor((diff_date % 31536000000)/2628000000);
+        var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
+     
+
+        result = years+" year(s) "+months+" month(s) "+days+" and day(s)";
+
+        if(result == 'NaN year(s) NaN month(s) NaN and day(s)'){
+            $('#los').val(''); 
+        } else {
+            $('#los').val(result); 
+        }
+
+        
+    }
+
     $(function() {
-        $('#doa').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
+
+        $('#tbl_emp_info_id').on('change', function() {
+            var base_url = "<?php echo base_url(); ?>";
+            var tbl_emp_info_id = $('#tbl_emp_info_id').val(); 
+            if(tbl_emp_info_id) {
+                $.ajax({
+                    url: base_url +'emp_info/getData/'+tbl_emp_info_id,
+
+                    type: "post",
+                    dataType: "json",
+                    success:function(data) { 
+                        $('#pay_scale_id').val(data.pay_scale_id);
+                        $('#pay_scale').val(data.pay_scale);
+                        $('#doa').val('');
+                        $('#dor').val('');   
+                        $('#grant_amount').val('');
+                        $('#deduction').val('');
+                        $('#net_amount').val('');
+                    }
+                });
+            }else{
+                $('#pay_scale_id').val('');
+                $('#pay_scale').val(''); 
+                $('#doa').val('');
+                $('#dor').val('');   
+                $('#grant_amount').val('');
+                $('#deduction').val('');
+                $('#net_amount').val(''); 
+            }
         });
-        $('#dor').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
+
+        $('#dor').on('change', function() {
+            var base_url = "<?php echo base_url(); ?>"; 
+            dateOfRetirement = $('#dor').val(); 
+            empScale_ID = $('#pay_scale_id').val();
+            var formData = { dor: dateOfRetirement, empScaleID: empScale_ID };
+            if(empScale_ID == ''){
+                alert('Please select employee to continue');
+             
+                $('#doa').val('');
+                $('#dor').val('');   
+                $('#grant_amount').val('');
+                $('#deduction').val('');
+                $('#net_amount').val(''); 
+            }
+            else {
+                if(dateOfRetirement) { 
+                    $.ajax({
+                        //+dateOfRetirement
+                        url: base_url +'lumpsum/getAmountData/',  
+                        type: "post",
+                        data: formData,
+                        dataType: "json",
+                        success:function(data) { 
+                            //alert('data = ' + JSON.stringify(data));
+                            //alert(JSON.stringify(data));
+                            //deduction net_amount
+                            //alert(data.amount);
+                            $('#grant_amount').val(data.amount);
+                            $('#deduction').val(0);
+                            $('#net_amount').val(data.amount);   
+                        }
+                    });
+
+                } else { 
+                    $('#doa').val('');
+                    $('#dor').val('');   
+                    $('#grant_amount').val('');
+                    $('#deduction').val('');
+                    $('#net_amount').val(''); 
+                }
+            }
         });
+
+
+
+        $('#deduction').on('keyup', function() {
+            var base_url = "<?php echo base_url(); ?>";
+            var deduction = $('#deduction').val(); 
+            var grant_amount = $('#grant_amount').val();  
+
+            if(deduction) {
+                var net_amount = grant_amount-deduction;
+                $('#net_amount').val(net_amount); 
+            }else{
+                $('#deduction').val(0);
+            }
+        });
+
+        // $('#doa').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // });
+        // $('#dor').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // });
         $('#dept_letter_no_date').datetimepicker({
             useCurrent: false,
             format: "DD-MM-YYYY",

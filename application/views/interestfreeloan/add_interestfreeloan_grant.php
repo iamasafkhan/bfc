@@ -36,7 +36,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'employee')); ?>:</label>
                                     <div class="input-group">
@@ -47,12 +47,25 @@
                                         <select name="tbl_emp_info_id" id="tbl_emp_info_id" class="form-control select2 validate[required]">
                                             <option value="">Select Employee</option>
                                             <?php foreach ($employees as $employeeInfo) : ?>
-                                                <option value="<?php echo $employeeInfo['id']; ?>"><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
+                                                <option value="<?php echo $employeeInfo['id']; ?>" <?php if($emp_info->id == $employeeInfo['id']) { echo 'selected'; } ?>><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div><?php echo form_error('tbl_emp_info_id'); ?>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Pay_Scale')); ?>:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                         
+                                        <input type="text" name="pay_scale" id="pay_scale" value="<?php echo $emp_info->pay_scale;?>" class="form-control" readonly>
+                                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="<?php echo $emp_info->pay_scale_id;?>">
+                                    </div><?php echo form_error('pay_scale'); ?>
+                                </div>
+                            </div> 
                         </div>
 
 
@@ -72,9 +85,6 @@
                                     </div><?php echo form_error('dao'); ?>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'ddo_code')); ?>:</label>
@@ -86,6 +96,10 @@
                                     </div><?php echo form_error('ddo_code'); ?>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'ddo_address')); ?>:</label>
@@ -97,10 +111,7 @@
                                     </div><?php echo form_error('ddo_address'); ?>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords('marital status'); ?>:</label>
                                     <br>
@@ -110,6 +121,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label><?php //echo $label = ucwords('marital status'); ?>:</label>
+                                    <br>
+                                    <input type="radio" class="validate[required]" checked name="marital_status" id="marital_status" value="married"> Married
+                                    <input type="radio" class="validate[required]" name="marital_status" id="marital_status" value="unmarried"> Unmarried
+                                    <?php //echo form_error('marital_status'); ?>
+                                </div>
+                            </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col-md-6">
@@ -287,7 +310,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('doa'); ?>
                                 </div>
                             </div>
@@ -295,6 +318,18 @@
 
 
                         <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Date of Retirement')); ?>:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                    </div><?php echo form_error('dor'); ?>
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'los')); ?>:</label>
@@ -490,51 +525,11 @@
                                     <?php echo form_error('sent_to_bank'); ?>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'ac_edit')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="ac_edit" id="ac_edit" value="0"> No
-                                    <input type="radio" class="validate[required]" name="ac_edit" id="ac_edit" value="1"> Yes
-                                    <?php echo form_error('ac_edit'); ?>
-                                </div>
-                            </div>
+                            
 
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_secretary" id="sent_to_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_secretary" id="sent_to_secretary" value="1"> Yes
-                                    <?php echo form_error('sent_to_secretary'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'approve_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="approve_secretary" id="approve_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="approve_secretary" id="approve_secretary" value="1"> Yes
-                                    <?php echo form_error('approve_secretary'); ?>
-                                </div>
-                            </div>
-                        </div>
- 
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'feedback_website')); ?>:</label>
-
-                                    <textarea autocomplete="off" name="feedback_website" id="feedback_website" class="form-control" placeholder="Enter <?php echo $label; ?>"><?php echo set_value('feedback_website'); ?></textarea>
-                                    <?php echo form_error('feedback_website'); ?>
-                                </div>
-                            </div>
-                        </div>
-
+                      
 
                         <!-- /.row -->
                     </div>
@@ -568,19 +563,43 @@
 </div>
 
 <script type="text/javascript">
+
+    function getServiceLength() {
+        
+        startDate = new Date($('#doa').val());
+        endDate = new Date($('#dor').val());
+
+        var diff_date =  endDate - startDate;
+        
+        var years = Math.floor(diff_date/31536000000);
+        var months = Math.floor((diff_date % 31536000000)/2628000000);
+        var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
+     
+
+        result = years+" year(s) "+months+" month(s) "+days+" and day(s)";
+
+        if(result == 'NaN year(s) NaN month(s) NaN and day(s)'){
+            $('#los').val(''); 
+        } else {
+            $('#los').val(result); 
+        }
+
+        
+    }
+
     $(function() {
-        $('#doa').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        });
-        $('#dor').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        });
+        // $('#doa').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // });
+        // $('#dor').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // });
         $('#dept_letter_no_date').datetimepicker({
             useCurrent: false,
             format: "DD-MM-YYYY",
@@ -592,17 +611,17 @@
  
         $('#tbl_emp_info_id').change(function(){
             
-
+            var base_url = "<?php echo base_url(); ?>";
             var tbl_emp_info_id = $(this).val();
             //alert( tbl_emp_info_id  ); 
               
             $.ajax({
-                url:'<?=base_url()?>index.php/Emp_info/getEmpData/',
+                url: base_url +'emp_info/getEmpData/', 
                 method: 'post',
                 data: { emp_id: tbl_emp_info_id},
                 dataType: 'json',
                 success: function(response){
-                    console.log(JSON.stringify(response));
+                    alert(JSON.stringify(response));
                      
                     var len = response.id;
                       

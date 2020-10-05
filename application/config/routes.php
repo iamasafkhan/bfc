@@ -30,21 +30,27 @@ $route['add_emp_info'] = 'emp_info/add_emp_info';
 // $route['edit_emp_info'] = 'emp_info/edit_emp_info';
 $route['view_scholarship_grants'] = 'scholarship/view_scholarship_grants/';
 $route['add_scholarship_grant'] = 'scholarship/add_scholarship_grant/';
+$route['add_scholarship_grant/(:any)'] = 'scholarship/add_scholarship_grant/$1';
 
 $route['view_retirement_grants'] = 'retirement/view_retirement_grants/';
 $route['add_retirement_grant'] = 'retirement/add_retirement_grant/';
+$route['add_retirement_grant/(:any)'] = 'retirement/add_retirement_grant/$1';
 
 $route['view_funeral_grants'] = 'funeral/view_funeral_grants/';
 $route['add_funeral_grant'] = 'funeral/add_funeral_grant/';
+$route['add_funeral_grant/(:any)'] = 'funeral/add_funeral_grant/$1';
 
 $route['view_monthly_grants'] = 'monthly_grant/view_monthly_grants/';
 $route['add_monthly_grant'] = 'monthly_grant/add_monthly_grant/';
+$route['add_monthly_grant/(:any)'] = 'monthly_grant/add_monthly_grant/$1';
 
 $route['view_lumpsum_grants'] = 'lumpsum/view_lumpsum_grants/';
 $route['add_lumpsum_grant'] = 'lumpsum/add_lumpsum_grant/';
+$route['add_lumpsum_grant/(:any)'] = 'lumpsum/add_lumpsum_grant/$1';
 
 $route['view_interest_free_loan_grants'] = 'interest_free_loan/view_interestfreeloan_grants/';
 $route['add_interest_free_loan_grant'] = 'interest_free_loan/add_interestfreeloan_grant/';
+$route['add_interest_free_loan_grant/(:any)'] = 'interest_free_loan/add_interestfreeloan_grant/$1';
 
 $route['setting'] = 'common/setting';
 

@@ -13,7 +13,7 @@ class Monthly_grant extends MY_Controller {
 		// 	redirect('admin', 'refresh');
 		// }
 	}
-	public function add_monthly_grant() {
+	public function add_monthly_grant($id=null) {
         
         //echo '<pre>'; print_r($_POST); exit(); 
 
@@ -25,6 +25,10 @@ class Monthly_grant extends MY_Controller {
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
         $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
 
+        if($id!=''){
+            $data['emp_info'] = $this->emp_info_model->getRecordById($id);
+        }
+        
 		if ($this->input->post('submit')) {
             
             $this->form_validation->set_rules('tbl_emp_info_id', ucwords(str_replace('_', ' ', 'tbl_emp_info_id')), 'required|xss_clean|trim');

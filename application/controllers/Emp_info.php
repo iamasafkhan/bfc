@@ -137,6 +137,67 @@ class Emp_info extends MY_Controller {
 		$data = $this->emp_info_model->getRecordById($id);
 		echo json_encode($data);
     }
+
+    public function getGrants($id){
+       $table = '';
+
+       $table .= '<p>Click on the grant you want to continue with!</p>
+       <input type="text" name="empID" id="empID" value="">
+       <div class="row">
+           <div class="col-md-4 col-sm-6">
+               <div class="text-center">
+                   <a href="'.base_url('add_scholarship_grant/'.$id).'">
+                       <img src="'.base_url('assets/site/').'images/scholarship-grants.jpg" alt="">
+                       <p>Scholarship Grants</p>
+                   </a>
+               </div>
+           </div>
+           <div class="col-md-4 col-sm-6">
+               <div class="text-center">
+                   <a href="'.base_url('add_retirement_grant/'.$id).'">
+                       <img src="'.base_url('assets/site/').'images/retirement-grants.jpg" alt="">
+                       <p>Retirement Grants</p>
+                   </a>
+               </div>
+           </div>
+           <div class="col-md-4 col-sm-6">
+               <div class="text-center">
+                   <a href="'.base_url('add_lumpsum_grant/'.$id).'">
+                       <img src="'.base_url('assets/site/').'images/lumpsum-grants.jpg" alt="">
+                       <p>Lump Sum Grants</p>
+                   </a>
+               </div>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-md-4 col-sm-6">
+               <div class="text-center">
+                   <a href="'.base_url('add_funeral_grant/'.$id).'">
+                       <img src="'.base_url('assets/site/').'images/funeral-grants.jpg" alt="">
+                       <p>Funeral Grants</p>
+                   </a>
+               </div>
+           </div>
+           <div class="col-md-4 col-sm-6">
+               <div class="text-center">
+                   <a href="'.base_url('add_monthly_grant/'.$id).'">
+                       <img src="'.base_url('assets/site/').'images/monthly-grants.jpg" alt="">
+                       <p>Monthly Grants</p>
+                   </a>
+               </div>
+           </div>
+           <div class="col-md-4 col-sm-6">
+               <div class="text-center">
+                   <a href="'.base_url('add_interest_free_loan_grant/'.$id).'">
+                       <img src="'.base_url('assets/site/').'images/interest-free-loan-grants.jpg" alt="">
+                       <p>Interest Free Loan Grants</p>
+                   </a>
+               </div>
+           </div>
+       </div>';
+
+       echo $table;
+    }
     
     public function getEmpData(){
         $emp_id = $this->input->post('emp_id');
@@ -187,11 +248,11 @@ class Emp_info extends MY_Controller {
 			'<a href="' . site_url('emp_info/edit_emp_info/' . $emp_infoInfo->id) . '">
                       <button type="button" class="btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
                       </a>' . 
-                      '<a href="#" data-toggle="modal" data-target="#grantsModal" class="btn btn-xs btn-info">Grants</a>' .
+            '<a href="javascript:" onclick="getGrants(' . "'" . $emp_infoInfo->id . "'" . ')" class="grantPopUp btn btn-xs btn-info">Grants</a>' .
 				$status;
 			$data[] = array($i, $emp_infoInfo->grantee_name, $emp_infoInfo->contact_no, $emp_infoInfo->cnic_no, $emp_infoInfo->personnel_no, $dob, $add_by_date, $actionBtn);
 		}
-
+        //data-toggle="modal" data-id="'.$emp_infoInfo->id.'" data-target="#grantsModal"
 		$output = array(
 			"draw" => $_POST['draw'],
 			"recordsTotal" => $this->emp_info_model->countAll(),

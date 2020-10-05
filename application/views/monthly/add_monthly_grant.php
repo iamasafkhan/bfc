@@ -36,7 +36,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'employee')); ?>:</label>
                                     <div class="input-group">
@@ -47,10 +47,24 @@
                                         <select name="tbl_emp_info_id" id="tbl_emp_info_id" class="form-control select2 validate[required]">
                                             <option value="">Select Employee</option> 
                                             <?php foreach ($employees as $employeeInfo) : ?>
-                                                <option value="<?php echo $employeeInfo['id']; ?>"><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
+                                                <option value="<?php echo $employeeInfo['id']; ?>" <?php if($emp_info->id == $employeeInfo['id']) { echo 'selected'; } ?>><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div><?php echo form_error('tbl_emp_info_id'); ?>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Pay_Scale')); ?>:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                         
+                                        <input type="text" name="pay_scale" id="pay_scale" value="<?php echo $emp_info->pay_scale;?>" class="form-control" readonly>
+                                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="<?php echo $emp_info->pay_scale_id;?>">
+
+                                    </div><?php echo form_error('pay_scale'); ?>
                                 </div>
                             </div> 
                         </div>
@@ -84,7 +98,7 @@
                         <div class="row"> 
                             <div class="col-md-6"> 
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'doa')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Date of appointment')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
@@ -96,7 +110,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'dor')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'date of retirement')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
@@ -111,7 +125,7 @@
                         <div class="row"> 
                             <div class="col-md-6"> 
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'los')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Length of Service')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-file"></i>
@@ -591,5 +605,77 @@
             showTodayButton: true,
             ignoreReadonly: true
         });
+
+        $('#tbl_emp_info_id').on('change', function() {
+            var base_url = "<?php echo base_url(); ?>";
+            var tbl_emp_info_id = $('#tbl_emp_info_id').val(); 
+            if(tbl_emp_info_id) {
+                $.ajax({
+                    url: base_url +'emp_info/getData/'+tbl_emp_info_id, 
+                    type: "post",
+                    dataType: "json",
+                    success:function(data) {  
+                        $('#pay_scale_id').val(data.pay_scale_id);
+                        $('#pay_scale').val(data.pay_scale);  
+                    }
+                });
+            }else{
+                $('#pay_scale_id').val('');
+                $('#pay_scale').val('');  
+            }
+        });
+
+
+        $('#dor').on('change', function() {
+        
+            //alert('i m here');
+            
+            var base_url = "<?php echo base_url(); ?>";
+            dateOfRetirement = $('#dor').val(); 
+            empScale = $('#pay_scale_id').val(); 
+            emp_id = $('#tbl_emp_info_id').val(); 
+            //alert(empScale);
+            //alert(dateOfRetirement+' = '+empScale);
+            var formData = { dor: dateOfRetirement, empScaleID: empScale };
+            //alert(JSON.stringify(formData)); 
+            //return false;
+
+            if(emp_id == '' || empScale == ''){
+                alert('Please select employee to continue');
+                $('#dor').val('');  
+                return false;
+            } else if(empScale > 15) {
+                alert('You are not elligible for the funeral grant.');
+                return false;
+            }
+            else if(dateOfRetirement){
+                
+                $.ajax({
+                    //+dateOfRetirement
+                    url: base_url +'funeral/getAmountData/',  
+                    type: "post",
+                    data : formData,
+                    dataType: "json",
+                    success:function(response) {  
+                        if(response.status == 'success')
+                        { 
+                            $('#grant_amount').val(response.data.amount);
+                            $('#deduction').val(0);
+                            $('#net_amount').val(response.data.amount); 
+                        } else {
+                            alert(JSON.stringify(response));  
+                        }
+                        
+                    }
+                });
+
+            } else {
+                $('#grant_amount').empty();
+                $('#deduction').empty(0);
+                $('#net_amount').empty();
+            }
+        });
+
+
     });
 </script>

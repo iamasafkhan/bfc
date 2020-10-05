@@ -13,7 +13,7 @@ class Interest_free_loan extends MY_Controller {
 		// 	redirect('admin', 'refresh');
 		// }
 	}
-	public function add_interestfreeloan_grant() {
+	public function add_interestfreeloan_grant($id=null) {
 
         //echo 'i m here'; exit();
          
@@ -27,7 +27,9 @@ class Interest_free_loan extends MY_Controller {
         $data['districts'] = $this->common_model->getAllRecordByArray('tbl_district', array('status' => '1'));
         $data['payscales'] = $this->common_model->getAllRecordByArray('tbl_pay_scale', array('status' => '1'));
         $data['posts'] = $this->common_model->getAllRecordByArray('tbl_post', array('status' => '1'));
-
+        if($id!=''){
+            $data['emp_info'] = $this->emp_info_model->getRecordById($id);
+        }
 
 		if ($this->input->post('submit')) {
 
@@ -72,16 +74,16 @@ class Interest_free_loan extends MY_Controller {
             $this->form_validation->set_rules('sent_to_secretary', ucwords(str_replace('_', ' ', 'sent_to_secretary')), 'required|xss_clean|trim');
             $this->form_validation->set_rules('approve_secretary', ucwords(str_replace('_', ' ', 'approve_secretary')), 'required|xss_clean|trim');
 
-            $this->form_validation->set_rules('ac_edit', ucwords(str_replace('_', ' ', 'ac_edit')), 'required|xss_clean|trim');
-            $this->form_validation->set_rules('sent_to_bank', ucwords(str_replace('_', ' ', 'sent_to_bank')), 'required|xss_clean|trim');
-            $this->form_validation->set_rules('feedback_website', ucwords(str_replace('_', ' ', 'feedback_website')), 'required|xss_clean|trim'); 
+            // $this->form_validation->set_rules('ac_edit', ucwords(str_replace('_', ' ', 'ac_edit')), 'required|xss_clean|trim');
+            // $this->form_validation->set_rules('sent_to_bank', ucwords(str_replace('_', ' ', 'sent_to_bank')), 'required|xss_clean|trim');
+            // $this->form_validation->set_rules('feedback_website', ucwords(str_replace('_', ' ', 'feedback_website')), 'required|xss_clean|trim'); 
 
   
 
 			$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
 			if ($this->form_validation->run() === FALSE) {
 				$this->load->view('templates/header', $data);
-				$this->load->view('scholarships/add_scholarship_grant', $data);
+				$this->load->view('scholarships/add_interestfreeloan_grant', $data);
 				$this->load->view('templates/footer');
 			} else {
                 //echo 'i m here'; exit;
@@ -89,7 +91,7 @@ class Interest_free_loan extends MY_Controller {
 				$this->scholarship_model->add_scholarship_grant();
 				// set session message
 				$this->session->set_flashdata('add', '!');
-				redirect(base_url('view_scholarship_grants'));
+				redirect(base_url('view_interestfreeloan_grants'));
 			}
 		} else {
 			$this->load->view('templates/header', $data);

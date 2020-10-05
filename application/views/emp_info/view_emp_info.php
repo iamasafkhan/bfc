@@ -170,61 +170,8 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Grants List</h4>
       </div>
-      <div class="modal-body">
-        <p>Click on the grant you want to continue with!</p>
-
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
-                <div class="text-center">
-                    <a href="<?php echo base_url('add_scholarship_grant'); ?>">
-                        <img src="<?php echo base_url('assets/site/'); ?>images/monthly-grants.jpg" alt="">
-                        <p>Monthly Grants</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="text-center">
-                    <a href="<?php echo base_url('add_retirement_grant'); ?>">
-                        <img src="<?php echo base_url('assets/site/'); ?>images/retirement-grants.jpg" alt="">
-                        <p>Retirement Grants</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="text-center">
-                    <a href="<?php echo base_url('add_lumpsum_grant'); ?>">
-                        <img src="<?php echo base_url('assets/site/'); ?>images/lumpsum-grants.jpg" alt="">
-                        <p>Lump Sum Grants</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
-                <div class="text-center">
-                    <a href="<?php echo base_url('add_funeral_grant'); ?>">
-                        <img src="<?php echo base_url('assets/site/'); ?>images/funeral-grants.jpg" alt="">
-                        <p>Funeral Grants</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="text-center">
-                    <a href="<?php echo base_url('add_scholarship_grant'); ?>">
-                        <img src="<?php echo base_url('assets/site/'); ?>images/scholarship-grants.jpg" alt="">
-                        <p>Scholarship Grants</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="text-center">
-                    <a href="<?php echo base_url('add_interest_free_loan_grant'); ?>">
-                        <img src="<?php echo base_url('assets/site/'); ?>images/interest-free-loan-grants.jpg" alt="">
-                        <p>Interest Free Loan Grants</p>
-                    </a>
-                </div>
-            </div>
-        </div>
+      <div class="modal-body grantsBody">
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -240,9 +187,17 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
 </script>
 
 <script type="text/javascript">
+
+
     var save_method; //for save method string
     var sspDataTable;
     $(document).ready(function() {
+        // $(".grantsPopUp").click(function() { //alert('i m here')
+        //     var empID = $(this).data('id');
+        //     $(".grantsBody #empID").val(empID);
+        // });
+
+
         sspDataTable = $('#ssp_datatable').DataTable({
             // Processing indicator
             "processing": true,
@@ -325,4 +280,24 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
 
         });
     }
+
+    function getGrants(id) {
+        //alert(id);
+        //Ajax Load data from ajax
+        $.ajax({
+            url: "<?php echo site_url('emp_info/getGrants/') ?>/" + id,
+            type: "post",
+             
+            success: function(data) {
+                //alert(data);
+                $('.grantsBody').html(data);
+                $('#grantsModal').modal('show'); 
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Error get data from database');
+            }
+
+        });
+        }
+
 </script>

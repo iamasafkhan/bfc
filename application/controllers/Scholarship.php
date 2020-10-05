@@ -13,7 +13,7 @@ class Scholarship extends MY_Controller {
 		// 	redirect('admin', 'refresh');
 		// }
 	}
-	public function add_scholarship_grant() {
+	public function add_scholarship_grant($id = null) {
          
 		$data['page_title'] = 'Add New Scholarship Grant';
 		$data['description'] = '...';
@@ -23,6 +23,9 @@ class Scholarship extends MY_Controller {
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
         $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
         $data['scholarship_classes'] = $this->common_model->getAllRecordByArray('tbl_scholarship_classes', array('status' => '1'));
+        if($id!=''){
+            $data['emp_info'] = $this->emp_info_model->getRecordById($id);
+        }
 
 		if ($this->input->post('submit')) {
 

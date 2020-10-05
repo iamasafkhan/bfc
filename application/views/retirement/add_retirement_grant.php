@@ -23,6 +23,7 @@
 
 
             <div class="col-md-12">
+                <? //echo '<pre>'; print_r($emp_info); exit(); ?>
  
                 <div class="box box-info">
                     <div class="box-header with-border">
@@ -47,7 +48,7 @@
                                         <select name="tbl_emp_info_id" id="tbl_emp_info_id" class="form-control select2 validate[required]">
                                             <option value="">Select Employee</option> 
                                             <?php foreach ($employees as $employeeInfo) : ?>
-                                                <option value="<?php echo $employeeInfo['id']; ?>"><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
+                                                <option value="<?php echo $employeeInfo['id']; ?>" <?php if($emp_info->id == $employeeInfo['id']) { echo 'selected'; } ?>><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                          
@@ -61,8 +62,8 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" name="pay_scale" id="pay_scale" value="" class="form-control" readonly>
-                                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="">
+                                        <input type="text" name="pay_scale" id="pay_scale" value="<?php echo $emp_info->pay_scale;?>" class="form-control" readonly>
+                                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="<?php echo $emp_info->pay_scale_id;?>">
                                     </div><?php echo form_error('pay_scale'); ?>
                                 </div>
                             </div> 
