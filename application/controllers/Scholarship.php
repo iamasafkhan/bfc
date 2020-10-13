@@ -112,8 +112,7 @@ class Scholarship extends MY_Controller {
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
         $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
         $data['scholarship_classes'] = $this->common_model->getAllRecordByArray('tbl_scholarship_classes', array('status' => '1'));
-         
-        
+          
         
         $data['emp_info'] = $this->emp_info_model->getRecordById($data['all']['tbl_emp_info_id']);
         //print_r($data['emp_info']); exit(); 
@@ -121,19 +120,12 @@ class Scholarship extends MY_Controller {
 		if ($this->input->post('submit')) {
 
 			$this->form_validation->set_rules('tbl_department_id', ucwords(str_replace('_', ' ', 'tbl_department_id')), 'required|xss_clean|trim');
-
-			$this->form_validation->set_rules('duty_place', ucwords(str_replace('_', ' ', 'duty_place')), 'required|xss_clean|trim');
-
+            $this->form_validation->set_rules('duty_place', ucwords(str_replace('_', ' ', 'duty_place')), 'required|xss_clean|trim');
 			$this->form_validation->set_rules('std_name', ucwords(str_replace('_', ' ', 'std_name')), 'required|xss_clean|trim|min_length[3]|max_length[20]');
-
             $this->form_validation->set_rules('class_pass', ucwords(str_replace('_', ' ', 'class_pass')), 'required|xss_clean|trim');
-
             $this->form_validation->set_rules('exam_pass', ucwords(str_replace('_', ' ', 'exam_pass')), 'required|xss_clean|trim');
-            
             $this->form_validation->set_rules('result_date', ucwords(str_replace('_', ' ', 'result_date')), 'required|xss_clean|trim|min_length[3]|max_length[12]|alpha_dash', array('alpha_dash' => 'The %s field may only contain Date characters.'));
-
             $this->form_validation->set_rules('mo', ucwords(str_replace('_', ' ', 'mo')), 'required|xss_clean|trim');
-
             $this->form_validation->set_rules('tm', ucwords(str_replace('_', ' ', 'tm')), 'required|xss_clean|trim');
             $this->form_validation->set_rules('percentage', ucwords(str_replace('_', ' ', 'percentage')), 'required|xss_clean|trim');
             $this->form_validation->set_rules('institute_name', ucwords(str_replace('_', ' ', 'institute_name')), 'required|xss_clean|trim');
@@ -172,11 +164,8 @@ class Scholarship extends MY_Controller {
 				$this->load->view('templates/header', $data);
 				$this->load->view('scholarships/edit_scholarship_grant', $data);
 				$this->load->view('templates/footer');
-			} else {
-                //echo 'i m here'; exit;
-				// to model
-				$this->scholarship_model->edit_scholarship_grant();
-				// set session message
+			} else { 
+				$this->scholarship_model->edit_scholarship_grant(); 
 				$this->session->set_flashdata('updated', '!');
 				redirect(base_url('view_scholarship_grants'));
 			}

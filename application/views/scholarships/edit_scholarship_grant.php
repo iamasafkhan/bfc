@@ -2,8 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
 
-        <?php $this->load->view('templates/alerts'); ?>
-
+        <?php $this->load->view('templates/alerts'); ?> 
         <h1>
             <?php echo ucwords(str_replace('_', ' ', $page_title)); ?>
             <small><?php echo ucwords(str_replace('_', ' ', $description)); ?></small>
