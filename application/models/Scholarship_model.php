@@ -196,9 +196,9 @@ class Scholarship_model extends CI_Model {
 			 
 
 			if ($this->input->post('status') == '1') {$status = 'Active';} else { $status = 'Inactive';}
-			$getPost = $this->common_model->getRecordById($this->input->post('tbl_post_id'), $tbl_name = 'tbl_post');
+			//$getPost = $this->common_model->getRecordById($this->input->post('tbl_post_id'), $tbl_name = 'tbl_post');
 			$getDept = $this->common_model->getRecordById($this->input->post('tbl_department_id'), $tbl_name = 'tbl_department');
-			$getDistrict = $this->common_model->getRecordById($this->input->post('tbl_district_id'), $tbl_name = 'tbl_district');
+			//$getDistrict = $this->common_model->getRecordById($this->input->post('tbl_district_id'), $tbl_name = 'tbl_district');
 
 			$this->logger
 				->record_add_by($_SESSION['admin_id']) //Set UserID, who created this  Action
