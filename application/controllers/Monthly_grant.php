@@ -12,7 +12,14 @@ class Monthly_grant extends MY_Controller {
 		// 	$this->session->sess_destroy();
 		// 	redirect('admin', 'refresh');
 		// }
-	}
+    }
+    
+    public function getAmountData() {  
+        //$dateOfRetirement = base64_encode($date);
+		$data = $this->monthly_model->getAmountData();
+		echo json_encode($data);
+    }
+
 	public function add_monthly_grant($id=null) {
         
         //echo '<pre>'; print_r($_POST); exit(); 

@@ -104,7 +104,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required,minSize[3]]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required,minSize[3]]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('doa'); ?>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required,minSize[3]]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required,minSize[3]]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dor'); ?>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('los'); ?>" name="los" id="los" class="form-control validate[required,minSize[3]]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('los'); ?>" name="los" id="los" class="form-control validate[required,minSize[3]]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('los'); ?>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('from_month'); ?>" name="from_month" id="from_month" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" autocomplete="off" value="<?php echo set_value('from_month'); ?>" name="from_month" id="from_month" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('from_month'); ?>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                             <i class="fa fa-calculator"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('to_month'); ?>" name="to_month" id="to_month" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" autocomplete="off" value="<?php echo set_value('to_month'); ?>" name="to_month" id="to_month" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('to_month'); ?>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                                             <i class="fa fa-calculator"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('total_month'); ?>" name="total_month" id="total_month" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('total_month'); ?>" name="total_month" id="total_month" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('total_month'); ?>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@
                                             <i class="fa fa-calculator"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('grant_amount'); ?>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                                             <i class="fa fa-building"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('net_amount'); ?>
                                 </div>
                             </div>
@@ -246,7 +246,7 @@
                         <div class="row">
                             <div class="col-md-6">  
                                 <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'tbl_case_status_id')); ?>:</label>
+                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'case_status')); ?>:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-eye"></i>
@@ -495,62 +495,11 @@
                                     <?php echo form_error('boards_approval'); ?>
                                 </div>
                             </div>  
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'ac_edit')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="ac_edit" id="ac_edit" value="0"> No
-                                    <input type="radio" class="validate[required]" name="ac_edit" id="ac_edit" value="1"> Yes
-                                    <?php echo form_error('ac_edit'); ?>
-                                </div>
-                            </div>
+                             
                             
                         </div>
                         
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_secretary" id="sent_to_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_secretary" id="sent_to_secretary" value="1"> Yes
-                                    <?php echo form_error('sent_to_secretary'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'approve_secretary')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="approve_secretary" id="approve_secretary" value="0"> No
-                                    <input type="radio" class="validate[required]" name="approve_secretary" id="approve_secretary" value="1"> Yes
-                                    <?php echo form_error('approve_secretary'); ?>
-                                </div>
-                            </div>   
-                        </div>
-
-                        <div class="row">
-                            
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'sent_to_bank')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="sent_to_bank" id="sent_to_bank" value="0"> No
-                                    <input type="radio" class="validate[required]" name="sent_to_bank" id="sent_to_bank" value="1"> Yes
-                                    <?php echo form_error('sent_to_bank'); ?>
-                                </div>
-                            </div>  
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'feedback_website')); ?>:</label>
-                                    
-                                    <textarea  autocomplete="off" name="feedback_website" id="feedback_website" class="form-control" placeholder="Enter <?php echo $label; ?>"><?php echo set_value('feedback_website'); ?></textarea>
-                                    <?php echo form_error('feedback_website'); ?>
-                                </div>
-                            </div> 
-                        </div>
+                         
  
   
                         <!-- /.row -->
@@ -587,18 +536,18 @@
 <script type="text/javascript">
      
     $(function() {
-        $('#doa').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        }); 
-        $('#dor').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        }); 
+        // $('#doa').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // }); 
+        // $('#dor').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // }); 
         $('#dept_letter_no_date').datetimepicker({
             useCurrent: false,
             format: "DD-MM-YYYY",
@@ -652,7 +601,7 @@
                 
                 $.ajax({
                     //+dateOfRetirement
-                    url: base_url +'funeral/getAmountData/',  
+                    url: base_url +'monthly/getAmountData/',  
                     type: "post",
                     data : formData,
                     dataType: "json",

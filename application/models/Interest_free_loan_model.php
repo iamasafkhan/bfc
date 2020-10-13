@@ -14,52 +14,117 @@ class Interest_free_loan_model extends CI_Model {
 		//////// ajax and ssp////////
 	}
 
-	
+	public function getAmountData() {
+        
+        $dateOfAppointment = $this->input->post('doa');
+        $dateOfRetirement = $this->input->post('dor');
+        $empScaleID = $this->input->post('empScaleID');
+        $loanTypeID = $this->input->post('loanTypeID');
+        $empID = $this->input->post('empID');
+        $todayDate  =   date('Y-m-d');
+      
+        $minYears = $this->getdiffbtwdates($dateOfAppointment, $todayDate);
+        $remainingYears = $this->getdiffbtwdates($todayDate, $dateOfRetirement);
+
+        //return $calDates;
+        //return array('doa'=>$dateOfAppointment, 'dor'=>$dateOfRetirement, 'empScaleID'=>$empScaleID, 'loanTypeID'=>$loanTypeID, 'empID'=>$empID );
+        //$dateOfRetirement = base64_decode($date);
+        //'status' => 'success' 
+        
+        $this->db->select('*');
+        $this->db->from('tbl_interestfreeloan_payments');    
+        $this->db->where( $empScaleID .' BETWEEN tbl_pay_scale_id AND tbl_pay_scale_id_to'); 
+        $this->db->where('tbl_loan_types_id', $loanTypeID);
+        $this->db->where('tbl_grants_id', "5");
+        $this->db->where('status', "1"); 
+        $query = $this->db->get(); 
+        $row = $query->row(); 
+
+        $tblMinYears = $row->min_service;
+        $tblRemainingYears = $row->remaining_service;
+
+        // $response = array(  'status'=>'fail', 'minYears'=> $minYears['years'], 
+        //                     'remainingYears'=> $remainingYears['years'],
+        //                     'tblMinYears'=>$tblMinYears, 'tblRemainingYears'=>$tblRemainingYears,
+        //                     'dateOfAppointment'=>$dateOfAppointment, 'dateOfRetirement'=>$dateOfRetirement,
+        //                     'empID'=>$empID);
+
+        if(count($row) > 0){ 
+            if( $minYears['years'] < $tblMinYears){
+                $response = array('status'=>'fail', 'data'=> "You don't have minimum years of service, ".$tblMinYears. " is a must.");
+            } else if($remainingYears['years'] <  $tblRemainingYears){
+                $response = array('status'=>'fail', 'data'=> "You don't have minimum years of service to get retired, ".$tblRemainingYears. " is a must.");
+            } else {
+                $response = array('status'=>'success', 'data'=>$row);
+            } 
+        } else {
+            $response = array('status'=>'fail', 'data'=> 'You are not eligible for the loan.');
+        }
+        
+
+        return $response;
+
+
+
+ 
+    }
+
+
+    public function getdiffbtwdates($date1, $date2){
+         
+        $diff = abs(strtotime($date2) - strtotime($date1));
+
+        $years = floor($diff / (365*60*60*24));
+        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+        $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+        return array('years'=>$years, 'months'=>$months, 'days'=>$days);
+        //printf("%d years, %d months, %d days\n", $years, $months, $days);
+    }
 
 	public function add_interestfreeloan_grant() {
 
-        echo 'in model'; 
-        echo '<pre>'; print_r($_POST);
-        exit();
-		$result_date = date('Y-m-d', strtotime($this->input->post('result_date')));
- 
+        //echo 'in model'; 
+        //echo '<pre>'; print_r($_POST);
+        //exit();
+        
+        
 		$data = array( 
-            'parent_dept' => $this->input->post('tbl_department_id'),
-            'duty_place' => $this->input->post('duty_place'),
-            'std_name' => $this->input->post('std_name'),
-            'class_pass' => $this->input->post('class_pass'),
-            'exam_pass' => $this->input->post('exam_pass'),
-            'result_date' => $this->input->post('result_date'),
-            'mo' => $this->input->post('mo'),
-            'tm' => $this->input->post('tm'),
-            'percentage' => $this->input->post('percentage'),
-            'institute_name' => $this->input->post('institute_name'),
-            'institute_add' => $this->input->post('institute_add'),
+            'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
+            //'pay_scale' => $this->input->post('pay_scale'),
+            'pay_scale_id' => $this->input->post('pay_scale_id'),
+            'dao' => $this->input->post('dao'),
+            'ddo_code' => $this->input->post('ddo_code'),
+            'ddo_address' => $this->input->post('ddo_address'),
+            'marital_status' => $this->input->post('marital_status'),
+            'personnel_no' => $this->input->post('personnel_no'),
+            'tbl_loan_type_id' => $this->input->post('tbl_loan_type_id'),
+            'grantee_name' => $this->input->post('grantee_name'),
+            'father_name' => $this->input->post('father_name'),
+            'cnic_no' => $this->input->post('cnic_no'),
+            'office_address' => $this->input->post('office_address'),
+            'tbl_department_id' => $this->input->post('tbl_department_id'),
+            'tbl_post_id' => $this->input->post('tbl_post_id'),
+            'tbl_district_id' => $this->input->post('tbl_district_id'),
+            'dob' => $this->input->post('dob'),
+            'doa' => $this->input->post('doa'),
+            'dor' => $this->input->post('dor'),
+            'los' => $this->input->post('los'),
             'grant_amount' => $this->input->post('grant_amount'),
             'deduction' => $this->input->post('deduction'),
             'net_amount' => $this->input->post('net_amount'),
-            'tbl_case_status_id' => $this->input->post('tbl_case_status_id'),
-            'tbl_payment_mode_id' => $this->input->post('tbl_payment_mode_id'),
-            'tbl_list_bank_branches_id' => $this->input->post('tbl_list_bank_branches_id'),
+            'present_add' => $this->input->post('present_add'),
+            'permanent_add' => $this->input->post('permanent_add'),
+            'duty_place' => $this->input->post('duty_place'),
+            'contact_no' => $this->input->post('contact_no'),
+            'applicant_sign' => $this->input->post('applicant_sign'),
+            'tbl_bank_branch_id' => $this->input->post('tbl_list_bank_branches_id'),
             'account_no' => $this->input->post('account_no'),
-            'std_signature' => $this->input->post('std_signature'),
-            'gov_servent_sign' => $this->input->post('gov_servent_sign'),
-            'seal_institute' => $this->input->post('seal_institute'),
-            'head_institute' => $this->input->post('head_institute'),
-            'office_seal_hod' => $this->input->post('office_seal_hod'),
-            'hod_sign' => $this->input->post('hod_sign'),
+            'tbl_case_status' => $this->input->post('tbl_case_status_id'),
+            'hod_attached' => $this->input->post('hod_attached'),
+            'dc_admin' => $this->input->post('dc_admin'),
             'bank_verification' => $this->input->post('bank_verification'),
-            'payroll_lpc_attach' => $this->input->post('payroll_lpc_attach'),
-            'dmc_attach' => $this->input->post('dmc_attach'),
-            'cnic_attach' => $this->input->post('cnic_attach'),
-            'grade_attach' => $this->input->post('grade_attach'),
-            'boards_approval' => $this->input->post('boards_approval'),
-            'sent_to_secretary' => $this->input->post('sent_to_secretary'),
-            'approve_secretary' => $this->input->post('approve_secretary'),
-            'ac_edit' => $this->input->post('ac_edit'),
-            'sent_to_bank' => $this->input->post('sent_to_bank'),
-            'feedback_website' => $this->input->post('feedback_website'), 
-            'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'), 
+            'boards_approval' => $this->input->post('boards_approval'),  
 			'record_add_by' => $_SESSION['admin_id'],
 			'record_add_date' => date('Y-m-d H:i:s'),
 		);
@@ -68,7 +133,8 @@ class Interest_free_loan_model extends CI_Model {
 		//insertion in db
 		$this->db->insert($this->table, $data); 
         //$error = $this->db->error(); 
-        //echo '<br>error = ' . $error;
+        //echo '<br>error = ' . print_r($error);
+        //exit();
         $last_insert_id = $this->db->insert_id();
         //echo '<br>insertID = '. $last_insert_id; exit;
         
@@ -82,56 +148,56 @@ class Interest_free_loan_model extends CI_Model {
 				->action_type('add') //action type identify Action like add or update
 				->detail(
 					'<tr>' .
-					'<td><strong>' . 'Department' . '</strong></td><td>' . $getDept['name'] . '</td>' .
-					'<td><strong>' . 'Duty place' . '</strong></td><td>' . $this->input->post('duty_place') . '</td>' .
-					'<td><strong>' . 'std name' . '</strong></td><td>' . $this->input->post('std_name') . '</td>' .
+					'<td><strong>' . 'tbl_emp_info_id' . '</strong></td><td>' . $this->input->post('tbl_emp_info_id') . '</td>' .
+					'<td><strong>' . 'pay_scale' . '</strong></td><td>' . $this->input->post('pay_scale') . '</td>' .
+					'<td><strong>' . 'pay_scale_id' . '</strong></td><td>' . $this->input->post('pay_scale_id') . '</td>' .
 					'</tr>' .
 					'<tr>' .
-					'<td><strong>' . 'Class pass' . '</strong></td><td>' . $this->input->post('class_pass') . '</td>' .
-					'<td><strong>' . 'Exam pass' . '</strong></td><td>' . $this->input->post('exam_pass') . '</td>' .
-					'<td><strong>' . 'Result date' . '</strong></td><td>' . $result_date . '</td>' .
+					'<td><strong>' . 'dao' . '</strong></td><td>' . $this->input->post('class_pass') . '</td>' .
+					'<td><strong>' . 'ddo_code' . '</strong></td><td>' . $this->input->post('ddo_code') . '</td>' .
+					'<td><strong>' . 'ddo_address' . '</strong></td><td>' . $this->input->post('ddo_address') . '</td>' .
 					'</tr>' .
 					'<tr>' .
-					'<td><strong>' . 'Marks Obtained' . '</strong></td><td>' . $this->input->post('mo') . '</td>' .
-					'<td><strong>' . 'Total Marks' . '</strong></td><td>' . $this->input->post('tm') . '</td>' .
-					'<td><strong>' . 'Percentage' . '</strong></td><td>' . $this->input->post('percentage') . '</td>' .
+					'<td><strong>' . 'marital_status' . '</strong></td><td>' . $this->input->post('marital_status') . '</td>' .
+					'<td><strong>' . 'personnel_no' . '</strong></td><td>' . $this->input->post('personnel_no') . '</td>' .
+					'<td><strong>' . 'tbl_loan_type_id' . '</strong></td><td>' . $this->input->post('tbl_loan_type_id') . '</td>' .
 					'</tr>' .
 					'<tr>' .
-					'<td><strong>' . 'Institute name' . '</strong></td><td>' . $this->input->post('institute_name') . '</td>' .
-					'<td><strong>' . 'institute address' . '</strong></td><td>' . $this->input->post('institute_add') . '</td>' .
-					'<td><strong>' . 'grant amount' . '</strong></td><td>' . $this->input->post('grant_amount') . '</td>' .
+					'<td><strong>' . 'grantee_name' . '</strong></td><td>' . $this->input->post('grantee_name') . '</td>' .
+					'<td><strong>' . 'father_name' . '</strong></td><td>' . $this->input->post('father_name') . '</td>' .
+					'<td><strong>' . 'cnic_no' . '</strong></td><td>' . $this->input->post('cnic_no') . '</td>' .
 					'</tr>' .
-                    '<td><strong>' . 'deduction' . '</strong></td><td>' . $this->input->post('deduction') . '</td>' .
-					'<td><strong>' . 'net amount' . '</strong></td><td>' . $this->input->post('net_amount') . '</td>' .
-					'<td><strong>' . 'tbl_case_status_id' . '</strong></td><td>' . $this->input->post('tbl_case_status_id') . '</td>' .
+                    '<td><strong>' . 'office_address' . '</strong></td><td>' . $this->input->post('office_address') . '</td>' .
+					'<td><strong>' . 'tbl_department_id' . '</strong></td><td>' . $getDept['name'] . '</td>' .
+					'<td><strong>' . 'tbl_post_id' . '</strong></td><td>' . $this->input->post('tbl_post_id') . '</td>' .
                     '</tr>' .
-                    '<td><strong>' . 'tbl_payment_mode_id' . '</strong></td><td>' . $this->input->post('tbl_payment_mode_id') . '</td>' .
+                    '<td><strong>' . 'tbl_district_id' . '</strong></td><td>' . $this->input->post('tbl_district_id') . '</td>' .
+					'<td><strong>' . 'dob' . '</strong></td><td>' . $this->input->post('dob') . '</td>' .
+					'<td><strong>' . 'doa' . '</strong></td><td>' . $this->input->post('doa') . '</td>' .
+                    '</tr>' .
+                    '<td><strong>' . 'dor' . '</strong></td><td>' . $this->input->post('dor') . '</td>' .
+					'<td><strong>' . 'los' . '</strong></td><td>' . $this->input->post('los') . '</td>' .
+					'<td><strong>' . 'grant_amount' . '</strong></td><td>' . $this->input->post('grant_amount') . '</td>' .
+                    '</tr>' .
+                    '<td><strong>' . 'deduction' . '</strong></td><td>' . $this->input->post('deduction') . '</td>' .
+					'<td><strong>' . 'net_amount' . '</strong></td><td>' . $this->input->post('net_amount') . '</td>' .
+					'<td><strong>' . 'present_add' . '</strong></td><td>' . $this->input->post('present_add') . '</td>' .
+                    '</tr>' .
+                    '<td><strong>' . 'permanent_add' . '</strong></td><td>' . $this->input->post('permanent_add') . '</td>' .
+					'<td><strong>' . 'duty_place' . '</strong></td><td>' . $this->input->post('duty_place') . '</td>' .
+					'<td><strong>' . 'contact_no' . '</strong></td><td>' . $this->input->post('contact_no') . '</td>' .
+                    '</tr>' .
+                    '<td><strong>' . 'applicant_sign' . '</strong></td><td>' . $this->input->post('applicant_sign') . '</td>' .
 					'<td><strong>' . 'tbl_list_bank_branches_id' . '</strong></td><td>' . $this->input->post('tbl_list_bank_branches_id') . '</td>' .
 					'<td><strong>' . 'account_no' . '</strong></td><td>' . $this->input->post('account_no') . '</td>' .
                     '</tr>' .
-                    '<td><strong>' . 'std_signature' . '</strong></td><td>' . $this->input->post('std_signature') . '</td>' .
-					'<td><strong>' . 'gov_servent_sign' . '</strong></td><td>' . $this->input->post('gov_servent_sign') . '</td>' .
-					'<td><strong>' . 'seal_institute' . '</strong></td><td>' . $this->input->post('seal_institute') . '</td>' .
-                    '</tr>' .
-                    '<td><strong>' . 'head_institute' . '</strong></td><td>' . $this->input->post('head_institute') . '</td>' .
-					'<td><strong>' . 'office_seal_hod' . '</strong></td><td>' . $this->input->post('office_seal_hod') . '</td>' .
-					'<td><strong>' . 'hod_sign' . '</strong></td><td>' . $this->input->post('hod_sign') . '</td>' .
+                    '<td><strong>' . 'tbl_case_status_id' . '</strong></td><td>' . $this->input->post('tbl_case_status_id') . '</td>' .
+					'<td><strong>' . 'hod_attached' . '</strong></td><td>' . $this->input->post('hod_attached') . '</td>' .
+					'<td><strong>' . 'dc_admin' . '</strong></td><td>' . $this->input->post('dc_admin') . '</td>' .
                     '</tr>' .
                     '<td><strong>' . 'bank_verification' . '</strong></td><td>' . $this->input->post('bank_verification') . '</td>' .
-					'<td><strong>' . 'payroll_lpc_attach' . '</strong></td><td>' . $this->input->post('payroll_lpc_attach') . '</td>' .
-					'<td><strong>' . 'dmc_attach' . '</strong></td><td>' . $this->input->post('dmc_attach') . '</td>' .
-                    '</tr>' .
-                    '<td><strong>' . 'cnic_attach' . '</strong></td><td>' . $this->input->post('cnic_attach') . '</td>' .
-					'<td><strong>' . 'grade_attach' . '</strong></td><td>' . $this->input->post('grade_attach') . '</td>' .
 					'<td><strong>' . 'boards_approval' . '</strong></td><td>' . $this->input->post('boards_approval') . '</td>' .
-                    '</tr>' .
-                    '<td><strong>' . 'sent_to_secretary' . '</strong></td><td>' . $this->input->post('sent_to_secretary') . '</td>' .
-					'<td><strong>' . 'approve_secretary' . '</strong></td><td>' . $this->input->post('approve_secretary') . '</td>' .
-					'<td><strong>' . 'ac_edit' . '</strong></td><td>' . $this->input->post('ac_edit') . '</td>' .
-                    '</tr>' .
-                    '<td><strong>' . 'sent_to_bank' . '</strong></td><td>' . $this->input->post('sent_to_bank') . '</td>' .
-					'<td><strong>' . 'feedback_website' . '</strong></td><td>' . $this->input->post('feedback_website') . '</td>' .
-					'<td><strong>' . 'employee ID' . '</strong></td><td>' . $this->input->post('tbl_emp_info_id') . '</td>' .
+					'<td><strong>' . 'submit' . '</strong></td><td>' . $this->input->post('submit') . '</td>' .
                     '</tr>'  
 				) //detail
 				->log(); //Add Database Entry

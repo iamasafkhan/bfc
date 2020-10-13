@@ -76,7 +76,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
             "order": [],
             // Load data from an Ajax source
             "ajax": {
-                "url": "<?php echo base_url('interestfreeloan/get_interestfreeloan_grants/'); ?>",
+                "url": "<?php echo base_url('interest_free_loan/get_interestfreeloan_grants/'); ?>",
                 "type": "POST"
             },
             //Set column definition initialisation properties
