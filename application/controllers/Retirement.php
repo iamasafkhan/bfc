@@ -163,9 +163,9 @@ class Retirement extends MY_Controller {
 			} else {
                 //echo 'i m here'; exit;
 				// to model
-				$this->retirement_model->add_retirement_grant();
+				$this->retirement_model->edit_retirement_grant();
 				// set session message
-				$this->session->set_flashdata('add', '!');
+				$this->session->set_flashdata('updated', '!');
 				redirect(base_url('view_retirement_grants'));
 			}
 		} else {
