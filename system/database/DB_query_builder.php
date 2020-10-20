@@ -1981,7 +1981,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 		}
 
 		$this->where($val[$index]['field'].' IN('.implode(',', $ids).')', NULL, FALSE);
-
+         
 		return 'UPDATE '.$table.' SET '.substr($cases, 0, -2).$this->_compile_wh('qb_where');
 	}
 

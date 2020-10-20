@@ -181,14 +181,19 @@ class Admins extends MY_Controller {
 					$admin_image = $this->input->post('hide_picture');
 				}
 				// first check the current pwd with db pwd ... then change it with new pwd
-				$current_pwd = $this->input->post('current_password');
+				$current_pwd = md5($this->input->post('current_password'));
 				$userDetail = $this->admin->getRecordById($this->input->post('id'), 'tbl_admin');
 				// $db_pwd = $this->encrypt->decode($userDetail['password']);
-				$db_pwd = $userDetail['password'];
+                $db_pwd = $userDetail['password'];
+                
+
+                //echo $current_pwd.'<br>'.$db_pwd; exit;
+                 
+
 				if (!empty($current_pwd)) {
 					if ($current_pwd == $db_pwd) {
 						// $enc_pwd = $this->encrypt->encode($this->input->post('new_password'));
-						$enc_pwd = $this->input->post('new_password');
+						$enc_pwd = md5($this->input->post('new_password'));
 						$this->session->set_flashdata('pwd', '!');
 					} else {
 						$enc_pwd = $userDetail['password'];

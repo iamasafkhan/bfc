@@ -13,7 +13,7 @@
 
     <!-- Main content -->
     <?php echo validation_errors(); ?>
-    <?php echo form_open_multipart('add_interest_free_loan_grant', 'id="formID"'); ?>
+    <?php echo form_open_multipart('interest_free_loan/edit_interest_free_loan_grant/', 'id="formID"'); ?>
 
     <!--      <form id="formID" method="POST" action="" enctype="multipart/form-data"> -->
     <!-- Main content -->
@@ -81,7 +81,7 @@
                                             <i class="fa fa-user"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dao'); ?>" name="dao" id="dao" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['dao']; ?>" name="dao" id="dao" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dao'); ?>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('ddo_code'); ?>" name="ddo_code" id="ddo_code" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['ddo_code']; ?>" name="ddo_code" id="ddo_code" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('ddo_code'); ?>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('ddo_address'); ?>" name="ddo_address" id="ddo_address" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['ddo_address']; ?>" name="ddo_address" id="ddo_address" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('ddo_address'); ?>
                                 </div>
                             </div>
@@ -115,8 +115,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords('marital status'); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="marital_status" id="marital_status" value="married"> Married
-                                    <input type="radio" class="validate[required]" name="marital_status" id="marital_status" value="unmarried"> Unmarried
+                                    <input type="radio" class="validate[required]" <?php if($all['marital_status'] == 'married') { echo 'checked'; } ?> name="marital_status" id="marital_status" value="married"> Married
+                                    <input type="radio" class="validate[required]" <?php if($all['marital_status'] == 'unmarried') { echo 'checked'; } ?> name="marital_status" id="marital_status" value="unmarried"> Unmarried
                                     <?php echo form_error('marital_status'); ?>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                                             <select name="tbl_loan_type_id" id="tbl_loan_type_id" class="form-control">
                                                 <option value="">Select loan type</option> 
                                                 <?php foreach ($loan_types as $loanTypesInfo) : ?>
-                                                    <option value="<?php echo $loanTypesInfo['id']; ?>"><?php echo $loanTypesInfo['title']; ?></option>
+                                                    <option value="<?php echo $loanTypesInfo['id']; ?>" <?php if($all['tbl_loan_type_id'] == $loanTypesInfo['id']) { echo 'selected'; } ?>><?php echo $loanTypesInfo['title']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                     </div><?php echo form_error('tbl_loan_type_id'); ?>
@@ -296,7 +296,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo $all['doa']; ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('doa'); ?>
                                 </div>
                             </div>
@@ -308,7 +308,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo $all['dor']; ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dor'); ?>
                                 </div>
                             </div>
@@ -324,7 +324,7 @@
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('los'); ?>" name="los" id="los" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['los']; ?>" name="los" id="los" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('los'); ?>
                                 </div>
                             </div>
@@ -336,7 +336,7 @@
                                             <i class="fa fa-calculator"></i>
                                         </div>
 
-                                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" readonly autocomplete="off" value="<?php echo $all['grant_amount']; ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('grant_amount'); ?>
                                 </div>
                             </div> 
@@ -350,7 +350,7 @@
                                             <i class="fa fa-money"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('deduction'); ?>" name="deduction" id="deduction" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['deduction']; ?>" name="deduction" id="deduction" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('deduction'); ?>
                                 </div>
                             </div>
@@ -362,7 +362,7 @@
                                             <i class="fa fa-building"></i>
                                         </div>
 
-                                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" readonly autocomplete="off" value="<?php echo $all['net_amount']; ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('net_amount'); ?>
                                 </div>
                             </div>
@@ -376,7 +376,7 @@
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text"  autocomplete="off" value="<?php echo set_value('present_add'); ?>" name="present_add" id="present_add" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text"  autocomplete="off" value="<?php echo $all['present_add']; ?>" name="present_add" id="present_add" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('present_address'); ?>
                                 </div>
                             </div> 
@@ -388,7 +388,7 @@
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('permanent_add'); ?>" name="permanent_add" id="permanent_add" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['permanent_add']; ?>" name="permanent_add" id="permanent_add" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('permanent_address'); ?>
                                 </div>
                             </div> 
@@ -403,7 +403,7 @@
                                             <i class="fa fa-file"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('duty_place'); ?>" name="duty_place" id="duty_place" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['duty_place']; ?>" name="duty_place" id="duty_place" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('duty_place'); ?>
                                 </div>
                             </div> 
@@ -415,7 +415,7 @@
                                             <i class="fa fa-phone"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('contact_no'); ?>" name="contact_no" id="contact_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['contact_no']; ?>" name="contact_no" id="contact_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('contact_no'); ?>
                                 </div>
                             </div> 
@@ -430,7 +430,7 @@
                                             <i class="fa fa-user"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('applicant_sign'); ?>" name="applicant_sign" id="applicant_sign" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['applicant_sign']; ?>" name="applicant_sign" id="applicant_sign" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('applicant_sign'); ?>
                                 </div>
                             </div> 
@@ -444,7 +444,7 @@
                                         <select name="tbl_list_bank_branches_id" id="tbl_list_bank_branches_id" class="form-control select2 validate[required]">
                                             <option value="">Select Bank</option> 
                                             <?php foreach ($banks as $bank) : ?>
-                                                <option value="<?php echo $bank['id']; ?>"><?php echo $bank['name']; ?> (<?php echo $bank['branch_code']; ?>)</option>
+                                                <option value="<?php echo $bank['id']; ?>" <?php if($all['tbl_list_bank_branches_id'] == $bank['id']) { echo 'selected'; }?>><?php echo $bank['name']; ?> (<?php echo $bank['branch_code']; ?>)</option>
                                             <?php endforeach; ?>
                                         </select>
                                         
@@ -462,7 +462,7 @@
                                             <i class="fa fa fa-bank"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('account_no'); ?>" name="account_no" id="account_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo $all['account_no']; ?>" name="account_no" id="account_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('account_no'); ?>
                                 </div>
                             </div>
@@ -478,7 +478,7 @@
                                         <select name="tbl_case_status_id" id="tbl_case_status_id" class="form-control select2 validate[required]">
                                             <option value="">Select Case Status</option> 
                                             <?php foreach ($cases as $case) : ?>
-                                                <option value="<?php echo $case['id']; ?>"><?php echo $case['name']; ?></option>
+                                                <option value="<?php echo $case['id']; ?>" <?php if($all['tbl_case_status'] == $case['id']) { echo 'selected'; } ?>><?php echo $case['name']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
 
@@ -497,8 +497,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'hod_attached')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="hod_attached" id="hod_attached" value="No"> No
-                                    <input type="radio" class="validate[required]" name="hod_attached" id="hod_attached" value="Yes"> Yes
+                                    <input type="radio" class="validate[required]" <?php if($all['hod_attached'] == 'No') { echo 'checked'; } ?> name="hod_attached" id="hod_attached" value="No"> No
+                                    <input type="radio" class="validate[required]" <?php if($all['hod_attached'] == 'Yes') { echo 'checked'; } ?> name="hod_attached" id="hod_attached" value="Yes"> Yes
                                     <?php echo form_error('hod_attached'); ?>
                                 </div>
                             </div>
@@ -506,8 +506,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'dc_admin')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="dc_admin" id="dc_admin" value="No"> No
-                                    <input type="radio" class="validate[required]" name="dc_admin" id="dc_admin" value="Yes"> Yes
+                                    <input type="radio" class="validate[required]" <?php if($all['dc_admin'] == 'No') { echo 'checked'; } ?> name="dc_admin" id="dc_admin" value="No"> No
+                                    <input type="radio" class="validate[required]" <?php if($all['dc_admin'] == 'Yes') { echo 'checked'; } ?> name="dc_admin" id="dc_admin" value="Yes"> Yes
                                     <?php echo form_error('dc_admin'); ?>
                                 </div>
                             </div>
@@ -519,8 +519,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'bank_verification')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="bank_verification" id="bank_verification" value="No"> No
-                                    <input type="radio" class="validate[required]" name="bank_verification" id="bank_verification" value="Yes"> Yes
+                                    <input type="radio" class="validate[required]" <?php if($all['bank_verification'] == 'No') { echo 'checked'; } ?> name="bank_verification" id="bank_verification" value="No"> No
+                                    <input type="radio" class="validate[required]" <?php if($all['bank_verification'] == 'Yes') { echo 'checked'; } ?> name="bank_verification" id="bank_verification" value="Yes"> Yes
                                     <?php echo form_error('bank_verification'); ?>
                                 </div>
                             </div>
@@ -528,8 +528,8 @@
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords(str_replace('_', ' ', 'boards_approval')); ?>:</label>
                                     <br>
-                                    <input type="radio" class="validate[required]" checked name="boards_approval" id="boards_approval" value="0"> No
-                                    <input type="radio" class="validate[required]" name="boards_approval" id="boards_approval" value="1"> Yes
+                                    <input type="radio" class="validate[required]" <?php if($all['boards_approval'] == 'No') { echo 'checked'; } ?> name="boards_approval" id="boards_approval" value="No"> No
+                                    <input type="radio" class="validate[required]" <?php if($all['boards_approval'] == 'Yes') { echo 'checked'; } ?> name="boards_approval" id="boards_approval" value="Yes"> Yes
                                     <?php echo form_error('boards_approval'); ?>
                                 </div>
                             </div>  
@@ -553,7 +553,7 @@
         <div class="row">
             <!-- /.col -->
             <div class="col-xs-6">
-                <button type="submit" value="submit" name="submit" class="btn btn-primary  btn-sm"><i class="fa fa-plus"> </i> Add Record</button>
+                <button type="submit" value="submit" name="submit" class="btn btn-primary  btn-sm"><i class="fa fa-edit"> </i> Edit Record</button>
                 <a href="<?php echo base_url('dashboard'); ?>" class="btn btn-info  btn-sm" type="button"> <i class="fa fa-chevron-left"> </i> Cancel/Back</a>
 
             </div>
@@ -646,7 +646,7 @@
                 data: { emp_id: tbl_emp_info_id},
                 dataType: 'json',
                 success: function(response){
-                    //alert(JSON.stringify(response));
+                    alert(JSON.stringify(response));
                      
                     var len = response.id;
                       
@@ -659,7 +659,6 @@
                         var tbl_department_id = response.tbl_department_id;
                         var tbl_post_id = response.tbl_post_id;
                         var pay_scale = response.pay_scale;
-                        var pay_scale_id = response.pay_scale_id;
                         var tbl_district_id = response.tbl_district_id;
                         var office_address = response.office_address;
                         var other_address = response.other_address;
@@ -756,8 +755,8 @@
                     data : formData,
                     dataType: "json",
                     success:function(response) {  
-                        //alert('response = ' + JSON.stringify(response));
-                        //alert('Status = '+response.status + ' Amount = ' + response.data.amount);
+                        alert('response = ' + JSON.stringify(response));
+                        alert('Status = '+response.status + ' Amount = ' + response.data.amount);
                         if(response.status == 'success')
                         { 
                             $('#grant_amount').val(response.data.amount);

@@ -21,7 +21,7 @@ class Admin_model extends CI_Model {
 			// $dbpwd = $this->encrypt->decode($result['password']);
 			$dbpwd = $result['password'];
 			// echo $dbpwd=$result['password'];
-			$pwd = $data['password'];
+			$pwd = md5($data['password']);
 			//$validPassword = password_verify($pwd,$result['password']);
 			// if($validPassword){
 			if ($pwd == $dbpwd) {
@@ -37,7 +37,7 @@ class Admin_model extends CI_Model {
 
 		$data = array(
 			'username' => $this->input->post('username'),
-			'password' => $enc_pwd,
+			'password' => md5($enc_pwd),
 			'tbl_admin_role_id' => $this->input->post('tbl_admin_role_id'),
 			'tbl_district_id' => $this->input->post('tbl_district_id'),
 			'status' => $this->input->post('status'),
