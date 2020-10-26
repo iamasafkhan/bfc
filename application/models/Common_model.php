@@ -65,7 +65,15 @@ class Common_model extends CI_Model {
     }
     public function getCountAll($tbl_name){
         $counter = $this->db->count_all($tbl_name);
-        return $counter;
+        return $counter; 
+    }
+    public function countAllRecords($tbl_name) {
+        $this->db->select('id');
+        $this->db->from($tbl_name);
+        //$this->db->where($your_conditions);
+        //$this->db->limit($limit);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 	public function getAllRecord($tbl_name) {
 

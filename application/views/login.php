@@ -43,8 +43,28 @@
   background-color: rgba(0,0,0,.5);
   z-index: -1;
   }
+  .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: green;
+    background-color: #e7e7e7;
+}
+.navbar-default .navbar-brand {
+    color: #FFF;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #FFF;
+}
+.navbar-default {
+    background-color: #00a65a;
+    color: #FFFFFF;
+    border: 0px !important;
+    border-radius: 0px !important;
+}
+
   </style>
   <body class="hold-transition login-page login-background" oncontextmenu="return false;">
+
+ <?php $this->load->view('templates/web-nav'); ?>
+
     <div class="login-box" style="background-color: white; opacity: 0.82">
       <div class="login-logo">
         <a href="#"><br>
@@ -119,9 +139,9 @@
   if(event.keyCode == 123) {
   return false;
   }
-  if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-  return false;
-  }
+//   if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+//   return false;
+//   }
   if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
   return false;
   }

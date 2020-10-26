@@ -52,6 +52,8 @@ $route['view_interest_free_loan_grants'] = 'interest_free_loan/view_interestfree
 $route['add_interest_free_loan_grant'] = 'interest_free_loan/add_interestfreeloan_grant/';
 $route['add_interest_free_loan_grant/(:any)'] = 'interest_free_loan/add_interestfreeloan_grant/$1';
 
+$route['apply-for-scholarship-grant'] = 'apply/scholarship_grant/';
+
 $route['setting'] = 'common/setting';
 
 $route['default_controller'] = 'site';

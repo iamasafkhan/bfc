@@ -13,7 +13,18 @@ class Admins extends MY_Controller {
 
 			$data['page_title'] = 'Dashboard';
 			$getAdminRole = $this->common_model->getRecordById($_SESSION['tbl_admin_role_id'], 'tbl_admin_role');
-			$data['description'] = 'Welcome ' . $_SESSION['name'];
+            $data['usres'] = $this->common_model->getCountAll('tbl_emp_info');
+            $data['banks'] = $this->common_model->getCountAll('tbl_list_bank_branches');
+            $data['departments'] = $this->common_model->getCountAll('tbl_department');
+            $data['districts'] = $this->common_model->getCountAll('tbl_district');
+            $data['monthly_grants_applications'] = $this->common_model->getCountAll('tbl_monthly_grant');
+            $data['retirement_grants_applications'] = $this->common_model->getCountAll('tbl_retirement_grant');
+            $data['scholarship_grants_applications'] = $this->common_model->getCountAll('tbl_scholaarship_grant');
+            $data['lumpsum_grants_applications'] = $this->common_model->getCountAll('tbl_lump_sum_grant');
+            $data['interestfreeloan_grants_applications'] = $this->common_model->getCountAll('tbl_interest_free_loan');
+            $data['funeral_grants_applications'] = $this->common_model->getCountAll('tbl_funeral_grant');
+
+            $data['description'] = 'Welcome ' . $_SESSION['name'];
 			$data['rightDescription'] = $getAdminRole['name'];
 			$this->load->view('templates/header', $data);
 			$this->load->view('dashboard');
