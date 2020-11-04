@@ -21,7 +21,7 @@
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url('apply-for-scholarship-grant'); ?>">FOR SCHOLARSHIP GRANT</a></li> 
             <li role="separator" class="divider"></li>
-            <li><a href="#">Something else here</a></li> 
+            <li><a href="#">INTEREST FREE LOAN</a></li> 
           </ul>
         </li>
  

@@ -13,7 +13,10 @@
     <!-- Main content -->
     <section class="content">
 
-
+    <? //echo '<pre>'; print_r($_SESSION); exit; ?>
+    
+    <?php if($_SESSION['admin_id'] == 1) {  ?>
+    
     <div class="row"> 
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
@@ -196,14 +199,8 @@
         
     </div>
 
-
-        
-
-
-        
-
-
-
+    <?php } ?>
+ 
 
     </section>
     <!-- /.content -->

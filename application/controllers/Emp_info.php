@@ -220,9 +220,11 @@ class Emp_info extends MY_Controller {
 	public function get_emp_info() {
 
 		$data = $row = array();
-
+        //echo '<pre>'; print_r($_POST); exit;
 		// Fetch emp info's records
 		$emp_infoData = $this->emp_info_model->getRows($_POST);
+
+        //echo '<pre>'; print_r($emp_infoData); exit;
 
 		$i = $_POST['start'];
 		foreach ($emp_infoData as $emp_infoInfo) {

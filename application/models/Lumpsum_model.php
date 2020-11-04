@@ -415,7 +415,10 @@ class Lumpsum_model extends CI_Model {
 		$this->_get_datatables_query($postData);
 		if ($postData['length'] != -1) {
 			$this->db->limit($postData['length'], $postData['start']);
-		}
+        }
+        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+            $this->db->where('record_add_by', $_SESSION['admin_id']);
+        }
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -424,7 +427,10 @@ class Lumpsum_model extends CI_Model {
 		     * Count all records
 	*/
 	public function countAll() {
-		$this->db->from($this->table);
+        $this->db->from($this->table);
+        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+            $this->db->where('record_add_by', $_SESSION['admin_id']);
+        }
 		return $this->db->count_all_results();
 	}
 
@@ -433,7 +439,10 @@ class Lumpsum_model extends CI_Model {
 		     * @param $_POST filter data based on the posted parameters
 	*/
 	public function countFiltered($postData) {
-		$this->_get_datatables_query($postData);
+        $this->_get_datatables_query($postData);
+        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+            $this->db->where('record_add_by', $_SESSION['admin_id']);
+        }
 		$query = $this->db->get();
 		return $query->num_rows();
 	}

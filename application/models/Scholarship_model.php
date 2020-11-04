@@ -200,6 +200,13 @@ class Scholarship_model extends CI_Model {
 			$getDept = $this->common_model->getRecordById($this->input->post('tbl_department_id'), $tbl_name = 'tbl_department');
 			//$getDistrict = $this->common_model->getRecordById($this->input->post('tbl_district_id'), $tbl_name = 'tbl_district');
 
+            $get_class_pass = $this->common_model->getRecordByColoumn('tbl_scholarship_classes', 'id',  $this->input->post('class_pass'));
+            $class_pass = $get_class_pass['class_name'];
+
+            $get_class_pass = $this->common_model->getRecordByColoumn('tbl_scholarship_classes', 'id',  $this->input->post('class_pass'));
+            $class_pass = $get_class_pass['class_name'];
+            
+
 			$this->logger
 				->record_add_by($_SESSION['admin_id']) //Set UserID, who created this  Action
 				->tbl_name($this->table) //Entry table name
@@ -212,7 +219,7 @@ class Scholarship_model extends CI_Model {
 					'<td><strong>' . 'std name' . '</strong></td><td>' . $this->input->post('std_name') . '</td>' .
 					'</tr>' .
 					'<tr>' .
-					'<td><strong>' . 'Class pass' . '</strong></td><td>' . $this->input->post('class_pass') . '</td>' .
+					'<td><strong>' . 'Class pass' . '</strong></td><td>' . $class_pass . '</td>' .
 					'<td><strong>' . 'Exam pass' . '</strong></td><td>' . $this->input->post('exam_pass') . '</td>' .
 					'<td><strong>' . 'Result date' . '</strong></td><td>' . $this->input->post('result_date') . '</td>' .
 					'</tr>' .
@@ -294,7 +301,10 @@ class Scholarship_model extends CI_Model {
 		$this->_get_datatables_query($postData);
 		if ($postData['length'] != -1) {
 			$this->db->limit($postData['length'], $postData['start']);
-		}
+        }
+        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+            $this->db->where('record_add_by', $_SESSION['admin_id']);
+        }
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -303,7 +313,10 @@ class Scholarship_model extends CI_Model {
 		     * Count all records
 	*/
 	public function countAll() {
-		$this->db->from($this->table);
+        $this->db->from($this->table);
+        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+            $this->db->where('record_add_by', $_SESSION['admin_id']);
+        }
 		return $this->db->count_all_results();
 	}
 
@@ -312,7 +325,10 @@ class Scholarship_model extends CI_Model {
 		     * @param $_POST filter data based on the posted parameters
 	*/
 	public function countFiltered($postData) {
-		$this->_get_datatables_query($postData);
+        $this->_get_datatables_query($postData);
+        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+            $this->db->where('record_add_by', $_SESSION['admin_id']);
+        }
 		$query = $this->db->get();
 		return $query->num_rows();
 	}

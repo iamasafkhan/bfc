@@ -21,7 +21,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
                 <a href="<?php echo base_url(); ?>add_admin" type="button" class="btn btn-block btn-danger btn-sm"><i class="fa fa-trash-o"> all </i></a></h3> -->
 
                 <h3 class="box-title pull-right"> 
-                    <?php if ($_SESSION['tbl_admin_role_id'] == '1') { ?> 
+                    <?php if ($_SESSION['tbl_admin_role_id'] == '1' || $_SESSION['tbl_admin_role_id'] == '6') { ?> 
                         <a href="<?php echo base_url('add_funeral_grant'); ?>" type="button" class="btn btn-block btn-success btn-sm"><i class="fa fa-plus"> New </i></a> 
                     <?php } ?>
                 </h3>

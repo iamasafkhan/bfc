@@ -103,8 +103,8 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-
-                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <!-- onchange="getServiceLength()" -->
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('doa'); ?>
                                 </div>
                             </div>
@@ -115,8 +115,8 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-
-                                        <input type="date" onchange="getServiceLength()" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <!-- onchange="getServiceLength()" -->
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dor'); ?>
                                 </div>
                             </div>
@@ -441,9 +441,7 @@
     //     $('#doa').on('change', function() {
             
     //     });
-    // });
-
-    
+    // }); 
 
 
     function getServiceLength() {
@@ -486,7 +484,7 @@
     // });
 
 
-    $("#dor, #tbl_emp_info_id").on('change', function() {
+    $("#dor, #tbl_emp_info_id").on('focusout', function() {
         var base_url = "<?php echo base_url(); ?>"; 
         
         emp_id = $('#tbl_emp_info_id').val(); 
@@ -508,7 +506,29 @@
             $('#dor').val('');
         }
         else {
+
+            
+            
             if(dateOfRetirement) { 
+                //alert(dateOfRetirement);
+                startDate = new Date($('#doa').val());
+                endDate = new Date($('#dor').val());
+
+                var diff_date =  endDate - startDate;
+                //alert(startDate+' == '+endDate);
+                var years = Math.floor(diff_date/31536000000);
+                var months = Math.floor((diff_date % 31536000000)/2628000000);
+                var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
+            
+
+                result = years+" year(s) "+months+" month(s) "+days+" and day(s)";
+
+                if(result == 'NaN year(s) NaN month(s) NaN and day(s)'){
+                    $('#los').val(''); 
+                } else {
+                    $('#los').val(result); 
+                }
+                
                 $.ajax({
                     //+dateOfRetirement
                     url: base_url +'retirement/getAmountData/',  
@@ -534,6 +554,11 @@
         
     });
 
+
+    // $('#from_date').focusout(function(){
+    //     sspDataTable.draw();
+    // });
+    
     $('#deduction').on('keyup', function() {
         var base_url = "<?php echo base_url(); ?>";
         var deduction = $('#deduction').val(); 
@@ -571,18 +596,18 @@
         }  
     }
     $(function() {
-        // $('#doa').datetimepicker({
-        //     useCurrent: false,
-        //     format: "DD-MM-YYYY",
-        //     showTodayButton: true,
-        //     ignoreReadonly: true
-        // }); 
-        // $('#dor').datetimepicker({
-        //     useCurrent: false,
-        //     format: "DD-MM-YYYY",
-        //     showTodayButton: true,
-        //     ignoreReadonly: true
-        // }); 
+        $('#doa').datetimepicker({
+            useCurrent: false,
+            format: "DD-MM-YYYY",
+            showTodayButton: true,
+            ignoreReadonly: true
+        }); 
+        $('#dor').datetimepicker({
+            useCurrent: false,
+            format: "DD-MM-YYYY",
+            showTodayButton: true,
+            ignoreReadonly: true
+        }); 
         $('#dept_letter_no_date').datetimepicker({
             useCurrent: false,
             format: "DD-MM-YYYY",

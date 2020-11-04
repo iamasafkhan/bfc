@@ -14,14 +14,18 @@ class Scholarship extends MY_Controller {
 		// }
 	}
 	public function add_scholarship_grant($id = null) {
-         
+        
+        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+            $emp_array = array('status'=> '1', 'record_add_by'=> $_SESSION['admin_id']);
+        }
+
 		$data['page_title'] = 'Add New Scholarship Grant';
 		$data['description'] = '...';
 		$data['cases'] = $this->common_model->getAllRecordByArray('tbl_case_status', array('status' => '1'));
 		$data['department'] = $this->common_model->getAllRecordByArray('tbl_department', array('status' => '1'));
         $data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
-        $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
+        $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', $emp_array);
         $data['scholarship_classes'] = $this->common_model->getAllRecordByArray('tbl_scholarship_classes', array('status' => '1'));
         if($id!=''){
             $data['emp_info'] = $this->emp_info_model->getRecordById($id);
@@ -103,6 +107,11 @@ class Scholarship extends MY_Controller {
         
         //echo 'id = '. $id; exit();
 
+        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+            $emp_array = array('status'=> '1', 'record_add_by'=> $_SESSION['admin_id']);
+        }
+
+        
 		$data['page_title'] = 'Edit Scholarship Grant';
         $data['description'] = '...';
         $data['all'] = $this->common_model->getRecordById($id, 'tbl_scholaarship_grant');
@@ -110,7 +119,7 @@ class Scholarship extends MY_Controller {
 		$data['department'] = $this->common_model->getAllRecordByArray('tbl_department', array('status' => '1'));
         $data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
         $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
-        $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
+        $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', $emp_array);
         $data['scholarship_classes'] = $this->common_model->getAllRecordByArray('tbl_scholarship_classes', array('status' => '1'));
           
         
@@ -255,6 +264,9 @@ class Scholarship extends MY_Controller {
             $exam_pass = $scholarshipInfo->exam_pass;
             $result_date = $scholarshipInfo->result_date;
 
+            //$exam_pass = $this->common_model->getAllRecordByArray('tbl_scholarship_classes', array('id' => $scholarshipInfo->exam_pass));
+            $get_class_pass = $this->common_model->getRecordByColoumn('tbl_scholarship_classes', 'id',  $scholarshipInfo->class_pass);
+            $class_pass = $get_class_pass['class_name'];
 			$add_by_date = '<i>Add by <strong>' . $getRole['name'] . '</strong> on <strong>' . $recordAddDate . '</strong></i>';
 
 			$actionBtn = '<a href="' . site_url('common/logger/' . $scholarshipInfo->id . '/tbl_scholaarship_grant') . '">
