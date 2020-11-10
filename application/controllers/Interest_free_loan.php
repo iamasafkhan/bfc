@@ -227,10 +227,11 @@ class Interest_free_loan extends MY_Controller {
 			// '<a href="javascript:void(0)" onclick="getData(' . "'" . $intFreeLoanInfo->id . "'" . ')">
             //           <button type="button" id="item_edit" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
             //           </a>';
+            if(!($_SESSION['tbl_admin_role_id'] == '2')) { 
 			$actionBtn .= '<a href="' . site_url('interest_free_loan/edit_interest_free_loan_grant/' . $intFreeLoanInfo->id) . '">
                             <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
                         </a>';
-            
+            }
             $getDept = $this->common_model->getRecordById($intFreeLoanInfo->parent_dept, $tbl_name = 'tbl_department');
 			$data[] = array($i, $intFreeLoanInfo->grantee_name,$intFreeLoanInfo->father_name,  $getDept['name'], $intFreeLoanInfo->personnel_no, $intFreeLoanInfo->doa, $intFreeLoanInfo->ddo_code,  $add_by_date, $actionBtn);
 		}

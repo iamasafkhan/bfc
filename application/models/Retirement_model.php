@@ -23,6 +23,15 @@ class Retirement_model extends CI_Model {
         $dor = date('Y-m-d', strtotime($this->input->post('dor')));
         $dept_letter_no_date = date('Y-m-d', strtotime($this->input->post('dept_letter_no_date')));
         
+        $application_no = rand(); 
+        $app_data = array(
+            'tbl_grants_id' => '3',
+            'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
+            'application_no' => $application_no,
+        );
+        $this->db->insert('tbl_grants_has_tbl_emp_info_gerund', $app_data); 
+        //$last_insert_id = $this->db->insert_id(); 
+
  
 		$data = array( 
             'record_no' => $this->input->post('record_no'),
@@ -275,7 +284,7 @@ class Retirement_model extends CI_Model {
 		if ($postData['length'] != -1) {
 			$this->db->limit($postData['length'], $postData['start']);
         }
-        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+        if (!($_SESSION['tbl_admin_role_id'] == '1') && !($_SESSION['tbl_admin_role_id'] == '7')  && !($_SESSION['tbl_admin_role_id'] == '2')) {
             $this->db->where('record_add_by', $_SESSION['admin_id']);
         }
 		$query = $this->db->get();
@@ -287,7 +296,7 @@ class Retirement_model extends CI_Model {
 	*/
 	public function countAll() {
         $this->db->from($this->table);
-        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+        if (!($_SESSION['tbl_admin_role_id'] == '1') && !($_SESSION['tbl_admin_role_id'] == '7') && !($_SESSION['tbl_admin_role_id'] == '2')) {
             $this->db->where('record_add_by', $_SESSION['admin_id']);
         }
 		return $this->db->count_all_results();
@@ -299,7 +308,7 @@ class Retirement_model extends CI_Model {
 	*/
 	public function countFiltered($postData) {
         $this->_get_datatables_query($postData);
-        if (!($_SESSION['tbl_admin_role_id'] == '1')) {
+        if (!($_SESSION['tbl_admin_role_id'] == '1') && !($_SESSION['tbl_admin_role_id'] == '7') && !($_SESSION['tbl_admin_role_id'] == '2')) {
             $this->db->where('record_add_by', $_SESSION['admin_id']);
         }
 		$query = $this->db->get();

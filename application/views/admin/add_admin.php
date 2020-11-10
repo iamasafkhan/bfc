@@ -182,7 +182,7 @@
                   </div>
 
                   <select  name="tbl_district_id" id="tbl_district_id" class="form-control select2 validate[required]">
-                    <option value="">Select District</option>
+                    <option value="0">Select District</option>
 
                     <?php foreach ($district as $districtInfo): ?>
                       <option value="<?php echo $districtInfo['id']; ?>"><?php echo $districtInfo['name']; ?></option>

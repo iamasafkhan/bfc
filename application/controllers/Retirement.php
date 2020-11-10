@@ -257,9 +257,11 @@ class Retirement extends MY_Controller {
 			// '<a href="javascript:void(0)" onclick="getData(' . "'" . $retirementInfo->id . "'" . ')">
             //           <button type="button" id="item_edit" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
             //           </a>';
+            if(!($_SESSION['tbl_admin_role_id'] == '2')) { 
 			$actionBtn .= '<a href="' . site_url('retirement/edit_retirement_grant/' . $retirementInfo->id) . '">
 			                   <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
                                </a>';
+            }
             
             $getDept = $this->common_model->getRecordById($retirementInfo->parent_dept, $tbl_name = 'tbl_department');
 			$data[] = array($i, $retirementInfo->record_no, $retirementInfo->record_no_year, $retirementInfo->doa, $retirementInfo->dor, $retirementInfo->los, $add_by_date, $actionBtn);

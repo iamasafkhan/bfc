@@ -275,10 +275,13 @@ class Scholarship extends MY_Controller {
 			// '<a href="javascript:void(0)" onclick="getData(' . "'" . $scholarshipInfo->id . "'" . ')">
             //           <button type="button" id="item_edit" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
             //           </a>';
+
+            if(!($_SESSION['tbl_admin_role_id'] == '2')) { 
+
 			$actionBtn .= '<a href="' . site_url('scholarship/edit_scholarship_grant/' . $scholarshipInfo->id) . '">
 			                   <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
                                </a>';
-             
+            } 
             
             $getDept = $this->common_model->getRecordById($scholarshipInfo->parent_dept, $tbl_name = 'tbl_department');
 			$data[] = array($i, $scholarshipInfo->std_name, $getDept['name'], $class_pass, $exam_pass, $result_date,  $status, $add_by_date, $actionBtn);

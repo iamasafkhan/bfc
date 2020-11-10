@@ -104,7 +104,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                         <!-- onchange="getServiceLength()" -->
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" autocomplete="off" value="<?php echo set_value('doa'); ?>" name="doa" id="doa" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('doa'); ?>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                         <!-- onchange="getServiceLength()" -->
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="date" autocomplete="off" value="<?php echo set_value('dor'); ?>" name="dor" id="dor" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('dor'); ?>
                                 </div>
                             </div>
@@ -484,44 +484,46 @@
     // });
 
 
-    $("#dor, #tbl_emp_info_id").on('focusout', function() {
-        var base_url = "<?php echo base_url(); ?>"; 
-        
+    $("#tbl_emp_info_id").on('change', function() {
+        var base_url = "<?php echo base_url(); ?>";  
         emp_id = $('#tbl_emp_info_id').val(); 
-        var empScale = getEmpScale(emp_id);
+        var empScale = getEmpScale(emp_id);  
+    });
 
-        //alert(JSON.stringify(empScale));
 
+    $('#dor').on('focusout', function(){
+
+        var base_url = "<?php echo base_url(); ?>";  
+        //emp_id = $('#tbl_emp_info_id').val(); 
         dateOfRetirement = $('#dor').val(); 
         empScale_ID = $('#pay_scale_id').val();
-       
-        //alert(empScaleID);
-        //alert(dateOfRetirement);
-        //alert(empScale);
-        //alert('empScaleID='+empScale_ID+'/'+'dateOfRetirement='+dateOfRetirement);
-
+        
         var formData = { dor: dateOfRetirement, empScaleID: empScale_ID };
         if(emp_id == ''){
             alert('Please select employee to continue');
             $('#dor').val('');
         }
-        else {
-
-            
+        else { 
             
             if(dateOfRetirement) { 
-                //alert(dateOfRetirement);
+                 
                 startDate = new Date($('#doa').val());
-                endDate = new Date($('#dor').val());
+                endDate = new Date($('#dor').val()); 
+                var diff_date =  endDate - startDate; 
+                alert('startDate = ' + startDate);
+                alert('endDate = ' + endDate);
+                alert('diff_date = ' + diff_date);
 
-                var diff_date =  endDate - startDate;
-                //alert(startDate+' == '+endDate);
                 var years = Math.floor(diff_date/31536000000);
                 var months = Math.floor((diff_date % 31536000000)/2628000000);
                 var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
             
+                
+
+                //alert('years = '+ years + ' months = '+ months + ' days = '+ days );
 
                 result = years+" year(s) "+months+" month(s) "+days+" and day(s)";
+                alert('result = ' + result);
 
                 if(result == 'NaN year(s) NaN month(s) NaN and day(s)'){
                     $('#los').val(''); 
@@ -529,17 +531,12 @@
                     $('#los').val(result); 
                 }
                 
-                $.ajax({
-                    //+dateOfRetirement
+                $.ajax({ 
                     url: base_url +'retirement/getAmountData/',  
                     type: "post",
                     data: formData,
                     dataType: "json",
-                    success:function(data) { 
-                        //alert('data = ' + JSON.stringify(data));
-                        //alert(JSON.stringify(data));
-                        //deduction net_amount
-                        //alert(data.amount);
+                    success:function(data) {  
                         $('#grant_amount').val(data.amount);
                         $('#deduction').val(0);
                         $('#net_amount').val(data.amount);   
@@ -550,9 +547,83 @@
                 $('#grant_amount').empty();
             }
         }
-        
-        
+
     });
+
+
+
+
+
+
+
+    // $("#dor, #tbl_emp_info_id").on('change', function() {
+    //     var base_url = "<?php echo base_url(); ?>";  
+    //     emp_id = $('#tbl_emp_info_id').val(); 
+    //     var empScale = getEmpScale(emp_id);  
+    //     dateOfRetirement = $('#dor').val(); 
+    //     empScale_ID = $('#pay_scale_id').val();
+    
+    //     var formData = { dor: dateOfRetirement, empScaleID: empScale_ID };
+    //     if(emp_id == ''){
+    //         alert('Please select employee to continue');
+    //         $('#dor').val('');
+    //     }
+    //     else { 
+            
+    //         if(dateOfRetirement) { 
+    //             //alert(dateOfRetirement);
+    //             startDate = new Date($('#doa').val());
+    //             endDate = new Date($('#dor').val());
+
+    //             var diff_date =  endDate - startDate;
+    //             //alert(startDate+' == '+endDate);
+    //             var years = Math.floor(diff_date/31536000000);
+    //             var months = Math.floor((diff_date % 31536000000)/2628000000);
+    //             var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
+            
+
+    //             result = years+" year(s) "+months+" month(s) "+days+" and day(s)";
+
+    //             if(result == 'NaN year(s) NaN month(s) NaN and day(s)'){
+    //                 $('#los').val(''); 
+    //             } else {
+    //                 $('#los').val(result); 
+    //             }
+                
+    //             $.ajax({
+    //                 //+dateOfRetirement
+    //                 url: base_url +'retirement/getAmountData/',  
+    //                 type: "post",
+    //                 data: formData,
+    //                 dataType: "json",
+    //                 success:function(data) { 
+    //                     //alert('data = ' + JSON.stringify(data));
+    //                     //alert(JSON.stringify(data));
+    //                     //deduction net_amount
+    //                     //alert(data.amount);
+    //                     $('#grant_amount').val(data.amount);
+    //                     $('#deduction').val(0);
+    //                     $('#net_amount').val(data.amount);   
+    //                 }
+    //             });
+
+    //         } else {
+    //             $('#grant_amount').empty();
+    //         }
+    //     } 
+    // });
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
     // $('#from_date').focusout(function(){
@@ -596,18 +667,18 @@
         }  
     }
     $(function() {
-        $('#doa').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        }); 
-        $('#dor').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY",
-            showTodayButton: true,
-            ignoreReadonly: true
-        }); 
+        // $('#doa').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // }); 
+        // $('#dor').datetimepicker({
+        //     useCurrent: false,
+        //     format: "DD-MM-YYYY",
+        //     showTodayButton: true,
+        //     ignoreReadonly: true
+        // }); 
         $('#dept_letter_no_date').datetimepicker({
             useCurrent: false,
             format: "DD-MM-YYYY",

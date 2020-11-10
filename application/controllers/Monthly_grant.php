@@ -171,13 +171,15 @@ class Monthly_grant extends MY_Controller {
 
 			$actionBtn = '<a href="' . site_url('common/logger/' . $monthlyInfo->id . '/tbl_monthly_grant') . '">
                       <button type="button"class="btn btn-sm btn-xs btn-primary"><i class="fa fa-history"></i></button>
-                      </a>' .
-			'<a href="javascript:void(0)" onclick="getData(' . "'" . $monthlyInfo->id . "'" . ')">
-                      <button type="button" id="item_edit" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
                       </a>';
-			// $actionBtn = '<a href="' . site_url('grants/edit_grants/' . $monthlyInfo->id) . '">
-			//                    <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
-            //                    </a>';
+			// '<a href="javascript:void(0)" onclick="getData(' . "'" . $monthlyInfo->id . "'" . ')">
+            //           <button type="button" id="item_edit" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
+            //           </a>';
+            if(!($_SESSION['tbl_admin_role_id'] == '2')) { 
+			$actionBtn .= '<a href="' . site_url('monthly_grant/edit_monthly_grant/' . $monthlyInfo->id) . '">
+			                   <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
+                               </a>'; 
+            }
             
             $getDept = $this->common_model->getRecordById($monthlyInfo->parent_dept, $tbl_name = 'tbl_department');
 			$data[] = array($i, $monthlyInfo->record_no, $monthlyInfo->record_no_year, $monthlyInfo->doa, $monthlyInfo->dor, $monthlyInfo->los, $add_by_date, $actionBtn);

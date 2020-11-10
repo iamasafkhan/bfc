@@ -254,10 +254,11 @@ class Funeral extends MY_Controller {
 			$actionBtn = '<a href="' . site_url('common/logger/' . $funeralInfo->id . '/tbl_funeral_grant') . '">
                       <button type="button"class="btn btn-sm btn-xs btn-primary"><i class="fa fa-history"></i></button>
                       </a>' ;
-			 
+            if(!($_SESSION['tbl_admin_role_id'] == '2')) {  
 			$actionBtn .= '<a href="' . site_url('funeral/edit_funeral_grant/' . $funeralInfo->id) . '">
 			                   <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
                                </a>';
+            }
             
             $getDept = $this->common_model->getRecordById($funeralInfo->parent_dept, $tbl_name = 'tbl_department');
 			$data[] = array($i, $funeralInfo->record_no, $funeralInfo->record_no_year, $funeralInfo->name_deceased, $funeralInfo->doa, $funeralInfo->dor, $funeralInfo->los, $add_by_date, $actionBtn);

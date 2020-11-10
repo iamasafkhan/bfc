@@ -292,11 +292,11 @@ class Lumpsum extends MY_Controller {
                       // '<a href="javascript:void(0)" onclick="getData(' . "'" . $lumpsumInfo->id . "'" . ')">
             //           <button type="button" id="item_edit" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
             //           </a>';
-            
+            if(!($_SESSION['tbl_admin_role_id'] == '2')) { 
             $actionBtn .= '<a href="' . site_url('lumpsum/edit_lumpsum_grant/' . $lumpsumInfo->id) . '">
 			                   <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
                                </a>';
-            
+            }
             $getDept = $this->common_model->getRecordById($lumpsumInfo->parent_dept, $tbl_name = 'tbl_department');
 			$data[] = array($i, $lumpsumInfo->record_no, $lumpsumInfo->record_no_year, $lumpsumInfo->name_deceased, $lumpsumInfo->doa, $lumpsumInfo->dor, $lumpsumInfo->los, $add_by_date, $actionBtn);
 		}
