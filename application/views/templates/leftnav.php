@@ -53,6 +53,13 @@ if ($_SESSION['admin_id']) {
 
             <?php } ?>
 
+            <?php if ($_SESSION['tbl_admin_role_id'] == 1 || $_SESSION['tbl_admin_role_id'] == 6 || $_SESSION['tbl_admin_role_id'] == 7 || $_SESSION['tbl_admin_role_id'] == 2) { ?>
+                <? if($_SESSION['tbl_admin_role_id'] != 2) {  ?>
+            <li class="">
+                <a href="<?php echo base_url('view_emp_info'); ?>"><i class="fa fa-user"></i> <span>Emp Info Manag.</span></a>
+            </li>
+                <? } ?>
+
             <li class="">
                 <a href="<?php echo base_url('view_scholarship_grants'); ?>"><i class="fa fa-money"></i> <span>Scholarship Grants</span></a>
             </li>
@@ -73,7 +80,10 @@ if ($_SESSION['admin_id']) {
             </li>
 
             <?php if ($_SESSION['tbl_admin_role_id'] == 1) { ?>
-
+                <li>
+                    <a href="<?php echo base_url('reports'); ?>"><i class="fa fa-file"></i> <span>Reports</span></a>
+                </li>
+                <!-- Miscellaneous -->
                 <li class="treeview">
                     <a href="#"><i class="fa fa-info-circle"></i> <span>Miscellaneous</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
@@ -97,24 +107,8 @@ if ($_SESSION['admin_id']) {
                             <a href="<?php echo base_url('view_payment_mode'); ?>"><i class="fa fa-credit-card"></i> <span>Payment Mode Manag.</span></a>
                         </li>
                     </ul>
-                </li>
-
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-bank"></i> <span>Banks</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
-                    <ul class="treeview-menu">
-                        <li class="">
-                            <a href="<?php echo base_url('view_banks'); ?>"><i class="fa fa-bank"></i> <span>Banks Manag.</span></a>
-                        </li> 
-                        <li class="">
-                            <a href="<?php echo base_url('view_bfc_bank_branch'); ?>"><i class="fa fa-bank"></i> <span>BFC Banks Manag.</span></a>
-                        </li> 
-                        <li class="">
-                            <a href="<?php echo base_url('view_grantee_bank_branch'); ?>"><i class="fa fa-bank"></i> <span>Grantee Banks Manag.</span></a>
-                        </li>
-                    </ul>
-                </li>
-
+                </li> 
+                <!-- Grants Manag. -->
                 <li class="treeview">
                     <a href="#"><i class="fa fa-list"></i> <span>Grants Manag.</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
@@ -130,17 +124,25 @@ if ($_SESSION['admin_id']) {
                         </li>  
                     </ul>
                 </li>
-                <li>
-                    <a href="<?php echo base_url('reports'); ?>"><i class="fa fa-file"></i> <span>Reports</span></a>
+                <!-- Banks -->
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-bank"></i> <span>Banks</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('view_banks'); ?>"><i class="fa fa-bank"></i> <span>Banks Manag.</span></a>
+                        </li> 
+                        <li class="">
+                            <a href="<?php echo base_url('view_bfc_bank_branch'); ?>"><i class="fa fa-bank"></i> <span>BFC Banks Manag.</span></a>
+                        </li> 
+                        <li class="">
+                            <a href="<?php echo base_url('view_grantee_bank_branch'); ?>"><i class="fa fa-bank"></i> <span>Grantee Banks Manag.</span></a>
+                        </li>
+                    </ul>
                 </li>
             <?php } ?>
             
-            <?php if ($_SESSION['tbl_admin_role_id'] == 1 || $_SESSION['tbl_admin_role_id'] == 6 || $_SESSION['tbl_admin_role_id'] == 7 || $_SESSION['tbl_admin_role_id'] == 2) { ?>
-                <? if($_SESSION['tbl_admin_role_id'] != 2) {  ?>
-            <li class="">
-                <a href="<?php echo base_url('view_emp_info'); ?>"><i class="fa fa-user"></i> <span>Emp Info Manag.</span></a>
-            </li>
-                <? } ?>
+            
             
             
             

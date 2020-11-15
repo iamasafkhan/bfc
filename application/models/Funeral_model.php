@@ -65,7 +65,7 @@ class Funeral_model extends CI_Model {
         $dor = date('Y-m-d', strtotime($this->input->post('dor')));
         $dept_letter_no_date = date('Y-m-d', strtotime($this->input->post('dept_letter_no_date')));
         
-        $application_no = rand(); 
+        $application_no = $this->common_model->getApplicationNo();   
         $app_data = array(
             'tbl_grants_id' => '2',
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
@@ -74,7 +74,7 @@ class Funeral_model extends CI_Model {
         $this->db->insert('tbl_grants_has_tbl_emp_info_gerund', $app_data); 
         $last_insert_id = $this->db->insert_id(); 
 
-		$data = array( 
+		$data = array(  
             'application_no' =>$application_no,
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
             'record_no' => $this->input->post('record_no'),

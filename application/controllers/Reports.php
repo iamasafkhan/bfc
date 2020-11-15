@@ -11,8 +11,15 @@ class Reports extends MY_Controller {
 	 
 	public function view_reports() {
 
+
+
+        $data['grants'] = $this->common_model->getAllRecords('tbl_grants');
+        $data['applications'] = $this->common_model->getAllRecordByArray('tbl_grants_has_tbl_emp_info_gerund', null);
+        
 		$data['page_title'] = 'View All Reports';
-		$data['description'] = '...';
+        $data['description'] = '...';
+        
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('reports/view_reports', $data);
 		$this->load->view('templates/footer');

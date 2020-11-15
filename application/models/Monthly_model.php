@@ -65,7 +65,7 @@ class Monthly_model extends CI_Model {
         $dor = date('Y-m-d', strtotime($this->input->post('dor')));
         $dept_letter_no_date = date('Y-m-d', strtotime($this->input->post('dept_letter_no_date')));
         
-        $application_no = rand(); 
+        $application_no = $this->common_model->getApplicationNo();   
         $app_data = array(
             'tbl_grants_id' => '4',
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
@@ -76,6 +76,7 @@ class Monthly_model extends CI_Model {
 
  
 		$data = array( 
+            'application_no' => $application_no,
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
             'record_no' => $this->input->post('record_no'),
             'record_no_year' => $this->input->post('record_no_year'),
@@ -148,6 +149,10 @@ class Monthly_model extends CI_Model {
 				->tbl_name_id($last_insert_id) //Entry table ID
 				->action_type('add') //action type identify Action like add or update
 				->detail(
+                    '<tr>' .
+                    '<td><strong>' . 'Application Number' . '</strong></td>
+                     <td colspan="5">' . $application_no . '</td>' .
+					'</tr>' .
                     '<tr>' .
 					'<td><strong>' . 'Employee ID' . '</strong></td><td>' . $this->input->post('tbl_emp_info_id') . '</td>' .
 					'<td>&nbsp;</td><td>&nbsp;</td>' .

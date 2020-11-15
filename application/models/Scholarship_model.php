@@ -19,9 +19,9 @@ class Scholarship_model extends CI_Model {
 	public function add_scholarship_grant() {
 
         //echo 'in model'; exit();
-		$result_date = date('Y-m-d', strtotime($this->input->post('result_date')));
- 
-        $application_no = rand(); 
+		$result_date = date('Y-m-d', strtotime($this->input->post('result_date')));  
+       
+        $application_no = $this->common_model->getApplicationNo();   
         $app_data = array(
             'tbl_grants_id' => '1',
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
@@ -31,6 +31,7 @@ class Scholarship_model extends CI_Model {
         //$last_insert_id = $this->db->insert_id(); 
 
 		$data = array( 
+            'application_no' => $application_no,
             'parent_dept' => $this->input->post('tbl_department_id'),
             'duty_place' => $this->input->post('duty_place'),
             'std_name' => $this->input->post('std_name'),
@@ -85,6 +86,10 @@ class Scholarship_model extends CI_Model {
 				->tbl_name_id($last_insert_id) //Entry table ID
 				->action_type('add') //action type identify Action like add or update
 				->detail(
+                    '<tr>' .
+                    '<td><strong>' . 'Application Number' . '</strong></td>
+                     <td colspan="5">' . $application_no . '</td>' .
+					'</tr>' .
 					'<tr>' .
 					'<td><strong>' . 'Department' . '</strong></td><td>' . $getDept['name'] . '</td>' .
 					'<td><strong>' . 'Duty place' . '</strong></td><td>' . $this->input->post('duty_place') . '</td>' .

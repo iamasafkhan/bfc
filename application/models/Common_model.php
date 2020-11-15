@@ -103,7 +103,42 @@ class Common_model extends CI_Model {
 		//updation in db
 		$this->db->where('id', $this->input->post('id'));
 		return $this->db->update('tbl_setting', $data);
-	}
+    }
+    
+    public function getApplicationNo() {
+        $this->db->select('application_no');
+        $this->db->from('tbl_grants_has_tbl_emp_info_gerund');
+		$this->db->order_by('id', 'desc');
+		$query = $this->db->get();
+        $getAppNo = $query->row_array();
+        $last_app_no = $getAppNo['application_no'];
+
+        if($last_app_no == '') {
+            $application_no = 10000001;
+        } else {
+            $application_no = $last_app_no+1;
+        } 
+        return $application_no;
+    }
+    
+
+    public function getBankBranch($branchID) {
+        // $this->db->select('*');
+        // $this->db->from('tbl_banks');
+        // //$this->db->where('tbl_list_bank_branches.id', $branchID);
+        // $this->db->join('tbl_list_bank_branches', 'tbl_list_bank_branches.tbl_banks_id = tbl_banks.id');
+        // $query = $this->db->get();
+        // return $query->result_array();
+
+        // $this->db->select('tbl_list_bank_branches.name as location, tbl_banks.name as bank_type');
+        // $this->db->from('tbl_list_bank_branches');
+        // $this->db->join('tbl_banks','tbl_banks.id=tbl_list_bank_branches.tbl_banks_id');
+        // $this->db->where('tbl_banks','admin');
+        // $query=$this->db->get();
+        // return $query->result_array();
+
+    }
+    
 
 }
 ?>
