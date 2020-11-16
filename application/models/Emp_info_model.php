@@ -179,7 +179,28 @@ class Emp_info_model extends CI_Model {
 		$query = $this->db->get();
 
 		return $query->row();
-	}
+    }
+    
+    public function getRecordByPersonnelNo($personnelNo) {
+		$this->db->from($this->table);
+		$this->db->where('personnel_no', $personnelNo);
+        $query = $this->db->get();
+        //return $query->row();
+        $emp_info = $query->row();
+        
+        $postID = $emp_info->tbl_post_id;
+        $designation = $this->getPostName($postID);
+
+        return array('empInfo'=>$emp_info, 'designation'=>$designation);
+    } 
+
+    public function getPostName($id) {
+		$this->db->from('tbl_post');
+		$this->db->where('id', $id);
+		$query = $this->db->get();
+
+		return $query->row();
+    }
 
 	//////////////// below ajax and server side processing datatable ///////////
 

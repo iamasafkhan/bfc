@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Paper N Exam</title>
+	<title>Benevolent Fund Cell</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="<?php echo base_url('assets/site/'); ?>assets/css/main.css" />
@@ -360,23 +360,23 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 					<script src="<?php echo base_url('assets/site/'); ?>assets/js/main.js"></script>
 <script type="text/javascript">
 
-  document.onkeydown = function(e) {
-    if(event.keyCode == 123) {
-     return false;
-   }
-   if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-     return false;
-   }
-   if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-     return false;
-   }
-   if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-     return false;
-   }
-   if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-     return false;
-   }
- }
+//   document.onkeydown = function(e) {
+//     if(event.keyCode == 123) {
+//      return false;
+//    }
+//    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+//      return false;
+//    }
+//    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+//      return false;
+//    }
+//    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+//      return false;
+//    }
+//    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+//      return false;
+//    }
+//  }
 </script>
 				</body>
 				</html>

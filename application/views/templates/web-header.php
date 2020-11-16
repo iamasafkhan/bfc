@@ -61,7 +61,7 @@
 }
 
   </style>
-  <body class="hold-transition login-page login-background" oncontextmenu="return false;">
+  <body class="hold-transition " oncontextmenu="return false;">
 
  <?php $this->load->view('templates/web-nav'); ?>
  
@@ -95,6 +95,6 @@
 $this->load->view('templates/footer_link_1');
 $this->load->view('templates/footer_link_2');
 
-$this->load->view('templates/topbar'); 
+//$this->load->view('templates/topbar'); 
 
 

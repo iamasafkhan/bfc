@@ -138,6 +138,13 @@ class Emp_info extends MY_Controller {
 		echo json_encode($data);
     }
 
+    public function getDataByPersonnelNo($personnelNo) {
+        $data = $this->emp_info_model->getRecordByPersonnelNo($personnelNo);
+        //echo '<pre>'; print_r($data); exit;
+		echo json_encode($data);
+    }
+
+
     public function getGrants($id){
        $table = '';
 

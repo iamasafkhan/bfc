@@ -19,8 +19,12 @@ class Site extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index() {
-		// $this->load->view('site/index');
-		redirect(base_url('admin'));
-	}
+		redirect(base_url('admin')); 
+    }
+    
+    // public function login(){
+    //     redirect(base_url('admin'));
+    // }
+ 
 
 }

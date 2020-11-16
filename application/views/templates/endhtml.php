@@ -13,7 +13,7 @@ $(function(){
         setTimeout(function() {
             $('.alert').slideUp();
             // $('.alert').hide('fast');
-        }, 4000); // 4sec
+        }, 10000); // 4sec
       });
 </script>
 

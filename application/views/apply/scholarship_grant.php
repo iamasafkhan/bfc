@@ -1,508 +1,391 @@
-<div class="content-wrapper">
+<div class="container">
     <!-- Content Header (Page header) -->
     <section class="content-header">
 
         <?php $this->load->view('templates/alerts'); ?>
 
         <h1>
-            <?php echo ucwords(str_replace('_', ' ', $page_title)); ?>
-            <small><?php echo ucwords(str_replace('_', ' ', $description)); ?></small>
+            <?php echo ucwords(str_replace('_', ' ', $page_title)); ?> 
         </h1>
-
+        <p><?php echo ucwords(str_replace('_', ' ', $description)); ?></p>
     </section>
 
     <!-- Main content -->
     <?php echo validation_errors(); ?>
-    <?php echo form_open_multipart('add_scholarship_grant', 'id="formID"'); ?>
+    <?php echo form_open_multipart('apply-for-scholarship-grant', 'id="formID"'); ?>
 
     <!--      <form id="formID" method="POST" action="" enctype="multipart/form-data"> -->
     <!-- Main content -->
     <section class="content">
+ 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Personnel No')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" class="form-control" name="personnelNo" id="personnelNo" value="<?php echo set_value('personnelNo'); ?>" required>
+                        <input type="hidden" name="tbl_emp_info_id" id="tbl_emp_info_id" value="<?php echo set_value('tbl_emp_info_id'); ?>"> 
+                    </div><?php echo form_error('personnelNo'); ?>
+                </div>
+            </div> 
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Name of Government Servant')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" name="grantee_name" id="grantee_name" value="<?php echo set_value('grantee_name'); ?>" class="form-control" readonly required>
+                         
+
+                    </div><?php echo form_error('grantee_name'); ?>
+                </div>
+            </div>  
+        </div>
 
         <div class="row">
-
-
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Designation')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" class="form-control" name="designation" id="designation" value="<?php echo set_value('designation'); ?>" readonly required>
  
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><?php echo ucwords('Scholarship Information'); ?></h3>
-                        <br><i style="color: #9c0404;">use NA or not applicable, if information is not available</i>
-                        <div class="box-tools pull-right">
-                            <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button> -->
-                            <?php /*?><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button><?php */ ?>
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'employee')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-
-                                        <select name="tbl_emp_info_id" id="tbl_emp_info_id" class="form-control select2 validate[required]">
-                                            <option value="">Select Employee</option> 
-                                            <?php foreach ($employees as $employeeInfo) : ?>
-                                                <option value="<?php echo $employeeInfo['id']; ?>" <?php if($emp_info->id == $employeeInfo['id']) { echo 'selected'; } ?>><?php echo $employeeInfo['grantee_name']; ?> - <?php echo $employeeInfo['cnic_no']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div><?php echo form_error('tbl_emp_info_id'); ?>
-                                </div>
-                            </div> 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Pay_Scale')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                         
-                                        <input type="text" name="pay_scale" id="pay_scale" value="<?php echo $emp_info->pay_scale;?>" class="form-control" readonly>
-                                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="<?php echo $emp_info->pay_scale_id;?>">
-
-                                    </div><?php echo form_error('pay_scale'); ?>
-                                </div>
-                            </div> 
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'department')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-industry"></i>
-                                        </div>
-
-                                        <select name="tbl_department_id" id="tbl_department_id" class="form-control select2 validate[required]">
-                                            <option value="">Select Department</option> 
-                                            <?php foreach ($department as $departmentInfo) : ?>
-                                                <option value="<?php echo $departmentInfo['id']; ?>"><?php echo $departmentInfo['name']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div><?php echo form_error('tbl_department_id'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'duty_place')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-industry"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('duty_place'); ?>" name="duty_place" id="duty_place" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('duty_place'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row"> 
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'student_name')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-graduation-cap"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('std_name'); ?>" name="std_name" id="std_name" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('std_name'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'class_pass')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-home"></i>
-                                        </div>
-                                        <select name="class_pass" id="class_pass" class="form-control select2 validate[required]">
-                                            <option value="">Select Class</option> 
-                                            <?php foreach ($scholarship_classes as $classInfo) : ?>
-                                                <option value="<?php echo $classInfo['id']; ?>"><?php echo $classInfo['class_name']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <!--<input type="text" autocomplete="off" value="<?php //echo set_value('class_pass'); ?>" name="class_pass" id="class_pass" class="form-control validate[required]" placeholder="Enter <?php //echo $label; ?>" />-->
-                                    </div><?php echo form_error('class_pass'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row"> 
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'examination_pass')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-file"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('exam_pass'); ?>" name="exam_pass" id="exam_pass" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('exam_pass'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'result_date')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('result_date'); ?>" name="result_date" id="result_date" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('result_date'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">  
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'marks_obtained')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calculator"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('mo'); ?>" name="mo" id="mo" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('mo'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'total_marks')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calculator"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('tm'); ?>" name="tm" id="tm" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('tm'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'percentage')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-percent"></i>
-                                        </div>
-
-                                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('percentage'); ?>" name="percentage" id="percentage" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('percentage'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'institute_name')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-building"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('institute_name'); ?>" name="institute_name" id="institute_name" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('institute_name'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">  
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'institute_address')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-map-marker"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('institute_add'); ?>" name="institute_add" id="institute_add" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('institute_add'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'grant_amount')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-money"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('grant_amount'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">   
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'deduction')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-money"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('deduction'); ?>" name="deduction" id="deduction" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('deduction'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'net_amount')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-money"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('net_amount'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">   
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'case_status')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-eye"></i>
-                                        </div>
-
-                                        
-                                        <select name="tbl_case_status_id" id="tbl_case_status_id" class="form-control select2 validate[required]">
-                                            <option value="">Select Case Status</option> 
-                                            <?php foreach ($cases as $case) : ?>
-                                                <option value="<?php echo $case['id']; ?>"><?php echo $case['name']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-
-                                    </div><?php echo form_error('tbl_case_status_id'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6">   
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'payment_mode')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-money"></i>
-                                        </div>
-
-                                        <select name="tbl_payment_mode_id" id="tbl_payment_mode_id" class="form-control select2 validate[required]">
-                                            <option value="">Select Payment mode</option> 
-                                            <?php foreach ($payment_modes as $payment_mode) : ?>
-                                                <option value="<?php echo $payment_mode['id']; ?>"><?php echo $payment_mode['name']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                       
-                                    </div><?php echo form_error('tbl_payment_mode_id'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'bank_branches')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-bank"></i>
-                                        </div>
-                                        <select name="tbl_list_bank_branches_id" id="tbl_list_bank_branches_id" class="form-control select2 validate[required]">
-                                            <option value="">Select Bank</option> 
-                                            <?php foreach ($banks as $bank) : ?>
-                                                <option value="<?php echo $bank['id']; ?>"><?php echo $bank['name']; ?> (<?php echo $bank['branch_code']; ?>)</option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        
-                                    </div><?php echo form_error('tbl_list_bank_branches_id'); ?>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'account_no')); ?>:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa fa-bank"></i>
-                                        </div>
-
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('account_no'); ?>" name="account_no" id="account_no" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
-                                    </div><?php echo form_error('account_no'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row"> 
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'student_signature')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="std_signature" id="std_signature" value="No"> No
-                                    <input type="radio" class="validate[required]" name="std_signature" id="std_signature" value="Yes"> Yes
-                                    <?php echo form_error('std_signature'); ?>
-                                </div>
-                            </div> 
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'gov_servent_sign')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="gov_servent_sign" id="gov_servent_sign" value="No"> No
-                                    <input type="radio" class="validate[required]" name="gov_servent_sign" id="gov_servent_sign" value="Yes"> Yes
-                                    <?php echo form_error('gov_servent_sign'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row"> 
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'seal_institute')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="seal_institute" id="seal_institute" value="No"> No
-                                    <input type="radio" class="validate[required]" name="seal_institute" id="seal_institute" value="Yes"> Yes
-                                    <?php echo form_error('seal_institute'); ?>
-                                </div>
-                            </div>  
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'head_institute')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="head_institute" id="head_institute" value="No"> No
-                                    <input type="radio" class="validate[required]" name="head_institute" id="head_institute" value="Yes"> Yes
-                                    <?php echo form_error('head_institute'); ?>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row"> 
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'office_seal_hod')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="office_seal_hod" id="office_seal_hod" value="No"> No
-                                    <input type="radio" class="validate[required]" name="office_seal_hod" id="office_seal_hod" value="Yes"> Yes
-                                    <?php echo form_error('office_seal_hod'); ?>
-                                </div>
-                            </div>  
-
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'hod_sign')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="hod_sign" id="hod_sign" value="No"> No
-                                    <input type="radio" class="validate[required]" name="hod_sign" id="hod_sign" value="Yes"> Yes
-                                    <?php echo form_error('hod_sign'); ?>
-                                </div>
-                            </div>  
-
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'bank_verification')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="bank_verification" id="bank_verification" value="No"> No
-                                    <input type="radio" class="validate[required]" name="bank_verification" id="bank_verification" value="Yes"> Yes
-                                    <?php echo form_error('bank_verification'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'payroll_lpc_attach')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="payroll_lpc_attach" id="payroll_lpc_attach" value="No"> No
-                                    <input type="radio" class="validate[required]" name="payroll_lpc_attach" id="payroll_lpc_attach" value="Yes"> Yes
-                                    <?php echo form_error('payroll_lpc_attach'); ?>
-                                </div>
-                            </div>  
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'dmc_attach')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="dmc_attach" id="dmc_attach" value="No"> No
-                                    <input type="radio" class="validate[required]" name="dmc_attach" id="dmc_attach" value="Yes"> Yes
-                                    <?php echo form_error('dmc_attach'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'cnic_attach')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="cnic_attach" id="cnic_attach" value="No"> No
-                                    <input type="radio" class="validate[required]" name="cnic_attach" id="cnic_attach" value="Yes"> Yes
-                                    <?php echo form_error('cnic_attach'); ?>
-                                </div>
-                            </div>  
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'grade_attach')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="grade_attach" id="grade_attach" value="No"> No
-                                    <input type="radio" class="validate[required]" name="grade_attach" id="grade_attach" value="Yes"> Yes
-                                    <?php echo form_error('grade_attach'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'boards_approval')); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="boards_approval" id="boards_approval" value="0"> No
-                                    <input type="radio" class="validate[required]" name="boards_approval" id="boards_approval" value="1"> Yes
-                                    <?php echo form_error('boards_approval'); ?>
-                                </div>
-                            </div>  
-                        </div>
-                        
-                         
-
-                         
-
-                         
- 
-  
-                        <!-- /.row -->
-                    </div>
-
+                    </div><?php echo form_error('designation'); ?>
                 </div>
-               
+            </div> 
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Pay Scale')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                         
+                        <input type="text" name="pay_scale" id="pay_scale" value="<?php echo set_value('pay_scale'); ?>" class="form-control" readonly required>
+                        <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="<?php echo set_value('pay_scale_id'); ?>">
 
+                    </div><?php echo form_error('pay_scale'); ?>
+                </div>
+            </div>  
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Office / Department')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-industry"></i>
+                        </div>
+
+                        <select name="tbl_department_id" id="tbl_department_id" class="form-control" required readonly>
+                            <option value="">Select Department</option> 
+                            <?php foreach ($department as $departmentInfo) : ?>
+                                <option value="<?php echo $departmentInfo['id']; ?>" <?php if(set_value('tbl_department_id') == $departmentInfo['id']) { echo 'selected'; }?>><?php echo $departmentInfo['name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div><?php echo form_error('tbl_department_id'); ?>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Place of Duty')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-industry"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" value="<?php echo set_value('duty_place'); ?>" name="duty_place" id="duty_place" class="form-control" placeholder="Enter <?php echo $label; ?>" />
+                    </div><?php echo form_error('duty_place'); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row"> 
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Name of Student')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-graduation-cap"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" value="<?php echo set_value('std_name'); ?>" name="std_name" id="std_name" class="form-control" placeholder="Enter <?php echo $label; ?>" required />
+                    </div><?php echo form_error('std_name'); ?>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Class Passed')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-home"></i>
+                        </div>
+                        <select name="class_pass" id="class_pass" class="form-control">
+                            <option value="">Select Class</option> 
+                            <?php foreach ($scholarship_classes as $classInfo) : ?>
+                                <option value="<?php echo $classInfo['id']; ?>" <?php if(set_value('class_pass') == $classInfo['id']) { echo 'selected'; }?>><?php echo $classInfo['class_name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        
+                    </div><?php echo form_error('class_pass'); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row"> 
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Exam Passed (Science / Arts) Subject')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-file"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" value="<?php echo set_value('exam_pass'); ?>" name="exam_pass" id="exam_pass" class="form-control" placeholder="Enter <?php echo $label; ?>" />
+                    </div><?php echo form_error('exam_pass'); ?>
+                </div>
+            </div>
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Date of Declaration of Result')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('result_date'); ?>" name="result_date" id="result_date" class="form-control" placeholder="Enter <?php echo $label; ?>" />
+                    </div><?php echo form_error('result_date'); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">  
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Marks Obtained')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calculator"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" value="<?php echo set_value('mo'); ?>" name="mo" id="mo" class="form-control" placeholder="Enter <?php echo $label; ?>" required />
+                    </div><?php echo form_error('mo'); ?>
+                </div>
+            </div>
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Total Marks')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calculator"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" value="<?php echo set_value('tm'); ?>" name="tm" id="tm" class="form-control" placeholder="Enter <?php echo $label; ?>" required />
+                    </div><?php echo form_error('tm'); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Percentage')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-percent"></i>
+                        </div>
+
+                        <input type="text" readonly autocomplete="off" value="<?php echo set_value('percentage'); ?>" name="percentage" id="percentage" class="form-control" placeholder="Enter <?php echo $label; ?>" required />
+                    </div><?php echo form_error('percentage'); ?>
+                </div>
+            </div>
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Name of Institute')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-building"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" value="<?php echo set_value('institute_name'); ?>" name="institute_name" id="institute_name" class="form-control" placeholder="Enter <?php echo $label; ?>" required />
+                    </div><?php echo form_error('institute_name'); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">  
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Address of Institute')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" value="<?php echo set_value('institute_add'); ?>" name="institute_add" id="institute_add" class="form-control" placeholder="Enter <?php echo $label; ?>" required />
+                    </div><?php echo form_error('institute_add'); ?>
+                </div>
+            </div>
+            
+        </div>
+
+        <!--<div class="row"> 
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php //echo $label = ucwords(str_replace('_', ' ', 'grant_amount')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-money"></i>
+                        </div>
+
+                        <input type="text" autocomplete="off" readonly value="<?php //echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control" placeholder="Enter grant_amount" />
+                        <input type="text" autocomplete="off" value="<?php //echo set_value('deduction'); ?>" name="deduction" id="deduction" class="form-control" placeholder="Enter deduction" />
+                        <input type="text" autocomplete="off" readonly value="<?php //echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control" placeholder="Enter net_amount" required />
+                    </div><?php //echo form_error('grant_amount'); ?>
+                </div>
+            </div> 
+        </div>-->
+
+
+        
+
+         <h4>DETAILS OF BANK ACCOUNT (GOVT. EMPLOYEE) </h4>
+
+        <div class="row">
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'bank_branches')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-bank"></i>
+                        </div>
+
+                        <input type="hidden" autocomplete="off" readonly value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control" placeholder="Enter grant_amount" />
+                        <input type="hidden" autocomplete="off" value="<?php echo set_value('deduction'); ?>" name="deduction" id="deduction" class="form-control" placeholder="Enter deduction" />
+                        <input type="hidden" autocomplete="off" readonly value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control" placeholder="Enter net_amount" required />
+
+                        <input type="hidden" name="tbl_payment_mode_id" id="tbl_payment_mode_id" value="2">
+                        <select name="tbl_list_bank_branches_id" id="tbl_list_bank_branches_id" class="form-control" required>
+                            <option value="">Select Bank</option> 
+                            <?php foreach ($banks as $bank) : ?>
+                                <option value="<?php echo $bank['id']; ?>" <?php if(set_value('tbl_list_bank_branches_id') == $bank['id']) { echo 'selected'; }?>><?php echo $bank['name']; ?> (<?php echo $bank['branch_code']; ?>)</option>
+                            <?php endforeach; ?>
+                        </select>
+                        
+                    </div><?php echo form_error('tbl_list_bank_branches_id'); ?>
+                </div>
             </div>
 
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'account_no')); ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa fa-bank"></i>
+                        </div>
 
+                        <input type="text" autocomplete="off" value="<?php echo set_value('account_no'); ?>" name="account_no" id="account_no" class="form-control" placeholder="Enter <?php echo $label; ?>" />
+                    </div><?php echo form_error('account_no'); ?>
+                </div>
+            </div>
+        </div>
+
+        <h4>CERTIFICATE FROM APPLICANT AND STUDENT </h4>
+        <p>I do hereby solemnly affirm and verify that I am a serving employee of
+Government of Khyber Pakhtunkhwa and the contents of the application are true to
+the best of my knowledge and nothing has been concealed. I know that in the
+event of making a willful misrepresentation, suppression of facts or submission of
+duplicate case (for the same student) I shall be liable to criminal prosecution. </p>
+        <div class="row"> 
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Signature of Student')); ?>:</label>
+                    <br>
+                    <input type="radio" class="validate[required]" checked name="std_signature" id="std_signature" value="No"> No
+                    <input type="radio" class="validate[required]" name="std_signature" id="std_signature" value="Yes"> Yes
+                    <?php echo form_error('std_signature'); ?>
+                </div>
+            </div> 
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Signature of the Govt. Servant')); ?>:</label>
+                    <br>
+                    <input type="radio" class="validate[required]" checked name="gov_servent_sign" id="gov_servent_sign" value="No"> No
+                    <input type="radio" class="validate[required]" name="gov_servent_sign" id="gov_servent_sign" value="Yes"> Yes
+                    <?php echo form_error('gov_servent_sign'); ?>
+                </div>
+            </div>
+        </div>
+        <h4>DOCUMENTARY CHECK LIST </h4>
+        <div class="row"> 
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Select to upload Pay Roll image')); ?>:</label>
+                    <br>
+                    <input type="file" name="payRoll" id="payRoll" required>
+                    <?php echo form_error('payRoll'); ?>
+                </div>
+            </div>  
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'DMC')); ?>:</label>
+                    <br>
+                    <input type="file" name="dmc" id="dmc" required>
+                    <?php echo form_error('dmc'); ?>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row"> 
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'CNIC of Govt: Servant')); ?>:</label>
+                    <br>
+                    <input type="file" name="cnic_govt_servant" id="cnic_govt_servant" required>
+                    <?php echo form_error('cnic_govt_servant'); ?>
+                </div>
+            </div>  
+
+            <div class="col-md-6"> 
+                <div class="form-group">
+                    <label><?php echo $label = ucwords(str_replace('_', ' ', 'Grade Conversion / Equivalency / Percentage Certificate')); ?>:</label>
+                    <br>
+                    <input type="file" name="percentage_certificate" id="percentage_certificate" required>
+                    <?php echo form_error('percentage_certificate'); ?>
+                </div>
+            </div>  
 
         </div>
 
+        <h4>NOTE:</h4>
+        <p><strong>a)</strong> Application will not be entertained in case of deficiency, incompleteness, late
+submission or not routing through administrative department.</p>   
+        <p><strong>b)</strong> Application are only processed for calendar year mentioned on title of form. </p>
+        <p><strong>c)</strong> Application will only be considered for FULL FINAL EXAMS. </p>
         <!-- /.box -->
+        <p>&nbsp;</p>
 
         <div class="row">
             <!-- /.col -->
-            <div class="col-xs-6">
-                <button type="submit" value="submit" name="submit" class="btn btn-primary  btn-sm"><i class="fa fa-plus"> </i> Add Record</button>
-                <a href="<?php echo base_url('dashboard'); ?>" class="btn btn-info  btn-sm" type="button"> <i class="fa fa-chevron-left"> </i> Cancel/Back</a>
-
+            <div class="col-xs-12">
+                <button type="submit" value="submit" name="submit" class="btn btn-primary btn-lg">SUBMIT</button> 
             </div>
             <!-- /.col -->
         </div>
         <!-- /.row -->
 
     </section>
+
+    
+
     </form>
 
     <!-- /.content -->
@@ -521,36 +404,54 @@
 
     $(document).ready(function() {
         //alert('i m here');
-        $('#tbl_emp_info_id').on('change', function() {
+        $('#personnelNo').on('change', function() {
             var base_url = "<?php echo base_url(); ?>";
-            var tbl_emp_info_id = $('#tbl_emp_info_id').val();
-            //alert('empID = '+ tbl_emp_info_id);
-            //alert(base_url +'emp_info/getRecordById/'+tbl_emp_info_id);
-            if(tbl_emp_info_id) {
+            var personnelNo = $('#personnelNo').val();
+            //alert(personnelNo); //return false; 
+            if(personnelNo) { 
+
                 $.ajax({
-                    url: base_url +'emp_info/getData/'+tbl_emp_info_id,
+                    url: base_url +'emp_info/getDataByPersonnelNo/'+personnelNo,
 
                     type: "post",
                     dataType: "json",
                     success:function(data) {
-                        //alert(data.tbl_department_id);
-                        $('#tbl_department_id').val(data.tbl_department_id); 
-                        $('#tbl_department_id').select2().trigger('change');
-                        $('#pay_scale_id').val(data.pay_scale_id);
-                        $('#pay_scale').val(data.pay_scale); 
+                        if(data.empInfo != null) { 
+                            $('#tbl_emp_info_id').val(data.empInfo.id);   
+                            $('#tbl_department_id').val(data.empInfo.tbl_department_id);   
+                            $('#pay_scale_id').val(data.empInfo.pay_scale_id);
+                            $('#designation').val(data.designation.name);
+                            $('#pay_scale').val(data.empInfo.pay_scale); 
+                            $('#grantee_name').val(data.empInfo.grantee_name);
+                        } else {
+                            $('#pay_scale_id').val('');
+                            $('#tbl_emp_info_id').val('');   
+                            $('#designation').val('');
+                            $('#pay_scale').val(''); 
+                            $('#grantee_name').val('');
+                            $('select[id="tbl_department_id"]').empty();
+                        }
 
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
                     }
                 });
+
             }else{
+                
                 $('#pay_scale_id').val('');
+                $('#designation').val('');
                 $('#pay_scale').val(''); 
+                $('#grantee_name').val('');
                 $('select[id="tbl_department_id"]').empty();
+                
             }
         });
 
 
         $('#class_pass').on('change', function() {
-            var base_url = "<?php echo base_url(); ?>";
+            var base_url = "<?php //echo base_url(); ?>";
             var class_pass = $('#class_pass').val(); 
             if(class_pass) {
                 $.ajax({
