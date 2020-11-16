@@ -261,7 +261,7 @@ class Funeral extends MY_Controller {
             }
             
             $getDept = $this->common_model->getRecordById($funeralInfo->parent_dept, $tbl_name = 'tbl_department');
-			$data[] = array($i, $funeralInfo->record_no, $funeralInfo->record_no_year, $funeralInfo->name_deceased, $funeralInfo->doa, $funeralInfo->dor, $funeralInfo->los, $add_by_date, $actionBtn);
+			$data[] = array($i, $funeralInfo->application_no, $funeralInfo->record_no, $funeralInfo->record_no_year, $funeralInfo->name_deceased, $funeralInfo->doa, $funeralInfo->dor, $funeralInfo->los, $add_by_date, $actionBtn);
 		}
 
 		$output = array(

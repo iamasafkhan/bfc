@@ -182,7 +182,7 @@ class Monthly_grant extends MY_Controller {
             }
             
             $getDept = $this->common_model->getRecordById($monthlyInfo->parent_dept, $tbl_name = 'tbl_department');
-			$data[] = array($i, $monthlyInfo->record_no, $monthlyInfo->record_no_year, $monthlyInfo->doa, $monthlyInfo->dor, $monthlyInfo->los, $add_by_date, $actionBtn);
+			$data[] = array($i, $monthlyInfo->application_no,  $monthlyInfo->record_no, $monthlyInfo->record_no_year, $monthlyInfo->doa, $monthlyInfo->dor, $monthlyInfo->los, $add_by_date, $actionBtn);
 		}
 
 		$output = array(

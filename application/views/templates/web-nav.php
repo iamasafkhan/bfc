@@ -29,11 +29,11 @@
       </ul>
       
       
-      <form class="navbar-form navbar-right">
+      <form name="frmApp" id="frmApp" method="POST" action="<?php echo base_url('track-your-application')?>" class="navbar-form navbar-right">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="ENTER APPLICATION ID">
+          <input type="text" name="application_no" id="application_no" value="<?php echo set_value('application_no'); ?>" class="form-control" required placeholder="ENTER APPLICATION ID">
         </div>
-        <button type="button" class="btn btn-default">SEARCH</button>
+        <button type="submit" name="submit" value="Search" class="btn btn-default">SEARCH</button>
       </form>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

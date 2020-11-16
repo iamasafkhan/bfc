@@ -264,7 +264,7 @@ class Retirement extends MY_Controller {
             }
             
             $getDept = $this->common_model->getRecordById($retirementInfo->parent_dept, $tbl_name = 'tbl_department');
-			$data[] = array($i, $retirementInfo->record_no, $retirementInfo->record_no_year, $retirementInfo->doa, $retirementInfo->dor, $retirementInfo->los, $add_by_date, $actionBtn);
+			$data[] = array($i, $retirementInfo->application_no, $retirementInfo->record_no, $retirementInfo->record_no_year, $retirementInfo->doa, $retirementInfo->dor, $retirementInfo->los, $add_by_date, $actionBtn);
 		}
 
 		$output = array(

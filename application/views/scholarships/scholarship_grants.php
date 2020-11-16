@@ -32,6 +32,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
                     <thead>
                         <tr>
                             <th width="2%"><?php echo ucwords(str_replace('_', ' ', 'Sr.')); ?></th>
+                            <th width="10%"><?php echo ucwords(str_replace('_', ' ', 'app no')); ?></th>
                             <th width="10%"><?php echo ucwords(str_replace('_', ' ', 'std name')); ?></th>
                             <th width="10%"><?php echo ucwords(str_replace('_', ' ', 'parent dept')); ?></th>
                             <th width="10%"><?php echo ucwords(str_replace('_', ' ', 'class_pass')); ?></th>

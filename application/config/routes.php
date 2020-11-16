@@ -53,6 +53,7 @@ $route['add_interest_free_loan_grant'] = 'interest_free_loan/add_interestfreeloa
 $route['add_interest_free_loan_grant/(:any)'] = 'interest_free_loan/add_interestfreeloan_grant/$1';
 
 $route['apply-for-scholarship-grant'] = 'apply/scholarship_grant/';
+$route['track-your-application'] = 'apply/track_application/';
 
 $route['reports'] = 'reports/view_reports/';
 

@@ -284,7 +284,7 @@ class Scholarship extends MY_Controller {
             } 
             
             $getDept = $this->common_model->getRecordById($scholarshipInfo->parent_dept, $tbl_name = 'tbl_department');
-			$data[] = array($i, $scholarshipInfo->std_name, $getDept['name'], $class_pass, $exam_pass, $result_date,  $status, $add_by_date, $actionBtn);
+			$data[] = array($i, $scholarshipInfo->application_no, $scholarshipInfo->std_name, $getDept['name'], $class_pass, $exam_pass, $result_date,  $status, $add_by_date, $actionBtn);
 		}
 
 		$output = array(
