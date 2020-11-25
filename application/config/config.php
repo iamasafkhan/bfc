@@ -25,7 +25,7 @@ date_default_timezone_set("Asia/Karachi");
 |
  */
 $config['base_url'] = 'http://localhost/kpitb/bfc/';
-
+//$config['base_url'] = 'http://malakand.com.pk/projects/bfc/';
 /*
 |--------------------------------------------------------------------------
 | Index File

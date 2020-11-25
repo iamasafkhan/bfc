@@ -17,11 +17,10 @@
 
         <?php if ($_SESSION['admin_id'] == 1) {  ?>
 
-            <div class="box box-info">
+            <!-- <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Latest Applications</h3> 
-                </div>
-                <!-- /.box-header -->
+                </div> 
                 <div class="box-body">
                     <div class="table-responsive">
                         <table class="table no-margin">
@@ -36,25 +35,25 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                foreach($applications as $application) { 
+                                // foreach($applications as $application) { 
 
-                                    $tbl_grants_id = $application['tbl_grants_id'];
-                                    $tbl_emp_info_id = $application['tbl_emp_info_id'];
-                                    $application_no = $application['application_no'];
+                                //     $tbl_grants_id = $application['tbl_grants_id'];
+                                //     $tbl_emp_info_id = $application['tbl_emp_info_id'];
+                                //     $application_no = $application['application_no'];
 
-                                    $getTblName = $this->common_model->getRecordByColoumn('tbl_grants', 'id', $tbl_grants_id);
-                                    $grant_tbl_name = $getTblName['tbl_name'];
-                                    $grant_type = $getTblName['name'];
+                                //     $getTblName = $this->common_model->getRecordByColoumn('tbl_grants', 'id', $tbl_grants_id);
+                                //     $grant_tbl_name = $getTblName['tbl_name'];
+                                //     $grant_type = $getTblName['name'];
 
-                                    $getGrant  = $this->common_model->getRecordByColoumn($grant_tbl_name, 'application_no', $application_no);
-                                    $applicant_name = $getGrant['grantee_name'];
-                                    $entry_date = $getGrant['record_add_date'];
-                                    $tbl_case_status = $getGrant['tbl_case_status'];
+                                //     $getGrant  = $this->common_model->getRecordByColoumn($grant_tbl_name, 'application_no', $application_no);
+                                //     $applicant_name = $getGrant['grantee_name'];
+                                //     $entry_date = $getGrant['record_add_date'];
+                                //     $tbl_case_status = $getGrant['tbl_case_status'];
                                     
-                                    $getStatus  = $this->common_model->getRecordByColoumn('tbl_case_status', 'id', $tbl_case_status);
-                                    $statusName = $getStatus['name'];
-                                    $statusLabel = $getStatus['label'];
-                                    $status = '<span class="'.$statusLabel.'">'.$statusName.'</span>';
+                                //     $getStatus  = $this->common_model->getRecordByColoumn('tbl_case_status', 'id', $tbl_case_status);
+                                //     $statusName = $getStatus['name'];
+                                //     $statusLabel = $getStatus['label'];
+                                //     $status = '<span class="'.$statusLabel.'">'.$statusName.'</span>';
 
                                     //$applicant = $this->common_model->getRecordById($id, $tbl_name);
                                     ?>
@@ -68,19 +67,12 @@
                                         <div class="sparkbar" data-color="#00a65a" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div>
                                     </td>
                                 </tr> 
-                                <?php } ?>
+                                <?php //} ?>
                             </tbody>
                         </table>
-                    </div>
-                    <!-- /.table-responsive -->
-                </div>
-                <!-- /.box-body -->
-                <!-- <div class="box-footer clearfix">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
-                </div> -->
-                <!-- /.box-footer -->
-            </div>
+                    </div> 
+                </div> 
+            </div> -->
 
 
             <div class="row">

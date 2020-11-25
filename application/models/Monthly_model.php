@@ -70,6 +70,7 @@ class Monthly_model extends CI_Model {
             'tbl_grants_id' => '4',
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
             'application_no' => $application_no,
+            'status' => $this->input->post('tbl_case_status_id')
         );
         $this->db->insert('tbl_grants_has_tbl_emp_info_gerund', $app_data); 
         //$last_insert_id = $this->db->insert_id(); 

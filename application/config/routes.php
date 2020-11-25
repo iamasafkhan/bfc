@@ -57,6 +57,11 @@ $route['track-your-application'] = 'apply/track_application/';
 
 $route['reports'] = 'reports/view_reports/';
 
+$route['batches'] = 'batches/view_batches/';
+$route['batch_details/(:any)'] = 'batches/batch_details/$1';
+$route['batch_app_status'] = 'batches/batch_app_status/';
+
+
 $route['setting'] = 'common/setting';
 
 $route['default_controller'] = 'site';

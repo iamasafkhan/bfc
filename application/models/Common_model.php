@@ -63,6 +63,13 @@ class Common_model extends CI_Model {
 		$query = $this->db->get_where($tbl_name, array($tbl_col => $value));
 		return $query->result_array();
     }
+    public function getSumByColoumn($tbl_name, $field, $alias, $tbl_col, $value) {
+        $this->db->select('SUM('.$field.') as '.$alias);
+        $this->db->from($tbl_name);
+		$this->db->where( $tbl_col, $value);
+		$query = $this->db->get();
+        return $query->row_array(); 
+	}
     public function getCountAll($tbl_name){
         $counter = $this->db->count_all($tbl_name);
         return $counter; 
@@ -121,6 +128,33 @@ class Common_model extends CI_Model {
         return $application_no;
     }
     
+
+    public function getBatchNo() {
+        $this->db->select('batch_no');
+        $this->db->from('tbl_batches');
+		$this->db->order_by('id', 'desc');
+		$query = $this->db->get();
+        $getBatchNo = $query->row_array();
+        $last_batch_no = $getBatchNo['batch_no'];
+
+        if($last_batch_no == '') {
+            $batch_no = date('Ymd').'-1';
+        } else {
+            $lastBatch = explode("-", $last_batch_no); 
+            $batchDate = $lastBatch[0];
+            $batchInc = $lastBatch[1]; 
+            $date = date('Ymd');
+
+            if($date == $batchDate) {
+                $inc = $batchInc+1; 
+                $batch_no = $date.'-'.$inc;
+            } else {
+                $batch_no = $date.'-1';
+            } 
+            
+        } 
+        return $batch_no;
+    }
 
     public function getBankBranch($branchID) {
         // $this->db->select('*');

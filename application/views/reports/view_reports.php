@@ -46,8 +46,7 @@
 
                     </div>
 
-                    <div class="col-md-3">
-
+                    <div class="col-md-3"> 
                         <div class="form-group">
                             <label><?php echo $label = ucwords('grants'); ?>:</label>
                             <div class="input-group">
@@ -61,8 +60,7 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div><?php echo form_error('tbl_grants_id'); ?>
-                        </div>
-
+                        </div> 
                     </div>
 
                     <div class="col-md-3">
@@ -74,12 +72,11 @@
                                     <i class="fa fa-user"></i>
                                 </div>
 
-                                <select name="status" id="status" class="form-control select2 validate[required]">
+                                <select name="status" id="status" class="form-control select2">
                                     <option value="">Select Status</option>
-                                    <option value="2">Pending/ Inprocess</option>
-                                    <option value="1">Approve for Inspection</option>
-                                    <option value="0">Rejected / Not Approved</option>
-                                    <option value="4">Approved</option>
+                                    <?php foreach($statuses as $status) { ?>
+                                        <option value="<?=$status['id'];?>"><?=$status['name'];?></option>
+                                    <?php } ?>
                                 </select>
                             </div><?php echo form_error('status'); ?>
                         </div>
@@ -129,7 +126,7 @@
                                 <select name="tbl_bank_id" id="tbl_bank_id" class="form-control select2">
                                     <option value="">Select Banks</option>
                                     <?php foreach ($banks as $bank) : ?>
-                                        <option value="<?php echo $bank['id']; ?>"><?php echo $bank['name']; ?></option>
+                                        <option value="<?php echo $bank['id']; ?>"><?php echo $bank['name']. ' ('. $bank['branch_code']. ')'; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div><?php echo form_error('tbl_bank_id'); ?>
@@ -140,15 +137,28 @@
                     <div class="col-md-3">
 
                         <div class="form-group">
-                            <label><?php echo $label = ucwords('keyword'); ?>:</label>
+                            <label><?php echo $label = ucwords('Batch Status'); ?>:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-file"></i>
+                                </div>
+                                <select name="batch_status" id="batch_status" class="form-control select2"> 
+                                    <option value="">View All</option>
+                                    <option value="0">Avb for Batch Only</option>
+                                </select>
+                            </div><?php echo form_error('batch_status'); ?>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label><?php //echo $label = ucwords('keyword'); ?>:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </div>
 
                                 <input type="text" autocomplete="off" value="" name="keyword" id="keyword" class="form-control" placeholder="Enter <?php echo $label; ?>" />
-                            </div><?php echo form_error('keyword'); ?>
-                        </div>
+                            </div><?php //echo form_error('keyword'); ?>
+                        </div> -->
 
                     </div>
 
@@ -161,7 +171,7 @@
     </section>
 
 
-    
+    <?php /* ?>
     <section class="content">
         <div class="box box-success">
             <div class="box-header">
@@ -224,7 +234,7 @@
     </section>
 
     
-    <?php /* ?><?php */ ?>
+    <?php */ ?>
 
 
 
@@ -235,7 +245,7 @@
 
 
 
-    <? /* ?>
+    
     <!-- Main content -->
     <section class="content">
         <div class="box box-success">
@@ -243,30 +253,47 @@
                 <h3 class="box-title pull-left"><?php echo ucwords(str_replace('_', ' ', 'Generated Report')); ?></h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive">
-                <table id="ssp_datatable" class="table table-bordered table-striped table-hover table-condensed display dataTable">
-                    <thead>
-                        <tr>
-                            <th width="2%"><?php echo ucwords(str_replace('_', ' ', 'Sr.')); ?></th>
-                            <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'Name of Grantee')); ?></th>
-                            <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'Govt Servant')); ?></th>
-                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'Designation')); ?></th>
-                            <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'CNIC')); ?></th>
-                            <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'Tran No')); ?></th>
-                            <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'Bank Branch')); ?></th>
-                            <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'Account No')); ?></th>
-                            <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'Amount')); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
+            <?php echo form_open('reports/create_batch/', 'id="formID"'); ?>
+                <div class="box-body table-responsive">
+                    <div class="row">
+                        <div class="col-md-12"> 
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-sm btn-success" name="action" value="btnCreateBatch">Create Batch</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <table id="ssp_datatable" class="table table-bordered table-striped table-hover table-condensed display dataTable">
+                        <thead>
+                            <tr> 
+                                <th width="1%"><input type="checkbox" name="checkbox" id="selectall"></th>
+                                <th width="2%"><?php echo ucwords(str_replace('_', ' ', 'Sr.')); ?></th>                        
+                                <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'applicationNo')); ?></th>
+                                <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'GrantType')); ?></th>
+                                <th width="5%"><?php echo ucwords(str_replace('_', ' ', 'granteeName')); ?></th>
+                                <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'dateAdded')); ?></th>
+                                <th width="8%"><?php echo ucwords(str_replace('_', ' ', 'status')); ?></th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-12"> 
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-sm btn-success" name="action" value="btnCreateBatch">Create Batch</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
             <!-- /.box-body -->
         </div>
     </section>
     <!-- /.content -->
-    <? */ ?>
+    <? /* ?><? */ ?>
 </div>
 
 
@@ -275,22 +302,16 @@
 
 <!-- for image / gallery -->
 <script>
-    baguetteBox.run('.tz-gallery');
-
-
-    $(document).ready(function() {
-        $('#checkall').click(function() { 
-            var checked = $(this).prop('checked');
-            $('#application_no').prop('checked', checked);
-        });
-    })
-
+    baguetteBox.run('.tz-gallery');  
 </script>
 
 <script type="text/javascript">
     var save_method; //for save method string
     var sspDataTable;
-    $(document).ready(function() {
+    $(document).ready(function() { 
+
+        
+
         sspDataTable = $('#ssp_datatable').DataTable({
             // Processing indicator
             "processing": true,
@@ -305,13 +326,22 @@
 
             // Load data from an Ajax source
             "ajax": {
-                "url": "<?php echo base_url('form_8a/get_form_8a_report/'); ?>",
+                //"url": "<?php //echo base_url('form_8a/get_form_8a_report/'); ?>",
                 // "type": "POST"
+                "url": "<?php echo base_url('reports/get_reports/'); ?>",
                 'data': function(data) {
-                    data.tbl_district_id = $('#tbl_district_id').val();
+                    //alert(JSON.stringify(data));
+                    //data.tbl_district_id = $('#tbl_district_id').val();
                     data.from_date = $('#from_date').val();
                     data.to_date = $('#to_date').val();
+                    data.tbl_grants_id = $('#tbl_grants_id').val();
                     data.status = $('#status').val();
+                    data.from_app_no = $('#from_app_no').val();
+                    data.to_app_no = $('#to_app_no').val();
+                    data.batch_status = $('#batch_status').val();
+
+                    //data.tbl_bank_id = $('#tbl_bank_id').val();
+                    //data.keyword = $('#keyword').val();
                 }
             },
             //Set column definition initialisation properties
@@ -319,43 +349,38 @@
             //     "targets": [0,5,6],
             //     "orderable": false
             // }]
-            'columns': [{
+            'columns': [
+                {
+                    data: 'checkbox'
+                },
+                {
                     data: 'no'
+                }, 
+                {
+                    data: 'applicationNo' 
                 },
                 {
-                    data: 'proprietor'
+                    data: 'GrantType'
                 },
                 {
-                    data: 'businessName'
+                    data: 'GranteeName'
                 },
                 {
-                    data: 'district'
-                },
-                {
-                    data: 'applicationDate'
-                },
-                {
-                    data: 'approvalDate'
-                },
-                {
-                    data: 'inspector'
-                },
-                {
-                    data: 'inspectionDate'
-                },
+                    data: 'DateAdded'
+                }, 
                 {
                     data: 'status'
                 },
             ],
             //Set column definition initialisation properties
             "columnDefs": [{
-                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                "targets": [0, 1, 2, 3, 4, 5],
                 "orderable": false
             }]
         });
 
 
-        $('#tbl_district_id,#status').change(function() {
+        $('#tbl_grants_id, #status, #batch_status').change(function() {
             sspDataTable.draw();
         });
 
@@ -366,6 +391,15 @@
         $('#to_date').focusout(function() {
             sspDataTable.draw();
         });
+
+        $('#from_app_no').focusout(function() {
+            sspDataTable.draw();
+        });
+
+        $('#to_app_no').focusout(function() {
+            sspDataTable.draw();
+        });
+
 
     });
 
@@ -396,4 +430,21 @@
 
 
     });
+
+    $(function() {
+        $('#checkall').click(function() {
+            alert('checkall');
+            // var checked = $(this).prop('checked');
+            // $('#application_no').prop('checked', checked);
+        });
+    });
+    $(function() {
+        $('#selectall').click(function() { 
+            var checked = this.checked;
+            $('input[type="checkbox"]').each(function() {
+            this.checked = checked;
+            });
+        });
+    });
+
 </script>

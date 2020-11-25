@@ -6,64 +6,56 @@ class Reports extends MY_Controller {
 
 	public function __construct() {
 		error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-		parent::__construct(); 
-	} 
+        parent::__construct(); 
+        
+        //$this->load->model('reports_model');
+    } 
+    
+    
 	 
-	public function view_reports() {
-
-
-
+	public function view_reports() { 
+        
         $data['grants'] = $this->common_model->getAllRecords('tbl_grants');
+        $data['statuses'] = $this->common_model->getAllRecords('tbl_case_status');
+        $data['banks'] = $this->common_model->getAllRecords('tbl_list_bank_branches');
         $data['applications'] = $this->common_model->getAllRecordByArray('tbl_grants_has_tbl_emp_info_gerund', null);
         
 		$data['page_title'] = 'View All Reports';
-        $data['description'] = '...';
-        
+        $data['description'] = '...'; 
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('reports/view_reports', $data);
 		$this->load->view('templates/footer');
 	}
 
-	public function get_reports() {
+	public function get_reports() {  
+        $postData = $this->input->post();
+        //echo '<pre>'; var_dump($postData);
+        $data = $this->reports_model->get_listing_reports($postData);
+		echo json_encode($data);
+    }
+    
+    public function create_batch() {  
+        $postData = $this->input->post();
+        //echo '<pre>'; print_r($postData); //exit;
 
-		$data = $row = array();
+        if($postData['action'] == 'btnCreateBatch'){
+            
+            $countSelected = count($this->input->post('selectall'));
+            //echo 'countSelected = '. $countSelected;
+            if($countSelected > 0) {
 
-		// Fetch district's records
-		$districtData = $this->district_model->getRows($_POST);
+                $this->reports_model->add_batch($this->input->post('selectall'));
+				// set session message
+				$this->session->set_flashdata('custom', 'Batch created successfully!');
+				redirect(base_url('reports'));
 
-		$i = $_POST['start'];
-		foreach ($districtData as $districtInfo) {
-			$i++;
-			$status = ($districtInfo->status == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-danger">Inactive</span>';
+            } else {
+                $this->session->set_flashdata('error_custom', 'Please select some applications to proceed!');
+				redirect(base_url('reports'));
+            }
+        } 
+    }
 
-			$getRole = $this->admin->getRecordById($districtInfo->record_add_by, $tbl_name = 'tbl_admin');
-			$recordAddDate = $districtInfo->record_add_date;
-			$recordAddDate = date("d-M-Y", strtotime($recordAddDate));
-
-			$add_by_date = 'Add by <i><strong>' . $getRole['name'] . '</strong> on <strong>' . $recordAddDate . '</strong></i>';
-
-			$actionBtn = '<a href="' . site_url('common/logger/' . $districtInfo->id . '/tbl_district') . '">
-                      <button type="button"class="btn btn-sm btn-xs btn-primary"><i class="fa fa-history"></i></button>
-                      </a>' .
-			'<a href="javascript:void(0)" onclick="getData(' . "'" . $districtInfo->id . "'" . ')">
-                      <button type="button" id="item_edit" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
-                      </a>';
-			// $actionBtn = '<a href="' . site_url('district/edit_district/' . $districtInfo->id) . '">
-			//                    <button type="button" class="item_edit btn btn-sm btn-xs btn-warning"><i class="fa fa-edit"></i></button>
-			//                    </a>';
-			$data[] = array($i, $districtInfo->name, $status, $add_by_date, $actionBtn);
-		}
-
-		$output = array(
-			"draw" => $_POST['draw'],
-			"recordsTotal" => $this->district_model->countAll(),
-			"recordsFiltered" => $this->district_model->countFiltered($_POST),
-			"data" => $data,
-		);
-
-		// Output to JSON format
-		echo json_encode($output);
-	}
 }
 ?>

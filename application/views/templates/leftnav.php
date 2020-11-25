@@ -52,9 +52,27 @@ if ($_SESSION['admin_id']) {
                 </li>
 
             <?php } ?>
+             
+            <?php if ($_SESSION['tbl_admin_role_id'] == 4 ) {  ?>  
+                <li class="">
+                    <a href="<?php echo base_url('view_emp_info'); ?>"><i class="fa fa-user"></i> <span>Emp Info Manag.</span></a>
+                </li>
+                <li class="">
+                    <a href="<?php echo base_url('view_retirement_grants'); ?>"><i class="fa fa-money"></i> <span>Retirement Grants</span></a>
+                </li>
+                <li class="">
+                    <a href="<?php echo base_url('view_lumpsum_grants'); ?>"><i class="fa fa-money"></i> <span>Lumpsum Grants</span></a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('reports'); ?>"><i class="fa fa-file"></i> <span>Reports</span></a>
+                </li> 
+                <li>
+                    <a href="<?php echo base_url('batches'); ?>"><i class="fa fa-file"></i> <span>Batches</span></a>
+                </li> 
+            <? } ?>
 
             <?php if ($_SESSION['tbl_admin_role_id'] == 1 || $_SESSION['tbl_admin_role_id'] == 6 || $_SESSION['tbl_admin_role_id'] == 7 || $_SESSION['tbl_admin_role_id'] == 2) { ?>
-                <? if($_SESSION['tbl_admin_role_id'] != 2) {  ?>
+                <? if($_SESSION['tbl_admin_role_id'] != 2 ) {  ?>
             <li class="">
                 <a href="<?php echo base_url('view_emp_info'); ?>"><i class="fa fa-user"></i> <span>Emp Info Manag.</span></a>
             </li>
@@ -82,6 +100,9 @@ if ($_SESSION['admin_id']) {
             <?php if ($_SESSION['tbl_admin_role_id'] == 1) { ?>
                 <li>
                     <a href="<?php echo base_url('reports'); ?>"><i class="fa fa-file"></i> <span>Reports</span></a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('batches'); ?>"><i class="fa fa-user"></i> <span>Batches</span></a>
                 </li>
                 <!-- Miscellaneous -->
                 <li class="treeview">

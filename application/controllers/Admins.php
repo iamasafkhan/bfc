@@ -23,7 +23,7 @@ class Admins extends MY_Controller {
             $data['lumpsum_grants_applications'] = $this->common_model->getCountAll('tbl_lump_sum_grant');
             $data['interestfreeloan_grants_applications'] = $this->common_model->getCountAll('tbl_interest_free_loan');
             $data['funeral_grants_applications'] = $this->common_model->getCountAll('tbl_funeral_grant');
-            $data['applications'] = $this->common_model->getAllRecordByArray('tbl_grants_has_tbl_emp_info_gerund', null);
+            //$data['applications'] = $this->common_model->getAllRecordByArray('tbl_grants_has_tbl_emp_info_gerund', null);
 
             $data['description'] = 'Welcome ' . $_SESSION['name'];
 			$data['rightDescription'] = $getAdminRole['name'];

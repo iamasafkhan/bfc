@@ -203,7 +203,8 @@ function add()
       save_method = 'add';
       form_reset(); // reset form on modals
       $('#modal_form').modal('show'); // show bootstrap modal
-      $('.modal-title').text('<?php echo ucwords(str_replace('_', ' ', 'add new district')); ?>'); // Set Title to Bootstrap modal title
+      $('.modal-title').text('<?php echo ucwords(str_replace('_', ' ', 'add new district')); ?>'); 
+      // Set Title to Bootstrap modal title
     }
 
 function form_reset()

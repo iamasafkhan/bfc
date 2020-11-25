@@ -132,5 +132,22 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
  */
-$autoload['model'] = array('admin_model', 'common_model', 'admin_role_model', 'district_model', 'department_model', 'grants_model', 'banks_model', 'case_status_model', 'pay_scale_model', 'grantee_type_model', 'payment_mode_model', 'post_model', 'bfc_bank_branch_model', 'grantee_bank_branch_model', 'grant_payments_model', 'emp_info_model',
+$autoload['model'] = array('admin_model', 
+'common_model', 
+'admin_role_model', 
+'district_model', 
+'department_model', 
+'grants_model', 
+'banks_model', 
+'case_status_model', 
+'pay_scale_model', 
+'grantee_type_model', 
+'payment_mode_model', 
+'post_model', 
+'bfc_bank_branch_model', 
+'grantee_bank_branch_model', 
+'grant_payments_model', 
+'emp_info_model',
+'reports_model',
+'batches_model'
 );

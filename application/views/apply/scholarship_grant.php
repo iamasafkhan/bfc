@@ -38,7 +38,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" name="grantee_name" id="grantee_name" value="<?php echo set_value('grantee_name'); ?>" class="form-control" readonly required>
+                        <input type="text" name="grantee_name" id="grantee_name" value="<?php echo set_value('grantee_name'); ?>" class="form-control" required>
                          
 
                     </div><?php echo form_error('grantee_name'); ?>
@@ -54,7 +54,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" class="form-control" name="designation" id="designation" value="<?php echo set_value('designation'); ?>" readonly required>
+                        <input type="text" class="form-control" name="designation" id="designation" value="<?php echo set_value('designation'); ?>" required>
  
                     </div><?php echo form_error('designation'); ?>
                 </div>
@@ -67,7 +67,7 @@
                             <i class="fa fa-user"></i>
                         </div>
                          
-                        <input type="text" name="pay_scale" id="pay_scale" value="<?php echo set_value('pay_scale'); ?>" class="form-control" readonly required>
+                        <input type="text" name="pay_scale" id="pay_scale" value="<?php echo set_value('pay_scale'); ?>" class="form-control" required>
                         <input type="hidden" id="pay_scale_id" name="pay_scale_id" value="<?php echo set_value('pay_scale_id'); ?>">
 
                     </div><?php echo form_error('pay_scale'); ?>
@@ -84,7 +84,7 @@
                             <i class="fa fa-industry"></i>
                         </div>
 
-                        <select name="tbl_department_id" id="tbl_department_id" class="form-control" required readonly>
+                        <select name="tbl_department_id" id="tbl_department_id" class="form-control" required>
                             <option value="">Select Department</option> 
                             <?php foreach ($department as $departmentInfo) : ?>
                                 <option value="<?php echo $departmentInfo['id']; ?>" <?php if(set_value('tbl_department_id') == $departmentInfo['id']) { echo 'selected'; }?>><?php echo $departmentInfo['name']; ?></option>
@@ -411,7 +411,7 @@ submission or not routing through administrative department.</p>
             if(personnelNo) { 
 
                 $.ajax({
-                    url: base_url +'emp_info/getDataByPersonnelNo/'+personnelNo,
+                    url: base_url +'scholarship/getDataByPersonnelNo/'+personnelNo,
 
                     type: "post",
                     dataType: "json",
