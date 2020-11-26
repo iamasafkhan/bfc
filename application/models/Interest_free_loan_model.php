@@ -33,7 +33,17 @@ class Interest_free_loan_model extends CI_Model {
         
         $this->db->select('*');
         $this->db->from('tbl_interestfreeloan_payments');    
-        $this->db->where( $empScaleID .' BETWEEN tbl_pay_scale_id AND tbl_pay_scale_id_to'); 
+        //$this->db->where( $empScaleID .' BETWEEN tbl_pay_scale_id AND tbl_pay_scale_id_to'); 
+
+        // if($loanTypeID == 1 || $loanTypeID == 2 || $loanTypeID == 3) {
+        //     $this->db->where('tbl_pay_scale_id <= '.$empScaleID);
+        //     $this->db->where('tbl_pay_scale_id_to >= '.$empScaleID);
+        // }
+
+        $this->db->where('tbl_pay_scale_id <= '.$empScaleID);
+        $this->db->where('tbl_pay_scale_id_to >= '.$empScaleID);
+  
+        
         $this->db->where('tbl_loan_types_id', $loanTypeID);
         $this->db->where('tbl_grants_id', "5");
         $this->db->where('status', "1"); 

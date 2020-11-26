@@ -594,7 +594,7 @@
                 $('#dor').val('');  
                 return false;
             } else if(empScale > 15) {
-                alert('You are not elligible for the funeral grant.');
+                alert('You are not elligible for the monthly grant.');
                 return false;
             }
             else if(dateOfRetirement){

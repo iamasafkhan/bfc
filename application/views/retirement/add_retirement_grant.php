@@ -170,7 +170,7 @@
                                             <i class="fa fa-calculator"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" value="<?php echo set_value('grant_amount'); ?>" name="grant_amount" id="grant_amount" readonly class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('grant_amount'); ?>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                                             <i class="fa fa-building"></i>
                                         </div>
 
-                                        <input type="text" autocomplete="off" value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
+                                        <input type="text" autocomplete="off" readonly value="<?php echo set_value('net_amount'); ?>" name="net_amount" id="net_amount" class="form-control validate[required]" placeholder="Enter <?php echo $label; ?>" />
                                     </div><?php echo form_error('net_amount'); ?>
                                 </div>
                             </div>
@@ -510,9 +510,9 @@
                 startDate = new Date($('#doa').val());
                 endDate = new Date($('#dor').val()); 
                 var diff_date =  endDate - startDate; 
-                alert('startDate = ' + startDate);
-                alert('endDate = ' + endDate);
-                alert('diff_date = ' + diff_date);
+                //alert('startDate = ' + startDate);
+                //alert('endDate = ' + endDate);
+                //alert('diff_date = ' + diff_date);
 
                 var years = Math.floor(diff_date/31536000000);
                 var months = Math.floor((diff_date % 31536000000)/2628000000);
@@ -523,7 +523,7 @@
                 //alert('years = '+ years + ' months = '+ months + ' days = '+ days );
 
                 result = years+" year(s) "+months+" month(s) "+days+" and day(s)";
-                alert('result = ' + result);
+                //alert('result = ' + result);
 
                 if(result == 'NaN year(s) NaN month(s) NaN and day(s)'){
                     $('#los').val(''); 

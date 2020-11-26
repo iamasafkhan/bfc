@@ -111,17 +111,18 @@ class Reports_model extends CI_Model {
 		$i = 1;
 		foreach ($records as $record) {
 
-			if ($record->status == 1) {
-				$status = '<span class="label label-primary">Inprocess</span>';
-			} else if ($record->status == 2) {
-				$status = '<span class="label label-success">Complete</span>';
-			} else if ($record->status == 3) {
-				$status = '<span class="label label-danger">Rejected / Not Approved</span>';
-			} else if ($record->status == 4) {
-                $status = '<span class="label label-success">Approved</span>';
-            }
+			// if ($record->status == 1) {
+			// 	$status = '<span class="label label-primary">Inprocess</span>';
+			// } else if ($record->status == 2) {
+			// 	$status = '<span class="label label-success">Complete</span>';
+			// } else if ($record->status == 3) {
+			// 	$status = '<span class="label label-danger">Rejected / Not Approved</span>';
+			// } else if ($record->status == 4) {
+            //     $status = '<span class="label label-success">Approved</span>';
+            // }
             
-            
+            $get_status = $this->common_model->getRecordByColoumn('tbl_case_status', 'id', $record->status);
+            $status = '<label for="" class="'.$get_status['label'].' label-sm">'.$get_status['name'] .'</label>';
 
             $applicationNo = $record->application_no;
 
