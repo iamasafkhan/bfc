@@ -178,14 +178,24 @@ class Scholarship_model extends CI_Model {
 
 	public function add_scholarship_grant() {
 
+        //echo '<pre>'; print_r($this->input->post()); exit;
+
         //echo 'in model'; exit();
 		$result_date = date('Y-m-d', strtotime($this->input->post('result_date')));  
        
+        if($this->input->post('pay_scale_id') > 15) {
+            $gazette = '1';
+        } else {
+            $gazette = '0';
+        }
+
         $application_no = $this->common_model->getApplicationNo();   
         $app_data = array(
             'tbl_grants_id' => '1',
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
             'application_no' => $application_no,
+            'tbl_district_id' => $this->input->post('tbl_district_id'),
+            'gazette' => $gazette,
             'status' => $this->input->post('tbl_case_status_id')
         );
         $this->db->insert('tbl_grants_has_tbl_emp_info_gerund', $app_data); 
@@ -226,6 +236,8 @@ class Scholarship_model extends CI_Model {
             'sent_to_secretary' => $this->input->post('sent_to_secretary'),
             'approve_secretary' => $this->input->post('approve_secretary'), 
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'), 
+            'tbl_district_id' => $this->input->post('tbl_district_id'),
+            'gazette' => $gazette,
 			'record_add_by' => $_SESSION['admin_id'],
 			'record_add_date' => date('Y-m-d H:i:s'),
 		);
@@ -321,6 +333,12 @@ class Scholarship_model extends CI_Model {
 
 		//$result_date = date('Y-m-d', strtotime($this->input->post('result_date')));
  
+        if($this->input->post('pay_scale_id') > 15) {
+            $gazette = '1';
+        } else {
+            $gazette = '0';
+        }
+        
 		$data = array( 
             'parent_dept' => $this->input->post('tbl_department_id'),
             'duty_place' => $this->input->post('duty_place'),
@@ -355,6 +373,8 @@ class Scholarship_model extends CI_Model {
             'sent_to_secretary' => $this->input->post('sent_to_secretary'),
             'approve_secretary' => $this->input->post('approve_secretary'), 
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'), 
+            'tbl_district_id' => $this->input->post('tbl_district_id'),
+            'gazette' => $gazette,
 			'record_add_by' => $_SESSION['admin_id'],
 			'record_add_date' => date('Y-m-d H:i:s'),
         );

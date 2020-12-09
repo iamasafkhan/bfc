@@ -376,7 +376,7 @@ submission or not routing through administrative department.</p>
         <div class="row">
             <!-- /.col -->
             <div class="col-xs-12">
-                <button type="submit" value="submit" name="submit" class="btn btn-primary btn-lg">SUBMIT</button> 
+                <button type="submit" value="submit" name="submit" class="btn btn-primary">SUBMIT</button> 
             </div>
             <!-- /.col -->
         </div>
@@ -411,7 +411,7 @@ submission or not routing through administrative department.</p>
             if(personnelNo) { 
 
                 $.ajax({
-                    url: base_url +'scholarship/getDataByPersonnelNo/'+personnelNo,
+                    url: base_url +'emp_info/getDataByPersonnelNo/'+personnelNo,
 
                     type: "post",
                     dataType: "json",

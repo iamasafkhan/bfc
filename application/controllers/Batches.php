@@ -10,6 +10,22 @@ class Batches extends MY_Controller {
     } 
     
     
+    public function create_batch() { 
+        
+        $data['grants'] = $this->common_model->getAllRecords('tbl_grants');
+        $data['statuses'] = $this->common_model->getAllRecords('tbl_case_status');
+        $data['banks'] = $this->common_model->getAllRecords('tbl_list_bank_branches');
+        $data['districts'] = $this->common_model->getAllRecords('tbl_district');
+        $data['applications'] = $this->common_model->getAllRecordByArray('tbl_grants_has_tbl_emp_info_gerund', null);
+        
+		$data['page_title'] = 'Advance Search';
+        $data['description'] = '...'; 
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('batches/create_batch', $data);
+		$this->load->view('templates/footer');
+    }
+    
 	 
 	public function view_batches() { 
          
@@ -96,6 +112,8 @@ class Batches extends MY_Controller {
 
     public function add_transaction() {
 
+        //echo 'i m here'; exit;
+
         $json = array();  
 
         $this->form_validation->set_rules('amount', ucwords(str_replace('_', ' ', 'amount')), 'required|xss_clean|trim|min_length[3]|max_length[25]|is_unique[tbl_district.name]|alpha_numeric_spaces', array('alpha_numeric_spaces' => 'The %s field may only contain A-Z, a-z and 0-9 characters.'));
@@ -111,17 +129,47 @@ class Batches extends MY_Controller {
 			echo json_encode($json);
 
 		} else {
+            
+            $application_no = $this->input->post('application_no');  
+            $amount_to_send = $this->input->post('amount');  
 
-            $result = $this->batches_model->add_transaction(); 
-            $json = array(
-                'success' => false,
-            );
-            if ($result) {
+            $get_app_table = $this->common_model->getRecordByColoumn('tbl_grants_has_tbl_emp_info_gerund', 'application_no', $application_no);
+            $tbl_grant_id = $get_app_table['tbl_grants_id'];
+             
+            $get_tbl_grants = $this->common_model->getRecordByColoumn('tbl_grants', 'id', $tbl_grant_id);
+            $tbl_grant_name = $get_tbl_grants['tbl_name'];  
+
+            $get_app_amount = $this->common_model->getRecordByColoumn($tbl_grant_name, 'application_no', $application_no);
+            $app_amount = $get_app_amount['net_amount'];
+
+            // total paid amount
+            $amount = $this->batches_model->get_sum_amount_transaction(); 
+            $remaining_amount = $app_amount - $amount;
+ 
+            //checking...
+            if($remaining_amount >= $amount_to_send) {
+            
+                $result = $this->batches_model->add_transaction(); 
                 $json = array(
-                    'success' => true,
+                    'success' => false,
                 );
+                if ($result) {
+                    $json = array(
+                        'success' => true,
+                    );
+                }
+                echo json_encode($json);  
+               
+            } else {
+                $json = array(
+                    'success' => false,
+                    'message' => 'You cannot add more than '. $remaining_amount . ' amount',
+                );
+                echo json_encode($json);  
             }
-            echo json_encode($json);  
+
+
+            
         }
     }
     
@@ -264,11 +312,11 @@ class Batches extends MY_Controller {
 	public function get_reports() {  
         $postData = $this->input->post();
         //echo '<pre>'; var_dump($postData);
-        $data = $this->reports_model->get_listing_reports($postData);
+        $data = $this->batches_model->get_listing_reports($postData);
 		echo json_encode($data);
     }
     
-    public function create_batch() {  
+    public function add_batch() {  
         $postData = $this->input->post();
         //echo '<pre>'; print_r($postData); //exit;
 
@@ -278,14 +326,14 @@ class Batches extends MY_Controller {
             //echo 'countSelected = '. $countSelected;
             if($countSelected > 0) {
 
-                $this->reports_model->add_batch($this->input->post('selectall'));
+                $this->batches_model->add_batch($this->input->post('selectall'));
 				// set session message
 				$this->session->set_flashdata('custom', 'Batch created successfully!');
-				redirect(base_url('reports'));
+				redirect(base_url('batches'));
 
             } else {
                 $this->session->set_flashdata('error_custom', 'Please select some applications to proceed!');
-				redirect(base_url('reports'));
+				redirect(base_url('batches'));
             }
         } 
     }

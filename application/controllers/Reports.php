@@ -8,7 +8,9 @@ class Reports extends MY_Controller {
 		error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
         parent::__construct(); 
         
-        //$this->load->model('reports_model');
+        $this->load->model('grants_model');
+        $this->load->model('common_model');
+        
     } 
     
     
@@ -18,6 +20,7 @@ class Reports extends MY_Controller {
         $data['grants'] = $this->common_model->getAllRecords('tbl_grants');
         $data['statuses'] = $this->common_model->getAllRecords('tbl_case_status');
         $data['banks'] = $this->common_model->getAllRecords('tbl_list_bank_branches');
+        $data['districts'] = $this->common_model->getAllRecords('tbl_district');
         $data['applications'] = $this->common_model->getAllRecordByArray('tbl_grants_has_tbl_emp_info_gerund', null);
         
 		$data['page_title'] = 'View All Reports';
@@ -56,6 +59,103 @@ class Reports extends MY_Controller {
             }
         } 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ### GRANT RELEASED
+
+    public function view_grant_released() { 
+        
+        $data['grants'] = $this->common_model->getAllRecords('tbl_grants');
+        //$data['statuses'] = $this->common_model->getAllRecords('tbl_case_status');
+        //$data['banks'] = $this->common_model->getAllRecords('tbl_list_bank_branches');
+        $data['districts'] = $this->common_model->getAllRecords('tbl_district');
+        //$data['applications'] = $this->common_model->getAllRecordByArray('tbl_grants_has_tbl_emp_info_gerund', null);
+        
+		$data['page_title'] = 'Grants Released';
+        $data['description'] = '...'; 
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('reports/view_grant_released', $data);
+		$this->load->view('templates/footer');
+	}
+
+    public function get_grant_released() {  
+        $postData = $this->input->post();
+        //echo '<pre>'; var_dump($postData);
+        $data = $this->reports_model->get_grant_released($postData);
+		echo json_encode($data);
+    }
+
+
+
+
+
+    ### DISBURSEMENT 
+
+    public function view_disbursement() { 
+        
+        // $data['grants'] = $this->common_model->getAllRecords('tbl_grants');
+        // $data['statuses'] = $this->common_model->getAllRecords('tbl_case_status');
+        // $data['banks'] = $this->common_model->getAllRecords('tbl_list_bank_branches');
+        // $data['applications'] = $this->common_model->getAllRecordByArray('tbl_grants_has_tbl_emp_info_gerund', null);
+        
+		$data['page_title'] = 'View Total Disbursement';
+        $data['description'] = '...'; 
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('reports/view_disbursement', $data);
+		$this->load->view('templates/footer');
+    }
+    
+
+    public function get_disbursements_list() {
+
+		$data = $row = array();
+
+		// Fetch grants's records
+		$grantsData = $this->grants_model->getRows($_POST);
+
+		$i = $_POST['start'];
+		foreach ($grantsData as $grantsInfo) {
+			$i++;
+
+            $tbl_name = $grantsInfo->tbl_name;
+
+            $getAmount = $this->common_model->getSumByColoumn($tbl_name, 'grant_amount', 'total_amount', '1', '1');
+            $total_amount = 'Rs. '. $getAmount['total_amount'];
+  
+            $cases = $this->common_model->getCountAll($tbl_name);
+
+			$actionBtn = '<a href="' . site_url('' . $grantsInfo->id . '') . '">
+                      <button type="button"class="btn btn-sm btn-xs btn-primary"><i class="fa fa-history"></i></button>
+                      </a>';
+			 
+			$data[] = array($i, $grantsInfo->name, $total_amount, $cases, $actionBtn);
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->grants_model->countAll(),
+			"recordsFiltered" => $this->grants_model->countFiltered($_POST),
+			"data" => $data,
+		);
+
+		// Output to JSON format
+		echo json_encode($output);
+	}
+
+
 
 }
 ?>

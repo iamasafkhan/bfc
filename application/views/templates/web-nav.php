@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">BFC KP</a>
+      <a class="navbar-brand" href="<?php echo base_url(''); ?>">BFC KP</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,7 +17,7 @@
         <!-- <li class="active"><a href="#">APPLY HERE <span class="sr-only">(current)</span></a></li> -->
 
         <li class="dropdown active">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">APPLY HERE <span class="caret"></span></a>
+          <a href="<?php echo base_url(''); ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">APPLY HERE <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url('apply-for-scholarship-grant'); ?>">FOR SCHOLARSHIP GRANT</a></li> 
             <li role="separator" class="divider"></li>

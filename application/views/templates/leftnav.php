@@ -98,12 +98,37 @@ if ($_SESSION['admin_id']) {
             </li>
 
             <?php if ($_SESSION['tbl_admin_role_id'] == 1) { ?>
-                <li>
-                    <a href="<?php echo base_url('reports'); ?>"><i class="fa fa-file"></i> <span>Reports</span></a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('batches'); ?>"><i class="fa fa-user"></i> <span>Batches</span></a>
-                </li>
+                 
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-info-circle"></i> <span>Reports</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('reports'); ?>"><i class="fa fa-file"></i> <span>Generate Reports</span></a>
+                        </li> 
+                        <li class="">
+                            <a href="<?php echo base_url('disbursement'); ?>"><i class="fa fa-money"></i> <span>Total Disbursement</span></a>
+                        </li>  
+                        <li>
+                            <a href="<?php echo base_url('grants-released'); ?>"><i class="fa fa-money"></i> <span>Grant Released</span></a>
+                        </li>
+                    </ul>
+                </li> 
+
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-file"></i> <span>Batches</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="<?php echo base_url('create-batch'); ?>"><i class="fa fa-file"></i> <span>Create Batch</span></a>
+                        </li> 
+                        <li>
+                            <a href="<?php echo base_url('batches'); ?>"><i class="fa fa-file"></i> <span>View Batches</span></a>
+                        </li>  
+                    </ul>
+                </li> 
+
+               
                 <!-- Miscellaneous -->
                 <li class="treeview">
                     <a href="#"><i class="fa fa-info-circle"></i> <span>Miscellaneous</span>

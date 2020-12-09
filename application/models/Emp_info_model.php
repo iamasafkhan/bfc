@@ -182,16 +182,19 @@ class Emp_info_model extends CI_Model {
     }
     
     public function getRecordByPersonnelNo($personnelNo) {
-		$this->db->from($this->table);
-		$this->db->where('personnel_no', $personnelNo);
-        $query = $this->db->get();
-        //return $query->row();
-        $emp_info = $query->row();
-        
-        $postID = $emp_info->tbl_post_id;
-        $designation = $this->getPostName($postID);
+		// $this->db->from($this->table);
+		// $this->db->where('personnel_no', $personnelNo);
+        // $query = $this->db->get();
+        // //return $query->row();
+        // $emp_info = $query->row();
+        // $postID = $emp_info->tbl_post_id;
+        // $designation = $this->getPostName($postID);
+        //return array('empInfo'=>$emp_info, 'designation'=>$designation);
 
-        return array('empInfo'=>$emp_info, 'designation'=>$designation);
+        return $emp_info = array('personnelNo'=>$personnelNo);
+        //$designation = array('hobby'=>'coding');
+
+        //return array('empInfo'=>$emp_info, 'designation'=>$designation);
     } 
 
     public function getPostName($id) {

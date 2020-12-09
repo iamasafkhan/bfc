@@ -139,8 +139,10 @@ class Emp_info extends MY_Controller {
     }
 
     public function getDataByPersonnelNo($personnelNo) {
-        $data = $this->emp_info_model->getRecordByPersonnelNo($personnelNo);
-        //echo '<pre>'; print_r($data); exit;
+        
+        $data = array('personnelNo'=>$personnelNo);
+        //$data = $this->emp_info_model->getRecordByPersonnelNo($personnelNo);
+        //echo '<pre>'; print_r($data); //exit;
 		echo json_encode($data);
     }
 

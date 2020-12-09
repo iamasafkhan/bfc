@@ -16,11 +16,10 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
     <section class="content">
       <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title pull-left"><?php echo ucwords(str_replace('_', ' ', 'Batches Listing')); ?></h3>
-             <!--  <h3 class="box-title pull-right">
-                <a href="<?php echo base_url(); ?>add_admin" type="button" class="btn btn-block btn-danger btn-sm"><i class="fa fa-trash-o"> all </i></a></h3> -->
-
-                
+                <h3 class="box-title pull-left"><?php echo ucwords(str_replace('_', ' ', 'Batches Listing')); ?></h3>
+                <h3 class="box-title pull-right">
+                    <a href="<?php echo base_url(); ?>create-batch" type="button" class="btn btn-block btn-success btn-sm"><i class="fa fa-plus"> New </i></a>
+                </h3>  
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">

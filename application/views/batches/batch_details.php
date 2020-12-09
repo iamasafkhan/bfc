@@ -26,11 +26,11 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
             <!-- /.box-header -->
 
             <form name="frmBatchApps" id="frmBatchApps" method="post" action="<?=base_url('batch_app_status/')?>">
-                <div class="box-header">
+                <!-- <div class="box-header">
                     <input type="submit" value="approve" name="btnSubmit" class="btn btn-success btn-sm">
                     <input type="submit" value="reject" name="btnSubmit" class="btn btn-danger btn-sm">
                     <input type="submit" value="cancel" name="btnSubmit" class="btn btn-warning btn-sm"> 
-                </div>
+                </div> -->
 
                 <div class="box-body table-responsive">
                 <table id="ssp_datatable" class="table table-bordered table-striped table-hover table-condensed">
@@ -95,7 +95,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
                             $app_detail = $this->common_model->getRecordByColoumn('tbl_lump_sum_grant', 'application_no', $application_no);
                         }
     
-                        $grant_amount = $app_detail['grant_amount']; 
+                        $net_amount = $app_detail['net_amount']; 
                         $add_by_date = '<i>Add by <strong>' . $getRole['name'] . '</strong> on <strong>' . $recordAddDate . '</strong></i>';
                         $app_transactions = $this->common_model->getRecordByColoumn('tbl_transactions', 'application_no', $application_no);
                         $paid_amount = $this->common_model->getSumByColoumn('tbl_transactions', 'amount', 'paid_amount', 'application_no', $application_no);
@@ -106,7 +106,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
                             $amount_paid = $paid_amount['paid_amount'];
                         }
     
-                        $remaining_amount  = $grant_amount - $amount_paid;
+                        $remaining_amount  = $net_amount - $amount_paid;
                         
                         $status_id = $value['status']; 
                         $status = $this->common_model->getRecordByColoumn('tbl_case_status', 'id', $status_id);
@@ -116,7 +116,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
                             <td><input type="checkbox" name="app_no[]" id="app_no" value="<?=$application_no;?>"></td>
                             <td><?=$i;?></td>
                             <td><?=$application_no;?></td>
-                            <td>Rs. <?=$grant_amount;?></td>
+                            <td>Rs. <?=$net_amount;?></td>
                             <td>Rs. <?=$amount_paid; ?></td>
                             <td>Rs. <?=$remaining_amount;?></td>
                             <td><?=$add_by_date;?></td>
@@ -134,9 +134,9 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
 
                 <div class="box-footer">
                     <input type="hidden" name="batch_no" value="<?=$batch_nmbr?>">
-                    <input type="submit" value="approve" name="btnSubmit" class="btn btn-success btn-sm">
+                    <!-- <input type="submit" value="approve" name="btnSubmit" class="btn btn-success btn-sm">
                     <input type="submit" value="reject" name="btnSubmit" class="btn btn-danger btn-sm">
-                    <input type="submit" value="cancel" name="btnSubmit" class="btn btn-warning btn-sm"> 
+                    <input type="submit" value="cancel" name="btnSubmit" class="btn btn-warning btn-sm">  -->
                 </div>
             </form>
           </div>
@@ -157,6 +157,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
       </div>
       <div class="modal-body ">
         <?php echo validation_errors(); ?>
+        <div class="message_alert"></div>
         <div class="transactionsList"></div>
       </div>
       <div class="modal-footer">
@@ -188,7 +189,7 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
 
     function get_transactions(id) { 
         $.ajax({
-            url: "<?php echo site_url('batches/get_transactions/') ?>/" + id,
+            url: "<?php echo site_url('batches/get_transactions/') ?>" + id,
             type: "post", 
             success: function(data) {
                 //alert(data);
@@ -238,16 +239,18 @@ $admin_detail = $this->admin->getRecordById($_SESSION['admin_id'], $tbl_name = '
             data: $("#formID").serialize(),
             dataType: "json",
             success: function(data){ 
-                //alert(JSON.stringify(data));
-                
+                //alert(JSON.stringify(data)); 
                 if(data.success==true){
                     $('#transactionsModal').modal('hide');
                     form_reset();
                     //sspDataTable.ajax.reload(); //reload datatable ajax
-                    $('.jquery_alert').html('<p class="alert alert-success">Record has been successfully Added / Updated!</p>').fadeIn().delay(4000).fadeOut('slow');
-                } 
-                else if(data.success==false){
-                    $('.jquery_alertl').html('<p class="alert alert-danger"> <strong>Oops! </strong> Data already Exists or Field may only contain A-Z, a-z and 0-9 characters.</p>').fadeIn().delay(4000).fadeOut('slow');
+                    $('.jquery_alert').html('<p class="alert alert-success">Transaction is successfully completed.</p>').fadeIn().delay(4000).fadeOut('slow');
+                } else if(data.success==false){ 
+                    //sspDataTable.ajax.reload(); //reload datatable ajax
+                    $('.message_alert').html('<p class="alert alert-danger">'+data.message+'</p>').fadeIn().delay(4000).fadeOut('slow');
+                }
+                else {
+                    $('.message_alert').html('<p class="alert alert-danger"> <strong>Oops! </strong> Data already Exists or Field may only contain A-Z, a-z and 0-9 characters.</p>').fadeIn().delay(4000).fadeOut('slow');
                 }
 
                 //$('#' + key).addClass('is-invalid');

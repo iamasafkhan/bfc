@@ -53,10 +53,14 @@ $route['add_interest_free_loan_grant'] = 'interest_free_loan/add_interestfreeloa
 $route['add_interest_free_loan_grant/(:any)'] = 'interest_free_loan/add_interestfreeloan_grant/$1';
 
 $route['apply-for-scholarship-grant'] = 'apply/scholarship_grant/';
+$route['apply-for-interest-free-loan'] = 'apply/interest_free_loan/';
 $route['track-your-application'] = 'apply/track_application/';
 
 $route['reports'] = 'reports/view_reports/';
+$route['disbursement'] = 'reports/view_disbursement/';
+$route['grants-released'] = 'reports/view_grant_released/';
 
+$route['create-batch'] = 'batches/create_batch/';
 $route['batches'] = 'batches/view_batches/';
 $route['batch_details/(:any)'] = 'batches/batch_details/$1';
 $route['batch_app_status'] = 'batches/batch_app_status/';

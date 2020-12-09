@@ -8,6 +8,7 @@ class Apply extends CI_Controller {
 		error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 		parent::__construct();
         $this->load->model('scholarship_model');
+        $this->load->model('interest_free_loan_model');
 		// if ($_SESSION['tbl_admin_role_id'] != '1') {
 		// 	$this->session->sess_destroy();
 		// 	redirect('admin', 'refresh');
@@ -211,6 +212,148 @@ class Apply extends CI_Controller {
     }
     
 
+    // public function interest_free_loan() {
+
+    //     //echo 'i m here'; exit();
+         
+	// 	$data['page_title'] = 'Add New Interest Free Loan Grant';
+	// 	$data['description'] = '...';
+	// 	$data['cases'] = $this->common_model->getAllRecordByArray('tbl_case_status', array('status' => '1'));
+	// 	$data['department'] = $this->common_model->getAllRecordByArray('tbl_department', array('status' => '1'));
+    //     //$data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
+    //     $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
+    //     $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
+    //     $data['districts'] = $this->common_model->getAllRecordByArray('tbl_district', array('status' => '1'));
+    //     $data['payscales'] = $this->common_model->getAllRecordByArray('tbl_pay_scale', array('status' => '1'));
+    //     $data['posts'] = $this->common_model->getAllRecordByArray('tbl_post', array('status' => '1'));
+    //     $data['loan_types'] = $this->common_model->getAllRecordByArray('tbl_loan_types', array('status' => '1'));
+
+    //     if($id!=''){
+    //         $data['emp_info'] = $this->emp_info_model->getRecordById($id);
+    //     } 
+
+	// 	if ($this->input->post('submit')) {
+ 
+
+    //         $this->form_validation->set_rules('dao', ucwords(str_replace('_', ' ', 'dao')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('ddo_code', ucwords(str_replace('_', ' ', 'ddo_code')), 'required|xss_clean|trim');
+
+	// 		$this->form_validation->set_rules('ddo_address', ucwords(str_replace('_', ' ', 'ddo_address')), 'required|xss_clean|trim');
+
+            
+    //         $this->form_validation->set_rules('personnel_no', ucwords(str_replace('_', ' ', 'personnel_no')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('tbl_loan_type_id', ucwords(str_replace('_', ' ', 'tbl_loan_type_id')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('grantee_name', ucwords(str_replace('_', ' ', 'grantee_name')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('father_name', ucwords(str_replace('_', ' ', 'father_name')), 'required|xss_clean|trim');
+    //         //$this->form_validation->set_rules('tbl_payment_mode_id', ucwords(str_replace('_', ' ', 'tbl_payment_mode_id')), 'required|xss_clean|trim');
+            
+    //         $this->form_validation->set_rules('cnic_no', ucwords(str_replace('_', ' ', 'cnic_no')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('tbl_department_id', ucwords(str_replace('_', ' ', 'tbl_department_id')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('tbl_post_id', ucwords(str_replace('_', ' ', 'tbl_post_id')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('dob', ucwords(str_replace('_', ' ', 'dob')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('doa', ucwords(str_replace('_', ' ', 'doa')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('dor', ucwords(str_replace('_', ' ', 'dor')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('los', ucwords(str_replace('_', ' ', 'los')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('present_add', ucwords(str_replace('_', ' ', 'present_add')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('permanent_add', ucwords(str_replace('_', ' ', 'permanent_add')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('duty_place', ucwords(str_replace('_', ' ', 'duty_place')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('contact_no', ucwords(str_replace('_', ' ', 'contact_no')), 'required|xss_clean|trim');
+            
+    //         $this->form_validation->set_rules('tbl_list_bank_branches_id', ucwords(str_replace('_', ' ', 'tbl_list_bank_branches_id')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('account_no', ucwords(str_replace('_', ' ', 'account_no')), 'required|xss_clean|trim');
+    //         $this->form_validation->set_rules('contact_no', ucwords(str_replace('_', ' ', 'contact_no')), 'required|xss_clean|trim');
+
+	// 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+	// 		if ($this->form_validation->run() === FALSE) {
+	// 			$this->load->view('templates/header', $data);
+	// 			$this->load->view('interestfreeloan/add_interestfreeloan_grant', $data);
+	// 			$this->load->view('templates/footer');
+	// 		} else {
+    //             //echo 'i m here'; exit;
+	// 			// to model
+	// 			$this->interest_free_loan_model->add_interestfreeloan_grant();
+	// 			// set session message
+	// 			$this->session->set_flashdata('add', '!');
+	// 			redirect(base_url('view_interest_free_loan_grants'));
+	// 		}
+	// 	} else {
+	// 		$this->load->view('templates/header', $data);
+	// 		$this->load->view('interestfreeloan/add_interestfreeloan_grant');
+	// 		$this->load->view('templates/footer');
+	// 	}
+
+	// }
+
+
+    public function interest_free_loan() {
+         
+		$data['page_title'] = 'INTEREST FREE LOAN (OUT OF FINANCE DEPARTMENT)';
+		$data['description'] = 'The Interest Free Loan Scheme was launched by the Government of Khyber Pakhtunkhwa initially for the Provincial Government Employees serving in BS-01 to BS-15, however, from F.Y. 2019-20 employees serving in BS-16 & above are also entitled for the scheme. Finance Department annually allocates budget for the purpose, while execution of the scheme is handed over to Provincial Benevolent Fund Cell.';
+        
+        $data['cases'] = $this->common_model->getAllRecordByArray('tbl_case_status', array('status' => '1'));
+		   $data['department'] = $this->common_model->getAllRecordByArray('tbl_department', array('status' => '1'));
+        //$data['payment_modes'] = $this->common_model->getAllRecordByArray('tbl_payment_mode', array('status' => '1'));
+        $data['banks'] = $this->common_model->getAllRecordByArray('tbl_list_bank_branches', array('status' => '1'));
+        $data['employees'] = $this->common_model->getAllRecordByArray('tbl_emp_info', array('status' => '1'));
+        $data['districts'] = $this->common_model->getAllRecordByArray('tbl_district', array('status' => '1'));
+        $data['payscales'] = $this->common_model->getAllRecordByArray('tbl_pay_scale', array('status' => '1'));
+        $data['posts'] = $this->common_model->getAllRecordByArray('tbl_post', array('status' => '1'));
+        $data['loan_types'] = $this->common_model->getAllRecordByArray('tbl_loan_types', array('status' => '1'));
+
+        // if($id!=''){
+        //     $data['emp_info'] = $this->emp_info_model->getRecordById($id);
+        // } 
+
+		if ($this->input->post('submit')) {
+ 
+            //echo '<pre>'; print_r(); exit;
+
+            $this->form_validation->set_rules('dao', ucwords(str_replace('_', ' ', 'dao')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('ddo_code', ucwords(str_replace('_', ' ', 'ddo_code')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('ddo_address', ucwords(str_replace('_', ' ', 'ddo_address')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('personnel_no', ucwords(str_replace('_', ' ', 'personnel_no')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('tbl_loan_type_id', ucwords(str_replace('_', ' ', 'tbl_loan_type_id')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('grantee_name', ucwords(str_replace('_', ' ', 'grantee_name')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('father_name', ucwords(str_replace('_', ' ', 'father_name')), 'required|xss_clean|trim');
+            //$this->form_validation->set_rules('tbl_payment_mode_id', ucwords(str_replace('_', ' ', 'tbl_payment_mode_id')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('cnic_no', ucwords(str_replace('_', ' ', 'cnic_no')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('tbl_department_id', ucwords(str_replace('_', ' ', 'tbl_department_id')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('tbl_post_id', ucwords(str_replace('_', ' ', 'tbl_post_id')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('dob', ucwords(str_replace('_', ' ', 'dob')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('doa', ucwords(str_replace('_', ' ', 'doa')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('dor', ucwords(str_replace('_', ' ', 'dor')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('los', ucwords(str_replace('_', ' ', 'los')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('present_add', ucwords(str_replace('_', ' ', 'present_add')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('permanent_add', ucwords(str_replace('_', ' ', 'permanent_add')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('duty_place', ucwords(str_replace('_', ' ', 'duty_place')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('contact_no', ucwords(str_replace('_', ' ', 'contact_no')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('tbl_list_bank_branches_id', ucwords(str_replace('_', ' ', 'tbl_list_bank_branches_id')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('account_no', ucwords(str_replace('_', ' ', 'account_no')), 'required|xss_clean|trim');
+            $this->form_validation->set_rules('contact_no', ucwords(str_replace('_', ' ', 'contact_no')), 'required|xss_clean|trim');
+
+
+			$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+			if ($this->form_validation->run() === FALSE) {
+				$this->load->view('templates/web-header', $data);
+				$this->load->view('apply/interest_free_loan', $data);
+				$this->load->view('templates/web-footer');
+			} else {  
+                $this->interest_free_loan_model->apply_interestfreeloan_grant(); 
+				$this->session->set_flashdata('custom', 'Thank you for applying to the interest free loan grant, application number has been sent to you in email.');
+				redirect(base_url('apply-for-interest-free-loan'));
+            }
+            
+
+		} else {
+			$this->load->view('templates/web-header', $data);
+			$this->load->view('apply/interest_free_loan');
+			$this->load->view('templates/web-footer');
+		}
+
+    }
+
+
+
     public function track_application() {
          
 		$data['page_title'] = 'TRACK YOUR APPLICATION';
@@ -244,6 +387,11 @@ class Apply extends CI_Controller {
 			$this->load->view('templates/web-footer');
 		}
 
+    }
+
+
+    public function getDataByPersonnelNo($personnelNo) {
+        
     }
     
 }

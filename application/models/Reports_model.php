@@ -284,5 +284,144 @@ class Reports_model extends CI_Model {
 	}
 	//////////////// above ajax and server side processing datatable ///////////
 
+
+
+
+
+
+    // Get Grant Released
+	function get_grant_released($postData = null) {
+ 
+		$response = array();
+
+		## Read value
+		$draw = $postData['draw'];
+		$start = $postData['start'];
+		$rowperpage = $postData['length']; // Rows display per page
+		$columnIndex = $postData['order'][0]['column']; // Column index
+		$columnName = $postData['columns'][$columnIndex]['data']; // Column name
+		$columnSortOrder = $postData['order'][0]['dir']; // asc or desc
+		$searchValue = $postData['search']['value']; // Search value
+
+		// Custom search filter
+		$from_date = $postData['from_date'];
+		$to_date = $postData['to_date']; 
+		$tbl_grants_id = $postData['tbl_grants_id'];
+		$district = $postData['district'];
+
+        //$tbl_bank_id = $postData['tbl_bank_id'];
+        //$keyword = $postData['keyword'];
+
+
+
+		## Search
+		$search_arr = array();
+		$searchQuery = "";
+ 
+		if ($from_date != '' && $to_date != '') {
+			$from_date = date('Y-m-d', strtotime($postData['from_date']));
+			$to_date = date('Y-m-d', strtotime($postData['to_date']));
+			$search_arr[] = " date_added BETWEEN '" . $from_date . "' and '" . $to_date . "' ";
+		}
+		if ($district != '') {
+			$search_arr[] = " status = '" . $district . "' ";
+		}
+
+		if ($tbl_grants_id != '') {
+			$search_arr[] = " tbl_grants_id = '" . $tbl_grants_id . "' ";
+        } 
+
+		if (count($search_arr) > 0) {
+			$searchQuery = implode(" and ", $search_arr);
+        }
+        
+        
+        // $this->db->select('user_id, COUNT(user_id) as total');
+        // $this->db->group_by('user_id'); 
+        // $this->db->order_by('total', 'desc'); 
+        // $this->db->get('tablename', 10);
+
+		## Total number of records without filtering
+		$this->db->select('count(*) as allcount');
+        $this->db->group_by('batch_no');
+		$records = $this->db->get('tbl_batches')->result();
+		$totalRecords = $records[0]->allcount;
+
+        ## Total number of record with filtering
+        $this->db->group_by('batch_no');
+		$this->db->select('count(*) as allcount');
+		if ($searchQuery != '') {
+			$this->db->where($searchQuery);
+		}
+	 
+		$records = $this->db->get('tbl_batches')->result();
+		$totalRecordwithFilter = $records[0]->allcount;
+		## Fetch records
+		$this->db->select('*');
+		if ($searchQuery != '') {
+			$this->db->where($searchQuery);
+		} 
+        $this->db->group_by('batch_no');
+		$this->db->order_by($columnName, $columnSortOrder);
+		$this->db->limit($rowperpage, $start);
+		$this->db->order_by('id', 'desc');
+		$records = $this->db->get('tbl_batches')->result();
+
+        //echo '<pre>'; print_r($records); exit;
+
+		$data = array();
+		$i = 1;
+		foreach ($records as $record) {
+
+			// if ($record->status == 1) {
+			// 	$status = '<span class="label label-primary">Inprocess</span>';
+			// } else if ($record->status == 2) {
+			// 	$status = '<span class="label label-success">Complete</span>';
+			// } else if ($record->status == 3) {
+			// 	$status = '<span class="label label-danger">Rejected / Not Approved</span>';
+			// } else if ($record->status == 4) {
+            //     $status = '<span class="label label-success">Approved</span>';
+            // }
+            
+            // $get_status = $this->common_model->getRecordByColoumn('tbl_case_status', 'id', $record->status);
+            // $status = '<label for="" class="'.$get_status['label'].' label-sm">'.$get_status['name'] .'</label>';
+
+            $applicationNo = $record->application_no;
+
+            $grantID = $record->tbl_grants_id; 
+            $getGrantDetails = $this->common_model->getRecordByColoumn('tbl_grants', 'id', $grantID);
+            $grant_type = $getGrantDetails['name'];
+            $grant_tbl_name = $getGrantDetails['tbl_name'];
+            
+            //$get_status = $this->common_model->getRecordByColoumn('tbl_case_status', 'id', $record->status);
+             
+
+            
+            $recordAddDate = date("d-M-Y", strtotime($record->record_add_date)); 
+ 
+            //$input = '<input type="checkbox" name="selectall[]" id="selectall" value="'.$applicationNo.'">';
+            
+			$data[] = array( 
+                "no" => $i, 
+				"District" => $applicationNo,
+				"Cases" => $cases,
+				"Amount" => $amount, 
+				"DateAdded" => $recordAddDate 
+			);
+			$i++;
+		}
+
+		## Response
+		$response = array(
+			"draw" => intval($draw),
+			"iTotalRecords" => $totalRecords,
+			"iTotalDisplayRecords" => $totalRecordwithFilter,
+			"aaData" => $data,
+		);
+
+		return $response;
+	}
+
+
 }
 ?>

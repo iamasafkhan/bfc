@@ -533,6 +533,7 @@
                         $('#tbl_department_id').select2().trigger('change');
                         $('#pay_scale_id').val(data.pay_scale_id);
                         $('#pay_scale').val(data.pay_scale); 
+                        $('#tbl_district_id').val(data.tbl_district_id); 
 
                     }
                 });

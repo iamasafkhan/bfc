@@ -12,7 +12,8 @@ class Scholarship extends MY_Controller {
 		// 	$this->session->sess_destroy();
 		// 	redirect('admin', 'refresh');
 		// }
-	}
+    }
+    
 	public function add_scholarship_grant($id = null) {
         
         if (!($_SESSION['tbl_admin_role_id'] == '1')) {

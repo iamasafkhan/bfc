@@ -35,6 +35,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -66,10 +67,7 @@
                                     </div><?php echo form_error('pay_scale'); ?>
                                 </div>
                             </div> 
-                        </div>
-
-
-
+                        </div> 
 
                         <div class="row">
                             
@@ -120,19 +118,7 @@
                                     <?php echo form_error('marital_status'); ?>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label><?php //echo $label = ucwords('marital status'); ?>:</label>
-                                    <br>
-                                    <input type="radio" class="validate[required]" checked name="marital_status" id="marital_status" value="married"> Married
-                                    <input type="radio" class="validate[required]" name="marital_status" id="marital_status" value="unmarried"> Unmarried
-                                    <?php //echo form_error('marital_status'); ?>
-                                </div>
-                            </div>
-                        </div> -->
+                        </div> 
 
                         <div class="row">
                             <div class="col-md-6">
@@ -253,8 +239,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                             
+
+                        <div class="row"> 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $label = ucwords('district'); ?>:</label>
@@ -286,6 +272,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             
                             <div class="col-md-6">
@@ -341,6 +328,7 @@
                                 </div>
                             </div> 
                         </div>
+
                         <div class="row">
                             <div class="col-md-6"> 
                                 <div class="form-group">
@@ -367,6 +355,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

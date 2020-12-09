@@ -129,6 +129,7 @@
                             </div><?php echo form_error('tbl_bank_id'); ?>
                         </div> 
                     </div>
+
                     <div class="col-md-3"> 
                         <div class="form-group">
                             <label><?php echo $label = ucwords('District'); ?>:</label>
@@ -145,11 +146,29 @@
                             </div><?php echo form_error('district'); ?>
                         </div> 
                     </div>
-                     
 
                 </div>
+ 
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><?php echo $label = ucwords('Select Section'); ?>:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <select name="district" id="district" class="form-control select2">
+                                    <option value="">Select District</option>
+                                    <?php foreach($districts as $district) { ?>
+                                        <option value="<?=$district['id'];?>"><?=$district['name'];?></option>
+                                    <?php } ?>
+                                </select> 
+                            </div><?php echo form_error('from_app_no'); ?>
+                        </div>
 
-                 
+                    </div>
+                </div>
 
                 <!-- /.row -->
             </div>
@@ -158,94 +177,25 @@
     </section>
 
 
-    <?php /* ?>
-    <section class="content">
-        <div class="box box-success">
-            <div class="box-header">
-                <h3 class="box-title pull-left"><?php echo ucwords(str_replace('_', ' ', 'Generated Report')); ?></h3>
-                <input type="button" class="btn btn-sm btn-primary pull-right" value="Create Batch" name="create_batch">
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-                <table class="table no-margin">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" name="checkall" id="checkall" value="1"></th>
-                            <th>Application No</th>
-                            <th>Applicant Name</th>
-                            <th>Grant Type</th>
-                            <th>Status</th>
-                            <th>Entry Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($applications as $application) {
-
-                            $tbl_grants_id = $application['tbl_grants_id'];
-                            $tbl_emp_info_id = $application['tbl_emp_info_id'];
-                            $application_no = $application['application_no'];
-
-                            $getTblName = $this->common_model->getRecordByColoumn('tbl_grants', 'id', $tbl_grants_id);
-                            $grant_tbl_name = $getTblName['tbl_name'];
-                            $grant_type = $getTblName['name'];
-
-                            $getGrant  = $this->common_model->getRecordByColoumn($grant_tbl_name, 'application_no', $application_no);
-                            $applicant_name = $getGrant['grantee_name'];
-                            $entry_date = $getGrant['record_add_date'];
-                            $tbl_case_status = $getGrant['tbl_case_status'];
-
-                            $getStatus  = $this->common_model->getRecordByColoumn('tbl_case_status', 'id', $tbl_case_status);
-                            $statusName = $getStatus['name'];
-                            $statusLabel = $getStatus['label'];
-                            $status = '<span class="' . $statusLabel . '">' . $statusName . '</span>';
-
-                            //$applicant = $this->common_model->getRecordById($id, $tbl_name);
-                        ?>
-                            <tr>
-                                <th><input type="checkbox" id="application_no" name="application_no[]" value="1" id="example-select-all"></th>
-                                <td><a href="#"><?= $application['application_no']; ?></a></td>
-                                <td><?= $applicant_name; ?></td>
-                                <td><?= $grant_type; ?></td>
-                                <td><?= $status; ?></td>
-                                <td><?= $entry_date; ?></td>
-                                <td>
-                                    <div class="sparkbar" data-color="#00a65a" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    
-    <?php */ ?>
-
-
-
-
-
-
-
-
-
+   
 
     
     <!-- Main content -->
     <section class="content">
         <div class="box box-success">
             <div class="box-header">
-                <h3 class="box-title pull-left"><?php echo ucwords(str_replace('_', ' ', 'Generated Report')); ?></h3>
+                <h3 class="box-title pull-left"><?php echo ucwords(str_replace('_', ' ', 'Search Result')); ?></h3>
             </div>
             <!-- /.box-header -->
-            <?php echo form_open('reports/create_batch/', 'id="formID"'); ?>
+            <?php echo form_open('batches/add_batch/', 'id="formID"'); ?>
                 <div class="box-body table-responsive">
                     <div class="row">
                         <div class="col-md-12"> 
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-sm btn-success" name="action" value="btnCreateBatch">Create Batch</button>
+                                 
+                                <a href="<?php echo base_url(); ?>batches" type="button" class="btn btn-success pull-right btn-sm"><i class="fa fa-eye"> View all Batches </i></a>
+                                 
                             </div>
                         </div>
                     </div>
@@ -315,7 +265,7 @@
             "ajax": {
                 //"url": "<?php //echo base_url('form_8a/get_form_8a_report/'); ?>",
                 // "type": "POST"
-                "url": "<?php echo base_url('reports/get_reports/'); ?>",
+                "url": "<?php echo base_url('batches/get_reports/'); ?>",
                 'data': function(data) {
                     //alert(JSON.stringify(data));
                     //data.tbl_district_id = $('#tbl_district_id').val();

@@ -17,7 +17,8 @@ class Batches_model extends CI_Model {
         $this->db->select('COUNT(id) AS applications, batch_no, application_no, record_add_date, record_add_by, status');
         $this->db->from('tbl_batches');  
         $this->db->group_by('batch_no'); 
-        $this->order = array('id' => 'desc');  
+        $this->db->order_by("id", "desc");
+        //$this->order = array('id' => 'desc');  
         $query = $this->db->get();
         return $query->result(); 
     }
@@ -33,6 +34,25 @@ class Batches_model extends CI_Model {
 
     }
 
+    public function get_sum_amount_transaction() {
+
+        $application_no = $this->input->post('application_no');  
+        
+        $this->db->select('SUM(amount) as amount');
+        $this->db->from('tbl_transactions');  
+        $this->db->where('application_no', $application_no);  
+        $query = $this->db->get();
+        $result = $query->row_array(); 
+        $amount = $result['amount']; 
+
+        if($amount > 0) {
+            return $amount;
+        } else {
+            return '0';
+        }
+        
+        
+    }
 
     public function add_transaction() {
 
@@ -87,8 +107,10 @@ class Batches_model extends CI_Model {
 
 		## Search
 		$search_arr = array();
-		$searchQuery = "";
- 
+        $searchQuery = "";
+        //$this->db->where('batch_status','0');
+        $search_arr[] = " batch_status = '0' ";
+
 		if ($from_date != '' && $to_date != '') {
 			$from_date = date('Y-m-d', strtotime($postData['from_date']));
 			$to_date = date('Y-m-d', strtotime($postData['to_date']));
@@ -121,7 +143,7 @@ class Batches_model extends CI_Model {
 
 		## Total number of records without filtering
 		$this->db->select('count(*) as allcount');
-	 
+        $this->db->where('batch_status','0');
 		$records = $this->db->get('tbl_grants_has_tbl_emp_info_gerund')->result();
 		$totalRecords = $records[0]->allcount;
 
@@ -237,9 +259,10 @@ class Batches_model extends CI_Model {
     }
 
     //Create Batch
-    function add_batch($postData = null) {
-     
-        $batch_no = date('YmdHisu');
+    function add_batch($postData = null) { 
+
+        $batch_no = $this->common_model->getBatchNo();   
+        //$batch_no = date('Ymd');
        
         foreach ($postData as $key => $value) { 
             $data = array( 
@@ -247,20 +270,31 @@ class Batches_model extends CI_Model {
                 'application_no' => $value,  
                 'record_add_date' => date('Y-m-d H:i:s'),
                 'record_add_by' => $_SESSION['admin_id'],
-                'status' => '3',
+                'status' => '1',
             );
+            
             $this->db->insert('tbl_batches', $data); 
+            $last_insert_id = $this->db->insert_id();
+            
+            if ($this->db->affected_rows() > 0) {
+                $data = array(  
+                    'batch_status' => '1',
+                );
+                $this->db->where('application_no', $value);
+		        $result = $this->db->update('tbl_grants_has_tbl_emp_info_gerund', $data);
+            }
         }
 
-        return true;
-
-        //echo '<pre>'; print_r()
-
-        //$data = array('postData' => $postData);
-        //$this->db->insert('tbl_batches', $data); 
+        return true; 
 
     }
-	  
+      
+    
+
+
+
+
+
 	//////////////// below ajax and server side processing datatable ///////////
 
 	/*

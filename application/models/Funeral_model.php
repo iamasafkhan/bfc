@@ -69,6 +69,7 @@ class Funeral_model extends CI_Model {
         $app_data = array(
             'tbl_grants_id' => '2',
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
+            'tbl_district_id' => $this->input->post('tbl_district_id'), 
             'application_no' => $application_no,
             'status' => $this->input->post('tbl_case_status_id')
         );
@@ -78,6 +79,7 @@ class Funeral_model extends CI_Model {
 		$data = array(  
             'application_no' =>$application_no,
             'tbl_emp_info_id' => $this->input->post('tbl_emp_info_id'),
+            'tbl_district_id' => $this->input->post('tbl_district_id'), 
             'record_no' => $this->input->post('record_no'),
             'record_no_year' => $this->input->post('record_no_year'),
             'name_deceased' => $this->input->post('name_deceased'),
